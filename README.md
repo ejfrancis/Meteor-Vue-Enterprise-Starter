@@ -14,7 +14,7 @@ An opinionated starter kit application utilizing the following libraries/framewo
 First, clone this repo 
 
 ```
-git clone https://github.com/ejfrancis/Meteor-Vue-Starter
+git clone https://github.com/ejfrancis/Meteor-Vue-Modular-App-Starter
 ```
 
 Then enter the new directory where it was cloned into, and install dependencies:
