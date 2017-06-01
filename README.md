@@ -4,8 +4,10 @@ An opinionated starter kit application utilizing the following libraries/framewo
 
 * Meteor
 * Vue
-* Vue Router
 * Vuex
+* vue-router
+* vuex-router-sync
+* vuex-alt
 
 ## Router
 Routing is done on the client, and the client-side router is located at `src/imports/modules/router/client/lib/router.js`.
