@@ -9,13 +9,34 @@ An opinionated starter kit application utilizing the following libraries/framewo
 * vuex-router-sync
 * vuex-alt
 
-## Router
+# Usage
+
+First, clone this repo 
+
+```
+git clone https://github.com/ejfrancis/Meteor-Vue-Starter
+```
+
+Then enter the new directory where it was cloned into, and install dependencies:
+
+```
+cd Meteor-Vue-Starter
+meteor npm install
+```
+
+Now to run the application:
+
+```
+meteor npm start
+```
+
+# Router
 Routing is done on the client, and the client-side router is located at `src/imports/modules/router/client/lib/router.js`.
 
-## Vuex Store
+# Vuex Store
 The Vuex store is initialized in `src/imports/modules/store/client/lib/store.js`. Vuex store modules are defined in their respective application modules (read below for more on application modules) and imported into the main `store.js`.
 
-## Application Structure
+# Application Structure
 
 The directory structure is built in a way to make things predictable and enforce code modularity and organization per feature/domain. The contents of `src/imports/modules/` is explained in the section "Application Modules" below. The structure looks like this:
 
@@ -41,7 +62,7 @@ The directory structure is built in a way to make things predictable and enforce
                                        <-- application modules go here 
 ```
 
-### Application Modules
+## Application Modules
 
 All of the application's business logic and UI will live inside application modules within the `src/imports/modules/` directory. An application module consists of all of the code, both client and server, related to a specific feature or domain. Classes and components that are related to each other or use each other are kept within the same module if possible.
 
@@ -56,7 +77,7 @@ An application module contains the following:
   * rest - any REST endpoints
   * library - any server classes or functions for this module that aren't a publication, method, or REST endpoint
 
-#### Complete Application Module Example
+### Complete Application Module Example
 Below is what a complete module's directory might look like. This would live inside `src/imports/modules/module-name/`.
 ```
 |_module-name/
@@ -80,7 +101,7 @@ Below is what a complete module's directory might look like. This would live ins
        |_some-server-library.js
 ```
 
-#### Simple Application Module Example
+### Simple Application Module Example
 
 A very simple module, for example the client-side router, might look like this. This would live in `src/imports/modules/router/`.
 ```
