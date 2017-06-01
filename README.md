@@ -20,7 +20,7 @@ git clone https://github.com/ejfrancis/Meteor-Vue-Modular-App-Starter
 Then enter the new directory where it was cloned into, and install dependencies:
 
 ```
-cd Meteor-Vue-Starter
+cd Meteor-Vue-Modular-App-Starter
 meteor npm install
 ```
 
