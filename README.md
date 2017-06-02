@@ -11,7 +11,7 @@ An opinionated starter kit application utilizing the following libraries/framewo
 
 The following development tools are used:
 
-* semistandard - code lintint
+* semistandard - code linting
 * Jest - unit tests
 * Chimp - e2e tests
 * husky - git hooks
