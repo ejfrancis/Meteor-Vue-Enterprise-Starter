@@ -12,9 +12,13 @@ const actions = {
     commit(MUTATION_TYPES.DECREMENT, { amount });
   },
   resetDelayed: ({ commit }) => {
-    setTimeout(() => {
-      commit(MUTATION_TYPES.RESET);
-    }, 1500);
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        commit(MUTATION_TYPES.RESET);
+        resolve();
+      }, 1500);
+    })
+
   }
 }
 
@@ -32,5 +36,6 @@ const mutations = {
 
 export {
   actions,
-  mutations
+  mutations,
+  MUTATION_TYPES
 };

@@ -1,0 +1,6 @@
+// this is only needed for Jest unit tests, to allow unit tests files 
+// to use es2015 import/export. Jest lives entirely outside of Meteor so 
+// it can't leverage the Meteor build system
+{
+  "presets": ["es2015"]
+}
