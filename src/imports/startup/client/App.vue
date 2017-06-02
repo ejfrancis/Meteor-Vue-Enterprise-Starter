@@ -1,4 +1,4 @@
-<style lang="less">
+<style lang="scss">
 /* global app styles */
 body {
   font-family: Helvetica, Arial, sans-serif;
