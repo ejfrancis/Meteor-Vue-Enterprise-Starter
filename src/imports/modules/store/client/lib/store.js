@@ -13,7 +13,7 @@ const createStore = () => {
     }
   });
   return store;
-}
+};
 
 export {
   createStore

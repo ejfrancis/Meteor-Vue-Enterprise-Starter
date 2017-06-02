@@ -19,7 +19,7 @@ const actions = {
       }, 1500);
     });
   }
-}
+};
 
 const mutations = {
   [MUTATION_TYPES.INCREMENT]: (state, { amount }) => {
@@ -31,7 +31,7 @@ const mutations = {
   [MUTATION_TYPES.RESET]: (state) => {
     state.count = 0;
   }
-}
+};
 
 export {
   actions,

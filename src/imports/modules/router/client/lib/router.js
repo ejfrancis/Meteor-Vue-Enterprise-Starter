@@ -7,16 +7,15 @@ const createRouter = () => {
   const routes = [
     { path: '/', component: PageHome },
     { path: '/home', component: PageHome },
-    { path: '/about',component: PageAbout }
+    { path: '/about', component: PageAbout }
   ];
 
   const router = new VueRouter({
     routes
-  });  
+  });
 
   return router;
-}
-
+};
 
 export {
   createRouter

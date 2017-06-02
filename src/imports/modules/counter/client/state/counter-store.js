@@ -8,7 +8,7 @@ const getters = {
   countPlusTen: (state) => {
     return state.count + 10;
   }
-}
+};
 
 const counterStoreModule = {
   namespaced: true,
@@ -16,7 +16,7 @@ const counterStoreModule = {
   getters,
   mutations,
   actions
-}
+};
 
 export {
   counterStoreModule
