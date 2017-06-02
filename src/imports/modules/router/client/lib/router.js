@@ -1,13 +1,19 @@
 import VueRouter from 'vue-router';
 
-import PageHome from './../../../pages/client/components/PageHome.vue';
-import PageAbout from './../../../pages/client/components/PageAbout.vue';
+const PageHomeAsync = (resolve) => {
+  import('./../../../pages/client/components/PageHome.vue')
+    .then((PageHome) => resolve(PageHome.default));
+};
+const PageAboutAsync = (resolve) => {
+  import('./../../../pages/client/components/PageAbout.vue')
+    .then(PageAbout => resolve(PageAbout.default));
+};
 
 const createRouter = () => {
   const routes = [
-    { path: '/', component: PageHome },
-    { path: '/home', component: PageHome },
-    { path: '/about', component: PageAbout }
+    { path: '/', component: PageHomeAsync },
+    { path: '/home', component: PageHomeAsync },
+    { path: '/about', component: PageAboutAsync }
   ];
 
   const router = new VueRouter({

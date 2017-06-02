@@ -5,8 +5,8 @@
     "start": "meteor run --settings config/config.development.json",
     "test:unit": "jest --verbose --coverage --coverageDirectory .coverage/",
     "test:e2e": "chimp --ddp=http://localhost:3000 --mocha --path=.e2e-tests/",
-    "lint": "semistandard --env=jest --verbose | snazzy",
-    "lint:fix": "semistandard --env=jest --verbose --fix | snazzy",
+    "lint": "semistandard --parser babel-eslint --env=jest --verbose | snazzy",
+    "lint:fix": "semistandard --parser babel-eslint --env=jest --verbose  --fix | snazzy",
     "precommit": "npm run lint",
     "prepush": "npm run lint && npm run test:unit"
   },
@@ -21,6 +21,8 @@
     "vuex-router-sync": "^4.1.2"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-preset-es2015": "^6.24.1",
     "chimp": "^0.49.0",
     "chromedriver": "^2.29.0",
