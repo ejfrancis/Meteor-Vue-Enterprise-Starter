@@ -9,6 +9,13 @@ An opinionated starter kit application utilizing the following libraries/framewo
 * vuex-router-sync
 * vuex-alt
 
+The following development tools are used:
+
+* semistandard - code lintint
+* Jest - unit tests
+* Chimp - e2e tests
+* husky - git hooks
+
 # Usage
 
 First, clone this repo 
