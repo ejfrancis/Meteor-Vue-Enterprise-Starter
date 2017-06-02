@@ -5,6 +5,9 @@ class PageObjectBase {
   open() {
     browser.url(this.url);
   }
+  getPageTitle() {
+    return browser.getTitle();
+  }
 }
 
 export {

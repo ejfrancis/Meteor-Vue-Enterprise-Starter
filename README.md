@@ -31,11 +31,19 @@ meteor npm start
 ```
 # Testing
 ## Unit Tests
-Unit tests are done with Jest. To run unit tests, run this command:
+Unit tests are done with [Jest](https://facebook.github.io/jest/). Unit test files are kept alongside their respective file that they're testing inside `src/`.  To run unit tests, run this command:
 ```
-npm run test:unit
+meteor npm run test:unit
 ```
-For an example of a unit test, see `src/imports/modules/counter/client/state/counter-actions-mutations.test.js`.
+For an example of a unit test, see: `src/imports/modules/counter/client/state/counter-actions-mutations.test.js`.
+
+## E2E Tests
+End-to-end tests, a.k.a. acceptance tests, are done with [Chimp](https://chimp.readme.io/). To run e2e tests, first run your Meteor application with `meteor npm start`, then in another terminal  run this command:
+
+```
+meteor npm run test:e2e
+```
+For an example of an e2e test, see: `.e2e-tests/tests/home-page-test.js`.
 
 # Router
 Routing is done on the client, and the client-side router is located at `src/imports/modules/router/client/lib/router.js`.

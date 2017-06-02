@@ -5,3 +5,9 @@ class HomePage extends PageObjectBase {
     super({ url: 'http://localhost:3000/' });
   }
 }
+
+const homePage = new HomePage();
+
+export {
+  homePage
+};
