@@ -49,7 +49,7 @@ For an example of an e2e test, see: `.e2e-tests/tests/home-page-test.js`.
 Routing is done on the client, and the client-side router is located at `src/imports/modules/router/client/lib/router.js`.
 
 # Vuex Store
-The Vuex store is initialized in `src/imports/modules/store/client/lib/store.js`. Vuex store modules are defined in their respective application modules (read below for more on application modules) and imported into the main `store.js`.
+The Vuex store, which contains all application state, is initialized in `src/imports/modules/store/client/lib/store.js`. Vuex store modules are defined in their respective application modules (read below for more on application modules) and imported into the main `store.js`.
 
 # Application Structure
 
