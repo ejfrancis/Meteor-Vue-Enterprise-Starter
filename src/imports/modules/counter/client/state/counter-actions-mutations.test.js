@@ -33,7 +33,7 @@ describe('counter-actions-mutations', () => {
   });
   describe('mutations', () => {
     describe(MUTATION_TYPES.INCREMENT, () => {
-      it('adds amount to count', () => {
+      it('adds amount to state.count', () => {
         const state = { count: 0 };
         const amount = 5;
         mutations[MUTATION_TYPES.INCREMENT](state, { amount });
@@ -41,7 +41,7 @@ describe('counter-actions-mutations', () => {
       });
     });
     describe(MUTATION_TYPES.DECREMENT, () => {
-      it('adds amount to count', () => {
+      it('subtracts amount from state.count', () => {
         const state = { count: 0 };
         const amount = 5;
         mutations[MUTATION_TYPES.DECREMENT](state, { amount });
@@ -49,7 +49,7 @@ describe('counter-actions-mutations', () => {
       });
     });
     describe(MUTATION_TYPES.RESET, () => {
-      it('adds amount to count', () => {
+      it('sets state.count to 0', () => {
         const state = { count: 10 };
         mutations[MUTATION_TYPES.RESET](state);
         expect(state.count).toEqual(0);
