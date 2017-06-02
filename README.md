@@ -29,6 +29,13 @@ Now to run the application:
 ```
 meteor npm start
 ```
+# Testing
+## Unit Tests
+Unit tests are done with Jest. To run unit tests, run this command:
+```
+npm run test:unit
+```
+For an example of a unit test, see `src/imports/modules/counter/client/state/counter-actions-mutations.test.js`.
 
 # Router
 Routing is done on the client, and the client-side router is located at `src/imports/modules/router/client/lib/router.js`.

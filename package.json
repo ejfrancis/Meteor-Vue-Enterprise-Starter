@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "meteor run --settings config/config.development.json",
-    "test:unit": "jest --coverage"
+    "test:unit": "jest --verbose --coverage"
   },
   "dependencies": {
     "babel-runtime": "^6.20.0",
