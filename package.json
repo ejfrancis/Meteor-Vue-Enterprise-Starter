@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "start": "meteor run --settings config/config.development.json",
-    "test:unit": "jest --verbose --coverage"
+    "test:unit": "jest --verbose --coverage --coverageDirectory .coverage/",
+    "test:e2e": "chimp --ddp=http://localhost:3000 --mocha --path=e2e-tests"
   },
   "dependencies": {
     "babel-runtime": "^6.20.0",

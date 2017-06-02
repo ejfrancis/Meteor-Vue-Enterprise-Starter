@@ -1,2 +1,4 @@
 node_modules/
-coverage/
+
+# jest unit test coverage
+.coverage/
