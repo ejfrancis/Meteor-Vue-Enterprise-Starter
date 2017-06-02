@@ -23,7 +23,7 @@ describe('counter-actions-mutations', () => {
       });
     });
     describe('resetDelayed', () => {
-      it('commits RESET after delay', async () => {
+      it('commits RESET when complete', async () => {
         const commit = jest.fn();
         await actions.resetDelayed({ commit });
         expect(commit.mock.calls.length).toEqual(1);
