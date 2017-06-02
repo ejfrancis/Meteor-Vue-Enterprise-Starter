@@ -17,8 +17,7 @@ const actions = {
         commit(MUTATION_TYPES.RESET);
         resolve();
       }, 1500);
-    })
-
+    });
   }
 }
 
