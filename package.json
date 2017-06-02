@@ -7,8 +7,8 @@
     "test:e2e": "chimp --ddp=http://localhost:3000 --mocha --path=.e2e-tests/",
     "lint": "semistandard --env=jest --verbose | snazzy",
     "lint:fix": "semistandard --env=jest --verbose --fix | snazzy",
-    "precommit": "meteor npm run lint",
-    "prepush": "meteor npm run lint && meteor npm run test:unit"
+    "precommit": "npm run lint",
+    "prepush": "npm run lint && npm run test:unit"
   },
   "dependencies": {
     "babel-runtime": "^6.20.0",
