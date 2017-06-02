@@ -52,6 +52,17 @@ meteor npm run test:e2e
 ```
 For an example of an e2e test, see: `.e2e-tests/tests/home-page-test.js`.
 
+# Code Linting
+Code linting is done with [semistandard](https://www.npmjs.com/package/semistandard). Run code linting with this command:
+```
+meteor npm run lint
+```
+
+To automatically fix linting errors, run:
+```
+meteor npm run lint:fix
+```
+
 # Router
 Routing is done on the client, and the client-side router is located at `src/imports/modules/router/client/lib/router.js`.
 
