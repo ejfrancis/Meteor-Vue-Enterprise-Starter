@@ -8,7 +8,7 @@
     "lint": "semistandard --parser babel-eslint --env=jest --global server --global browser --verbose | snazzy",
     "lint:fix": "semistandard --parser babel-eslint --env=jest --global server --global browser --verbose  --fix | snazzy",
     "precommit": "npm run lint",
-    "prepush": "npm run lint && npm run test:unit && npm run test:e2e"
+    "prepush": "npm run lint && npm run test:unit"
   },
   "dependencies": {
     "babel-runtime": "^6.20.0",
