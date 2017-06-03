@@ -1,15 +1,15 @@
 class PageObjectBase {
-  constructor({ url }) {
+  constructor ({ url }) {
     this.url = url;
   }
-  open() {
+  open () {
     browser.url(this.url);
   }
-  getPageTitle() {
+  getPageTitle () {
     return browser.getTitle();
   }
 }
 
 export {
   PageObjectBase
-}
+};

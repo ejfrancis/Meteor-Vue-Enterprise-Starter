@@ -4,9 +4,9 @@
   "scripts": {
     "start": "meteor run --settings config/config.development.json",
     "test:unit": "jest --verbose --coverage --coverageDirectory .coverage/",
-    "test:e2e": "chimp --ddp=http://localhost:3000 --mocha --path=.e2e-tests/",
-    "lint": "semistandard --parser babel-eslint --env=jest --verbose | snazzy",
-    "lint:fix": "semistandard --parser babel-eslint --env=jest --verbose  --fix | snazzy",
+    "test:e2e": "chimp --ddp=http://localhost:3000 --mocha --path=e2e-tests",
+    "lint": "semistandard --parser babel-eslint --env=jest --global server --global browser --verbose | snazzy",
+    "lint:fix": "semistandard --parser babel-eslint --env=jest --global server --global browser --verbose  --fix | snazzy",
     "precommit": "npm run lint",
     "prepush": "npm run lint && npm run test:unit"
   },
