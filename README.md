@@ -45,7 +45,7 @@ meteor npm run test:unit
 For an example of a unit test, see: `src/imports/modules/counter/client/state/counter-actions-mutations.test.js`.
 
 ## E2E Tests
-End-to-end tests, a.k.a. acceptance tests, are done with [Chimp](https://chimp.readme.io/). End-to-end tests are kept in `e2e-tests/`, with [page objects](http://webdriver.io/guide/testrunner/pageobjects.html) defined in `e2e-tests/page-objects/` and tests defined in `e2e-tests/tests/`. To run e2e tests, first run your Meteor application with `meteor npm start`, then in another terminal  run this command:
+End-to-end tests, a.k.a. acceptance tests, are done with [Chimp](https://chimp.readme.io/). End-to-end tests are kept in `tests/`, with [page objects](http://webdriver.io/guide/testrunner/pageobjects.html) defined in `tests/page-objects/` and tests defined in `tests/e2e-tests/`. To run e2e tests, first run your Meteor application with `meteor npm start`, then in another terminal  run this command:
 
 ```
 meteor npm run test:e2e

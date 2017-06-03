@@ -17,7 +17,7 @@ input {
 <template>
   <div class='Counter'>
     <div class="count">
-      <p>count: {{ count }}</p>
+      <p>count: <span class="count-value">{{ count }}</span></p>
       <p>count+10 <em>(getter)</em>: {{ countPlusTen }}</p>
     </div>
     <div>
