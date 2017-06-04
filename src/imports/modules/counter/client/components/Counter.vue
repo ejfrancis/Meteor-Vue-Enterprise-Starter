@@ -16,17 +16,17 @@ input {
 
 <template>
   <div class='Counter'>
-    <div class="count">
-      <p>count: <span class="count-value">{{ count }}</span></p>
+    <div class='count'>
+      <p>count: <span class='count-value'>{{ count }}</span></p>
       <p>count+10 <em>(getter)</em>: {{ countPlusTen }}</p>
     </div>
     <div>
       <button v-on:click="handleClickIncrement()" >Increment</button>
-      <input type="number" v-model="inputIncAmount" min="0"/>
+      <input type='number' v-model="inputIncAmount" min='0'/>
     </div>
     <div>
       <button v-on:click="handleClickDecrement()">Decrement</button>
-      <input type="number" v-model="inputDecAmount" min="0" />
+      <input type='number' v-model="inputDecAmount" min='0' />
     </div>
     <div>
       <button v-on:click="handleClickResetDelayed()">Reset After Delay</button><em>(async action)</em>
@@ -57,19 +57,19 @@ export default {
     handleClickResetDelayed () {
       this.resetDelayed();
     },
-    ...mapActions({
-      increment: (actions) => actions.counter.increment,
-      decrement: (actions) => actions.counter.decrement,
-      resetDelayed: (actions) => actions.counter.resetDelayed
-    })
+    // ...mapActions({
+    //   increment: (actions) => actions.counter.increment,
+    //   decrement: (actions) => actions.counter.decrement,
+    //   resetDelayed: (actions) => actions.counter.resetDelayed
+    // })
   },
   computed: {
-    ...mapState({
-      count: (state) => state.counter.count
-    }),
-    ...mapGetters({
-      countPlusTen: (getters) => getters.counter.countPlusTen
-    })
+    // ...mapState({
+    //   count: (state) => state.counter.count
+    // }),
+    // ...mapGetters({
+    //   countPlusTen: (getters) => getters.counter.countPlusTen
+    // })
   }
 }
 </script>
