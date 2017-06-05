@@ -38,11 +38,17 @@ meteor npm start
 ```
 # Testing
 ## Unit Tests
-Unit tests are done with [Jest](https://facebook.github.io/jest/). Unit test files are kept alongside their respective file that they're testing inside `src/`.  To run unit tests, run this command:
+Unit tests are done with [Jest](https://facebook.github.io/jest/). See the package.json `"jest"` field for jest configuration. Unit test files are kept alongside their respective file that they're testing inside `src/`.  To run unit tests, run this command:
 ```
 meteor npm run test:unit
 ```
-For an example of a unit test, see: `src/imports/modules/counter/client/state/counter-actions-mutations.test.js`.
+For an example of a unit test, see: [src/imports/modules/counter/client/state/counter-actions-mutations.test.js](src/imports/modules/counter/client/state/counter-actions-mutations.test.js]).
+
+### Vue Component Unit Tests
+Vue component unit tests are done with [avoriaz](https://www.npmjs.com/package/avoriaz). For an example of a component test, see [src/imports/modules/counter/client/components/Counter.test.js](src/imports/modules/counter/client/components/Counter.test.js).
+
+### Mocking Meteor Packages in Unit Tests
+Meteor Atmosphere packages are automatically mocked via Jest's `moduleNameMapper` config option. Mocks are kept in [tests/jest-unit-test-setup/meteor-mocks](tests/jest-unit-test-setup/meteor-mocks). So a package called `meteor/my:package` is automatically mocked with `tests/jest-unit-test-setup/meteor-mocks/my:package.js`.
 
 ## E2E Tests
 End-to-end tests, a.k.a. acceptance tests, are done with [Chimp](https://chimp.readme.io/). End-to-end tests are kept in `tests/`, with [page objects](http://webdriver.io/guide/testrunner/pageobjects.html) defined in `tests/page-objects/` and tests defined in `tests/e2e-tests/`. To run e2e tests, first run your Meteor application with `meteor npm start`, then in another terminal  run this command:
@@ -50,7 +56,7 @@ End-to-end tests, a.k.a. acceptance tests, are done with [Chimp](https://chimp.r
 ```
 meteor npm run test:e2e
 ```
-For an example of an e2e test, see: `.e2e-tests/tests/home-page-test.js`.
+For an example of an e2e test, see: `tests/e2e-tests/home-page-test.js`.
 
 # Code Linting
 Code linting is done with [semistandard](https://www.npmjs.com/package/semistandard). Run code linting with this command:

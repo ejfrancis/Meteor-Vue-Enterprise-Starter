@@ -57,19 +57,19 @@ export default {
     handleClickResetDelayed () {
       this.resetDelayed();
     },
-    // ...mapActions({
-    //   increment: (actions) => actions.counter.increment,
-    //   decrement: (actions) => actions.counter.decrement,
-    //   resetDelayed: (actions) => actions.counter.resetDelayed
-    // })
+    ...mapActions({
+      increment: (actions) => actions.counter.increment,
+      decrement: (actions) => actions.counter.decrement,
+      resetDelayed: (actions) => actions.counter.resetDelayed
+    })
   },
   computed: {
-    // ...mapState({
-    //   count: (state) => state.counter.count
-    // }),
-    // ...mapGetters({
-    //   countPlusTen: (getters) => getters.counter.countPlusTen
-    // })
+    ...mapState({
+      count: (state) => state.counter.count
+    }),
+    ...mapGetters({
+      countPlusTen: (getters) => getters.counter.countPlusTen
+    })
   }
 }
 </script>

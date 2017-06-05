@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "start": "meteor run --settings config/config.development.json",
-    "test:unit": "jest src/",
+    "test:unit": "jest",
     "test:e2e": "chimp --ddp=http://localhost:3000 --mocha --path=tests",
     "lint": "semistandard --parser babel-eslint --env=jest --global server --global browser --verbose | snazzy",
     "lint:fix": "semistandard --parser babel-eslint --env=jest --global server --global browser --verbose  --fix | snazzy",
@@ -26,6 +26,7 @@
   "devDependencies": {
     "avoriaz": "^1.15.0",
     "babel-eslint": "^7.2.3",
+    "babel-plugin-dynamic-import-node": "^1.0.2",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -40,6 +41,9 @@
     "snazzy": "^7.0.0"
   },
   "jest": {
+    "roots": [
+      "<rootDir>/src"
+    ],
     "verbose": true,
     "collectCoverage": true,
     "coverageDirectory": ".unit-coverage/",
@@ -50,6 +54,9 @@
     "transform": {
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
       ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor"
+    },
+    "moduleNameMapper": {
+      "^meteor/(.*)": "<rootDir>/tests/jest-unit-test-setup/meteor-mocks/$1.js"
     }
   }
 }
