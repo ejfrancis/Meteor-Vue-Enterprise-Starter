@@ -10,7 +10,7 @@
     "test:e2e": "chimp --ddp=http://localhost:3000 --mocha --path=tests",
     "lint": "semistandard --parser babel-eslint --env=jest --global server --global browser --verbose | snazzy",
     "lint:fix": "semistandard --parser babel-eslint --env=jest --global server --global browser --verbose  --fix | snazzy",
-    "precommit": "npm run lint:fix",
+    "precommit": "meteor npm run lint:fix",
     "prepush": "npm run lint && npm run test:unit"
   },
   "dependencies": {
