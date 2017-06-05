@@ -70,14 +70,14 @@ meteor npm run lint:fix
 ```
 
 # Router
-Routing is done on the client, and the client-side router is located at `src/imports/modules/router/client/lib/router.js`.
+Routing is done on the client, and the client-side router is located at [src/imports/modules/router/client/lib/router.js](src/imports/modules/router/client/lib/router.js).
 
 # Vuex Store
-The Vuex store, which contains all application state, is initialized in `src/imports/modules/store/client/lib/store.js`. Vuex store modules are defined in their respective application modules (read below for more on application modules) and imported into the main `store.js`.
+The Vuex store, which contains all application state, is initialized in [src/imports/modules/store/client/lib/store.js](src/imports/modules/store/client/lib/store.js). Vuex store modules are defined in their respective application modules (read below for more on application modules) and imported into the main `store.js`.
 
 # Application Structure
 
-The directory structure is built in a way to make things predictable and enforce code modularity and organization per feature/domain. The contents of `src/imports/modules/` is explained in the section "Application Modules" below. The structure looks like this:
+The directory structure is built in a way to make things predictable and enforce code modularity and organization per feature/domain. The contents of [src/imports/modules](src/imports/modules) is explained in the section "Application Modules" below. The structure looks like this:
 
 ```
 |_package.json
