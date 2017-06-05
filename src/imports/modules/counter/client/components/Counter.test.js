@@ -8,7 +8,7 @@ describe('Counter', () => {
   beforeEach(() => {
     store = setupVue().store;
   });
-  
+
   it('renders without crashing', () => {
     const wrapper = mount(Counter, { store });
     expect(wrapper.find('.Counter').length).toEqual(1);

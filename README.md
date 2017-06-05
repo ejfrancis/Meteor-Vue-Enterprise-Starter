@@ -38,7 +38,7 @@ meteor npm start
 ```
 # Testing
 ## Unit Tests
-Unit tests are done with [Jest](https://facebook.github.io/jest/). See the package.json `"jest"` field for jest configuration. Unit test files are kept alongside their respective file that they're testing inside `src/`.  To run unit tests, run this command:
+Unit tests are done with [Jest](https://facebook.github.io/jest/). See the package.json `"jest"` field for Jest configuration. Unit test files are kept alongside their respective file that they're testing inside `src/`.  To run unit tests, run this command:
 ```
 meteor npm run test:unit
 ```
