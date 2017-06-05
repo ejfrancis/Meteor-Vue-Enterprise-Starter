@@ -42,7 +42,7 @@ Unit tests are done with [Jest](https://facebook.github.io/jest/). See the packa
 ```
 meteor npm run test:unit
 ```
-For an example of a unit test, see: [src/imports/modules/counter/client/state/counter-actions-mutations.test.js](./src/imports/modules/counter/client/state/counter-actions-mutations.test.js]).
+For an example of a unit test, see: [src/imports/modules/counter/client/state/counter-actions-mutations.test.js](src/imports/modules/counter/client/state/counter-actions-mutations.test.js).
 
 ### Vue Component Unit Tests
 Vue component unit tests are done with [avoriaz](https://www.npmjs.com/package/avoriaz). For an example of a component test, see [src/imports/modules/counter/client/components/Counter.test.js](src/imports/modules/counter/client/components/Counter.test.js).
