@@ -4,7 +4,6 @@
   "engines": {
     "node": ">=6.0"
   },
-  "private": true,
   "scripts": {
     "start": "meteor run --settings config/config.development.json",
     "test:unit": "jest --config tests/unit-test-setup/jest-config.json",

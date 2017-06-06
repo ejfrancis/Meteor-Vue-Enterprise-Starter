@@ -2,18 +2,18 @@
 
 An opinionated starter kit application utilizing the following libraries/frameworks, with an emphasis on code modularity:
 
-* Meteor
-* Vue
-* Vuex
-* vue-router
+* Meteor 1.5
+* Vue 2
+* vuex 2
+* vue-router 2
 * vuex-router-sync
 * vuex-alt
 
 The following development tools are used:
 
-* semistandard - code linting
 * Jest - unit tests
 * Chimp - e2e tests
+* semistandard - code linting
 * husky - git hooks
 
 # Usage
@@ -38,31 +38,13 @@ meteor npm start
 ```
 # Testing
 ## Unit Tests
-Unit tests are done with [Jest](https://facebook.github.io/jest/). See the package.json `"jest"` field for Jest configuration. Unit test files are kept alongside their respective file that they're testing inside `src/`.  To run unit tests, run this command:
-```
-meteor npm run test:unit
-```
-For an example of a unit test, see: [src/imports/modules/counter/client/state/counter-actions-mutations.test.js](src/imports/modules/counter/client/state/counter-actions-mutations.test.js).
-
-### Unit Test Coverage
-Unit tests write a coverage report to `tests/coverage/unit-tests/`. You can view a human-friendly web page report by opening `tests/coverage/unit-tests/lcov-report/index.html` in a web browser.
-
-### Vue Component Unit Tests
-Vue component unit tests are done with [avoriaz](https://www.npmjs.com/package/avoriaz). For an example of a component test, see [src/imports/modules/counter/client/components/Counter.test.js](src/imports/modules/counter/client/components/Counter.test.js).
-
-### Mocking Meteor Packages in Unit Tests
-Meteor Atmosphere packages are automatically mocked via Jest's `moduleNameMapper` config option. Mocks are kept in [tests/jest-unit-test-setup/meteor-mocks](tests/jest-unit-test-setup/meteor-mocks). So a package called `meteor/my:package` is automatically mocked with `tests/jest-unit-test-setup/meteor-mocks/my:package.js`.
+See the [Unit Tests documentation](/docs/unit-tests.md).
 
 ## E2E Tests
-End-to-end tests, a.k.a. acceptance tests, are done with [Chimp](https://chimp.readme.io/). End-to-end tests are kept in `tests/`, with [page objects](http://webdriver.io/guide/testrunner/pageobjects.html) defined in `tests/page-objects/` and tests defined in `tests/e2e-tests/`. To run e2e tests, first run your Meteor application with `meteor npm start`, then in another terminal  run this command:
-
-```
-meteor npm run test:e2e
-```
-For an example of an e2e test, see: `tests/e2e-tests/home-page-test.js`.
+See the [E2E Tests documentation](/docs/e2e-tests.md).
 
 # Code Linting
-Code linting is done with [semistandard](https://www.npmjs.com/package/semistandard). Run code linting with this command:
+Code linting is done with [semistandard](https://www.npmjs.com/package/semistandard), which is a pre-configured eslint that works out of the box with an opinionated ruleset. Run code linting with this command:
 ```
 meteor npm run lint
 ```
@@ -72,83 +54,16 @@ To automatically fix linting errors, run:
 meteor npm run lint:fix
 ```
 
-# Router
-Routing is done on the client, and the client-side router is located at [src/imports/modules/router/client/lib/router.js](src/imports/modules/router/client/lib/router.js).
+# Routing
+Routing is done on the client with VueRouter. The router configuration is located at [src/imports/modules/router/client/lib/router.js](/src/imports/modules/router/client/lib/router.js).
 
-# Vuex Store
-The Vuex store, which contains all application state, is initialized in [src/imports/modules/store/client/lib/store.js](src/imports/modules/store/client/lib/store.js). Vuex store modules are defined in their respective application modules (read below for more on application modules) and imported into the main `store.js`.
+The router configuration includes an example of lazy-loading your route components, to avoid them being included in your initial client JavaScript bundle.
+
+# Client State Management with Vuex
+See the [Vuex State Management documentation](/docs/vuex-client-state-management.md).
+
 
 # Application Structure
+The directory structure is built in a way to make things predictable and enforce code modularity and organization per feature/domain by splitting the code into "Application Modules".
 
-The directory structure is built in a way to make things predictable and enforce code modularity and organization per feature/domain. The contents of [src/imports/modules](src/imports/modules) is explained in the section "Application Modules" below. The structure looks like this:
-
-```
-|_package.json
-|_config/                              <-- config files to populate Meteor.settings
-|  |_config.development.json
-|  |_config.production.json
-|_src/
-  |_client/                         
-  |  |_index.html
-  |  |_client-main.js                  <-- client code entry point
-  |_server/
-  |  |_server-main.js                  <-- server code entry point
-  |_imports/
-     |_startup/                        <-- startup code for application
-     |  |_client/
-     |  |  |_App.vue                   <-- main "App" component that renders the entire application
-     |  |  |_client-index.js           <-- client startup code
-     |   |_server/
-     |      |_server-index.js          <-- server startup code
-     |_modules/
-                                       <-- application modules go here 
-```
-
-## Application Modules
-
-All of the application's business logic and UI will live inside application modules within the `src/imports/modules/` directory. An application module consists of all of the code, both client and server, related to a specific feature or domain. Classes and components that are related to each other or use each other are kept within the same module if possible.
-
-An application module contains the following:
-* client code
-  * components - all Vue components for this module
-  * state - all Vuex state, as well as any data mocks, for this module
-  * library - any client classes or functions for this module that aren't a component or Vuex-related
-* server code
-  * publications - all Meteor publications
-  * methods - all Meteor methods using the Meteor RPC system
-  * rest - any REST endpoints
-  * library - any server classes or functions for this module that aren't a publication, method, or REST endpoint
-
-### Complete Application Module Example
-Below is what a complete module's directory might look like. This would live inside `src/imports/modules/module-name/`.
-```
-|_module-name/
-  |_client/
-  |  |_components/
-  |  |  |_SomeComponent.vue
-  |  |_state/
-  |  |   |_module-name-actions.js
-  |  |   |_module-name-state.js
-  |  |_lib/
-  |    |_some-feature-specific-library.js
-  |_server/
-    |_publications/
-    |  |_some-publication.js
-    |_methods/
-    |  |_some-methods.js
-    |_rest/
-    |  |_one-rest-endpoint.js
-    |  |_another-rest-endpoint.js
-    |_lib/
-       |_some-server-library.js
-```
-
-### Simple Application Module Example
-
-A very simple module, for example the client-side router, might look like this. This would live in `src/imports/modules/router/`.
-```
-|_router/
-  |_client/
-    |_lib/
-      |_router.js
-```
+See the [Application Structure documentation](/docs/application-structure.md).
