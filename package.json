@@ -1,9 +1,6 @@
 {
   "name": "meteor-vue-modular-app-starter",
   "version": "0.1.0",
-  "engines": {
-    "node": ">=6.0"
-  },
   "scripts": {
     "start": "meteor run --settings config/config.development.json",
     "test:unit": "jest --config tests/unit-test-setup/jest-config.json",
