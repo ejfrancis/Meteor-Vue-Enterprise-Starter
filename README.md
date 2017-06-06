@@ -44,6 +44,9 @@ meteor npm run test:unit
 ```
 For an example of a unit test, see: [src/imports/modules/counter/client/state/counter-actions-mutations.test.js](src/imports/modules/counter/client/state/counter-actions-mutations.test.js).
 
+### Unit Test Coverage
+Unit tests write a coverage report to `tests/coverage/unit-tests/`. You can view a human-friendly web page report by opening `tests/coverage/unit-tests/lcov-report/index.html` in a web browser.
+
 ### Vue Component Unit Tests
 Vue component unit tests are done with [avoriaz](https://www.npmjs.com/package/avoriaz). For an example of a component test, see [src/imports/modules/counter/client/components/Counter.test.js](src/imports/modules/counter/client/components/Counter.test.js).
 

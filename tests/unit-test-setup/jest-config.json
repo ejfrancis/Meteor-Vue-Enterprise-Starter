@@ -15,6 +15,6 @@
     ".*\\.(vue)$": "jest-vue-preprocessor"
   },
   "moduleNameMapper": {
-    "^meteor/(.*)": "<rootDir>/tests/jest-unit-test-setup/meteor-mocks/$1.js"
+    "^meteor/(.*)": "<rootDir>/tests/unit-test-setup/meteor-mocks/$1.js"
   }
 }

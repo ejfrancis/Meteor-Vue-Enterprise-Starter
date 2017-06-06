@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "start": "meteor run --settings config/config.development.json",
-    "test:unit": "jest --config=tests/jest-unit-test-setup/jest-config.json",
+    "test:unit": "jest --config tests/unit-test-setup/jest-config.json",
     "test:e2e": "chimp --ddp=http://localhost:3000 --mocha --path=tests",
     "lint": "semistandard --parser babel-eslint --env=jest --global server --global browser --verbose | snazzy",
     "lint:fix": "semistandard --parser babel-eslint --env=jest --global server --global browser --verbose  --fix | snazzy",
