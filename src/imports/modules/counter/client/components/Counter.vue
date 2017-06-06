@@ -17,19 +17,19 @@ input {
 <template>
   <div class='Counter'>
     <div class='count'>
-      <p>count: <span class='count-value'>{{ count }}</span></p>
+      <p>count: <span class='value'>{{ count }}</span></p>
       <p>count+10 <em>(getter)</em>: {{ countPlusTen }}</p>
     </div>
-    <div>
-      <button v-on:click="handleClickIncrement()" >Increment</button>
+    <div class='increment'>
+      <button v-on:click="handleClickIncrement()">Increment</button>
       <input type='number' v-model="inputIncAmount" min='0'/>
     </div>
-    <div>
-      <button v-on:click="handleClickDecrement()">Decrement</button>
+    <div class='decrement'>
+      <button class='decrement-btn' v-on:click="handleClickDecrement()">Decrement</button>
       <input type='number' v-model="inputDecAmount" min='0' />
     </div>
     <div>
-      <button v-on:click="handleClickResetDelayed()">Reset After Delay</button><em>(async action)</em>
+      <button class='reset-btn' v-on:click="handleClickResetDelayed()">Reset After Delay</button><em>(async action)</em>
     </div>
   </div>
 </template>
