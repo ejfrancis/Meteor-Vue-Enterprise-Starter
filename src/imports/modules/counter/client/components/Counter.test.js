@@ -34,8 +34,7 @@ describe('Counter', () => {
       decrementInput.element.value = -2;
       decrementInput.dispatch('input');
       wrapper.find('.decrement button')[0].dispatch('click');
-      // TODO: uncomment when able to reset store state
-      // expect(wrapper.find('.count .value')[0].text()).toEqual('-2');
+      expect(wrapper.find('.count .value')[0].text()).toEqual('-2');
     });
   });
 });
