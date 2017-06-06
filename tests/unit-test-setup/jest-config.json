@@ -3,6 +3,9 @@
   "roots": [
     "<rootDir>/src/"
   ],
+  "coveragePathIgnorePatterns": [
+    "<rootDir>/tests/"
+  ],
   "verbose": true,
   "collectCoverage": true,
   "coverageDirectory": "<rootDir>/tests/coverage/unit-tests/",
