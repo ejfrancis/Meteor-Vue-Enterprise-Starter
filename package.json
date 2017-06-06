@@ -1,12 +1,13 @@
 {
   "name": "meteor-vue-modular-app-starter",
+  "version": "0.1.0",
   "engines": {
     "node": ">=6.0"
   },
   "private": true,
   "scripts": {
     "start": "meteor run --settings config/config.development.json",
-    "test:unit": "jest",
+    "test:unit": "jest --config=tests/jest-unit-test-setup/jest-config.json",
     "test:e2e": "chimp --ddp=http://localhost:3000 --mocha --path=tests",
     "lint": "semistandard --parser babel-eslint --env=jest --global server --global browser --verbose | snazzy",
     "lint:fix": "semistandard --parser babel-eslint --env=jest --global server --global browser --verbose  --fix | snazzy",
@@ -39,24 +40,5 @@
     "jest-vue-preprocessor": "^0.2.0",
     "semistandard": "^11.0.0",
     "snazzy": "^7.0.0"
-  },
-  "jest": {
-    "roots": [
-      "<rootDir>/src"
-    ],
-    "verbose": true,
-    "collectCoverage": true,
-    "coverageDirectory": ".unit-coverage/",
-    "moduleFileExtensions": [
-      "js",
-      "vue"
-    ],
-    "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
-      ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor"
-    },
-    "moduleNameMapper": {
-      "^meteor/(.*)": "<rootDir>/tests/jest-unit-test-setup/meteor-mocks/$1.js"
-    }
   }
 }

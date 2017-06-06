@@ -1,0 +1,20 @@
+{
+  "rootDir": "./../../",
+  "roots": [
+    "<rootDir>/src/"
+  ],
+  "verbose": true,
+  "collectCoverage": true,
+  "coverageDirectory": "<rootDir>/tests/coverage/unit-tests/",
+  "moduleFileExtensions": [
+    "js",
+    "vue"
+  ],
+  "transform": {
+    "^.+\\.js$": "babel-jest",
+    ".*\\.(vue)$": "jest-vue-preprocessor"
+  },
+  "moduleNameMapper": {
+    "^meteor/(.*)": "<rootDir>/tests/jest-unit-test-setup/meteor-mocks/$1.js"
+  }
+}
