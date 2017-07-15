@@ -18,7 +18,7 @@ input {
   <div class='Counter'>
     <div class='count'>
       <p>count: <span class='value'>{{ count }}</span></p>
-      <p>count+10 <em>(getter)</em>: {{ countPlusTen }}</p>
+      <p>count+10 <em>(getter)</em>: <span class='value-plus-ten'>{{ countPlusTen }}</span></p>
     </div>
     <div class='increment'>
       <button v-on:click="handleClickIncrement()">Increment</button>
@@ -28,15 +28,14 @@ input {
       <button v-on:click="handleClickDecrement()">Decrement</button>
       <input type='number' v-model="inputDecAmount" min='0' />
     </div>
-    <div>
-      <button class='reset-btn' v-on:click="handleClickResetDelayed()">Reset After Delay</button><em>(async action)</em>
+    <div class='reset-delayed'>
+      <button v-on:click="handleClickResetDelayed()">Reset After Delay</button><em>(async action)</em>
     </div>
   </div>
 </template>
 
 <script>
 
-// import { mapState, mapActions } from 'vuex';
 import { mapGetters, mapActions, mapState } from 'vuex-alt';
 import { MUTATION_TYPES, counterStore } from './../state/counter-store.js';
 
