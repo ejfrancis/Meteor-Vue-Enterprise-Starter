@@ -14,7 +14,7 @@ import App from './App.vue';
  * router factory functions. Mostly for unit tests.
  * @param {Object} params
  * @param {Function} [params.createStore]     optional, function that returns a configured Vuex store
- * @param {Function} [createRouter]           optional, function that returns a configured VueRouter instance
+ * @param {Function} [params.createRouter]           optional, function that returns a configured VueRouter instance
  */
 export const setupVue = ({
   createStore = createStoreOriginal,
