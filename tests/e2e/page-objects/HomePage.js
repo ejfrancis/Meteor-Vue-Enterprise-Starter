@@ -5,7 +5,7 @@ class HomePage extends PageObjectBase {
     super({ url: 'http://localhost:3000/' });
   }
   getCounterValue () {
-    const counterValue = parseInt(browser.getText('.Counter .count-value'), 10);
+    const counterValue = parseInt(browser.getText('.Counter .count .value'), 10);
     return counterValue;
   }
 }
