@@ -25,7 +25,7 @@ input {
       <input type='number' v-model="inputIncAmount" min='0'/>
     </div>
     <div class='decrement'>
-      <button class='decrement-btn' v-on:click="handleClickDecrement()">Decrement</button>
+      <button v-on:click="handleClickDecrement()">Decrement</button>
       <input type='number' v-model="inputDecAmount" min='0' />
     </div>
     <div>

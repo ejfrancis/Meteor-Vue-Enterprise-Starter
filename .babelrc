@@ -1,0 +1,11 @@
+{
+  "presets": [
+    "es2015",
+    "es2017"
+  ],
+  "plugins": [
+    "transform-object-rest-spread",
+    "transform-runtime",
+    "dynamic-import-node"
+  ]
+}

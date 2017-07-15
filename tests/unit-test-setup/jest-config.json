@@ -14,7 +14,7 @@
     "vue"
   ],
   "transform": {
-    "^.+\\.js$": "<rootDir>/tests/unit-test-setup/jest-transform-babel.js",
+    "^.+\\.js$": "babel-jest",
     ".*\\.(vue)$": "jest-vue-preprocessor"
   },
   "moduleNameMapper": {
