@@ -1,14 +1,14 @@
 {
   "name": "meteor-vue-modular-app-starter",
-  "version": "0.1.0",
+  "private": true,
   "scripts": {
     "start": "meteor run --settings config/config.development.json",
-    "test:unit": "jest --config tests/unit-test-setup/jest-config.json",
+    "test:unit": "jest src/ --verbose --coverage --coverageDirectory .coverage/",
     "test:e2e": "chimp --ddp=http://localhost:3000 --mocha --path=tests",
     "lint": "semistandard --parser babel-eslint --env=jest --global server --global browser --verbose | snazzy",
     "lint:fix": "semistandard --parser babel-eslint --env=jest --global server --global browser --verbose  --fix | snazzy",
-    "precommit": "meteor npm run lint:fix",
-    "prepush": "meteor npm run lint:fix && npm run test:unit"
+    "precommit": "npm run lint",
+    "prepush": "npm run lint && npm run test:unit"
   },
   "dependencies": {
     "babel-runtime": "^6.20.0",
@@ -21,22 +21,15 @@
     "vuex-router-sync": "^4.1.2"
   },
   "devDependencies": {
-    "avoriaz": "^1.15.0",
     "babel-eslint": "^7.2.3",
-    "babel-plugin-dynamic-import-node": "^1.0.2",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-es2017": "^6.24.1",
     "chimp": "^0.49.0",
     "chromedriver": "^2.29.0",
     "husky": "^0.13.4",
     "jest": "^20.0.4",
-    "jest-vue-preprocessor": "^0.2.0",
     "semistandard": "^11.0.0",
-    "snazzy": "^7.0.0",
-    "vue-template-compiler": "^2.3.3",
-    "vue-template-es2015-compiler": "^1.5.2"
+    "snazzy": "^7.0.0"
   }
 }
