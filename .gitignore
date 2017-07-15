@@ -1,4 +1,5 @@
 node_modules/
+npm-debug.log
 
 # jest unit test coverage
-.coverage/
+tests/coverage/unit-tests

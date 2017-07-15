@@ -7,9 +7,8 @@ describe('counter-actions-mutations', () => {
         const commit = jest.fn();
         const amount = 5;
         actions.increment({ commit }, { amount });
-        expect(commit.mock.calls.length).toEqual(1);
-        expect(commit.mock.calls[0][0]).toEqual(MUTATION_TYPES.INCREMENT);
-        expect(commit.mock.calls[0][1]).toEqual({ amount });
+        expect(commit).toHaveBeenCalledTimes(1);
+        expect(commit).toHaveBeenCalledWith(MUTATION_TYPES.INCREMENT, { amount });
       });
     });
     describe('decrement', () => {
@@ -17,17 +16,16 @@ describe('counter-actions-mutations', () => {
         const commit = jest.fn();
         const amount = 5;
         actions.decrement({ commit }, { amount });
-        expect(commit.mock.calls.length).toEqual(1);
-        expect(commit.mock.calls[0][0]).toEqual(MUTATION_TYPES.DECREMENT);
-        expect(commit.mock.calls[0][1]).toEqual({ amount });
+        expect(commit).toHaveBeenCalledTimes(1);
+        expect(commit).toHaveBeenCalledWith(MUTATION_TYPES.DECREMENT, { amount });
       });
     });
     describe('resetDelayed', () => {
       it('commits RESET when complete', async () => {
         const commit = jest.fn();
         await actions.resetDelayed({ commit });
-        expect(commit.mock.calls.length).toEqual(1);
-        expect(commit.mock.calls[0][0]).toEqual(MUTATION_TYPES.RESET);
+        expect(commit).toHaveBeenCalledTimes(1);
+        expect(commit).toHaveBeenCalledWith(MUTATION_TYPES.RESET);
       });
     });
   });
