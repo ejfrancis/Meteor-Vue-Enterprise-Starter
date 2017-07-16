@@ -36,6 +36,13 @@ Now to run the application:
 ```
 meteor npm start
 ```
+
+# Application Config
+You can provide application config/settings values in the `config/` directory, which will be made available via `Meteor.settings` in your code. You'll see two files:
+
+* `config/config.development.json`: local config, used when `meteor npm start` is run
+* `config/config.production.json`: production config, use this for production values. ([see the Meteor guide](https://docs.meteor.com/environment-variables.html#METEOR-SETTINGS))
+
 # Testing
 ## Unit Tests
 See the [Unit Tests documentation](/docs/unit-tests.md).

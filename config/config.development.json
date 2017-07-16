@@ -1,3 +1,8 @@
 {
-  "title": "App Title"
+  "public": {
+    "title": "Vue+Meteor Demo App - Dev"
+  },
+  "private": {
+    "someApiSecret": "someDevKey"
+  }
 }

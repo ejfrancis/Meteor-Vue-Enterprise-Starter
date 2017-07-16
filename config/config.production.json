@@ -1,0 +1,8 @@
+{
+  "public": {
+    "title": "Vue+Meteor Demo App"
+  },
+  "private": {
+    "someApiSecret": "someProdKey"
+  }
+}

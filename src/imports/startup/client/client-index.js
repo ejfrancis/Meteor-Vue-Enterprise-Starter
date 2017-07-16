@@ -9,6 +9,8 @@ import { createRouter as createRouterOriginal } from './../../modules/router/cli
 import { createStore as createStoreOriginal } from './../../modules/store/client/lib/store';
 import App from './App.vue';
 
+document.title = Meteor.settings.public.title;
+
 /**
  * Export the setup of Vue, and allow overriding of the store and
  * router factory functions. Mostly for unit tests.
