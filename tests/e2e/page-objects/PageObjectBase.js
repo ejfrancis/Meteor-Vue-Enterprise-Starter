@@ -1,6 +1,6 @@
 class PageObjectBase {
-  constructor ({ 
-    port, 
+  constructor ({
+    port,
     urlBase,
     path = '/'
   } = {}) {

@@ -18,6 +18,13 @@ a {
   height: 40px;
   line-height: 40px;
   text-decoration: none;
+  margin-left: -2px;
+  margin-right: -2px;
+}
+
+/* class is added by vue-router automatically to active route */
+.router-link-active {
+  background: #ebebeb;
 }
 </style>
 
