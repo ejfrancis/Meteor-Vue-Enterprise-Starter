@@ -1,0 +1,8 @@
+{
+  "public": {
+    "someConfigValue": "I'm from config.production.json"
+  },
+  "private": {
+    "someApiSecret": "someProdKey"
+  }
+}
