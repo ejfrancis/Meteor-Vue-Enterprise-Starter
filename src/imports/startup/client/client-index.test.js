@@ -4,6 +4,11 @@ import * as routerModule from './../../modules/router/client/lib/router';
 import * as storeModule from './../../modules/store/client/lib/store';
 
 describe('client-index', () => {
+  beforeEach(() => {
+    const div = document.createElement('div');
+    div.id = 'app';
+    document.body.appendChild(div);
+  });
   afterEach(() => {
     jest.resetModules();
   });

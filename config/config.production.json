@@ -1,6 +1,6 @@
 {
   "public": {
-    "title": "Vue+Meteor Demo App"
+    "someConfigValue": "I'm from config.production.json"
   },
   "private": {
     "someApiSecret": "someProdKey"
