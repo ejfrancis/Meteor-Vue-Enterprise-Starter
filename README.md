@@ -8,6 +8,7 @@ An opinionated starter kit application utilizing the following libraries/framewo
 * vue-router 2
 * vuex-router-sync
 * vuex-alt
+* vue-meteor-tracker
 
 The following development tools are used:
 

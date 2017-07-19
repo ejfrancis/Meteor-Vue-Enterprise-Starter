@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "start": "meteor run --settings config/config.development.json",
+    "start:mimic-prod": "meteor run --settings config/config.production.json --production",
     "test:unit": "jest --config tests/unit-test-setup/jest-config.json",
     "test:e2e": "chimp --ddp=http://localhost:3000 --mocha --path=tests/e2e/tests",
     "lint": "semistandard --parser babel-eslint --env=jest --global server --global browser --verbose | snazzy",
@@ -12,13 +13,15 @@
   },
   "dependencies": {
     "babel-runtime": "^6.20.0",
+    "bcrypt": "^1.0.2",
     "meteor-node-stubs": "~0.2.8",
     "timeout-as-promise": "^1.0.0",
     "vue": "^2.3.3",
-    "vue-meteor-tracker": "^1.2.1",
+    "vue-awesome": "^2.3.1",
+    "vue-meteor-tracker": "^1.2.3",
     "vue-router": "^2.5.3",
     "vuex": "^2.3.1",
-    "vuex-alt": "0.0.6",
+    "vuex-alt": "^0.0.7",
     "vuex-router-sync": "^4.1.2"
   },
   "devDependencies": {
