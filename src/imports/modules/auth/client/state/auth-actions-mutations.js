@@ -17,7 +17,7 @@ const actions = {
         name
       }, (err) => {
         if (err) {
-          console.error(`Error registering user: ${err}`);
+          console.warn(`Error registering user: ${err}`);
           return reject(err);
         }
         return resolve();
@@ -28,7 +28,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       Meteor.loginWithPassword(username, password, (err) => {
         if (err) {
-          console.error(`Error logging in: ${err}`);
+          console.warn(`Error logging in: ${err}`);
           commit(MUTATION_TYPES.LOGIN_FAILED, { error: err });
           return resolve(false);
         }
@@ -50,7 +50,7 @@ const actions = {
   setUser: ({ commit }, { user }) => {
     commit(MUTATION_TYPES.SET_USER, { user });
   },
-  clearLoginFailure: ({ commit }, { error }) => {
+  clearLoginFailure: ({ commit }) => {
     commit(MUTATION_TYPES.CLEAR_LOGIN_FAILURE);
   }
 };

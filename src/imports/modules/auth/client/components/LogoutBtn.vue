@@ -17,7 +17,7 @@ export default {
           this.$router.replace('/');
         }
       } catch (e) {
-        console.error('Logout error: ' + e);
+        console.warn('Logout error: ' + e);
       }
     }
   }
