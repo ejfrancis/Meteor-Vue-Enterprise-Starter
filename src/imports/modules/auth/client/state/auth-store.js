@@ -2,7 +2,7 @@ import { actions, mutations } from './auth-actions-mutations';
 
 const initialState = {
   user: null,
-  isAuthVisible: false
+  loginError: undefined
 };
 
 const getters = {

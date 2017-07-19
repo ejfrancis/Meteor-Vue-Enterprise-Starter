@@ -3,7 +3,8 @@ import { Accounts } from 'meteor/accounts-base';
 
 const MUTATION_TYPES = {
   SET_USER: 'SET_USER',
-  TOGGLE_AUTH: 'TOGGLE_AUTH'
+  LOGIN_FAILED: 'LOGIN_FAILED',
+  CLEAR_LOGIN_FAILURE: 'CLEAR_LOGIN_FAILURE'
 };
 
 const actions = {
@@ -28,24 +29,29 @@ const actions = {
       Meteor.loginWithPassword(username, password, (err) => {
         if (err) {
           console.error(`Error logging in: ${err}`);
+          commit(MUTATION_TYPES.LOGIN_FAILED, { error: err });
           return resolve(false);
         }
+        commit(MUTATION_TYPES.CLEAR_LOGIN_FAILURE);
         return resolve(true);
       });
     });
   },
   logoutUser () {
     return new Promise((resolve, reject) => {
-      Meteor.logout(() => {
-        return resolve();
+      Meteor.logout((err) => {
+        if (err) {
+          return resolve(false);
+        }
+        return resolve(true);
       });
     });
   },
   setUser: ({ commit }, { user }) => {
     commit(MUTATION_TYPES.SET_USER, { user });
   },
-  toggleAuth: ({ commit }) => {
-    commit(MUTATION_TYPES.TOGGLE_AUTH);
+  clearLoginFailure: ({ commit }, { error }) => {
+    commit(MUTATION_TYPES.CLEAR_LOGIN_FAILURE);
   }
 };
 
@@ -59,8 +65,11 @@ const mutations = {
       _id: user._id
     };
   },
-  [MUTATION_TYPES.TOGGLE_AUTH]: (state) => {
-    state.isAuthVisible = !state.isAuthVisible;
+  [MUTATION_TYPES.LOGIN_FAILED]: (state, { error }) => {
+    state.loginError = error;
+  },
+  [MUTATION_TYPES.CLEAR_LOGIN_FAILURE]: (state) => {
+    state.loginError = undefined;
   }
 };
 

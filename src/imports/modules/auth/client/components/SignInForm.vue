@@ -1,3 +1,9 @@
+<style scoped>
+.error {
+  color: red;
+}
+</style>
+
 <template>
   <div class='SignInForm'>
     <form @submit.prevent="submitForm">
@@ -6,8 +12,9 @@
       <input v-model="formData.username" />
       <label>password</label>
       <input v-model="formData.password" />
-      <button>Login</button>
+      <button type='submit'>Login</button>
     </form>
+    <p class='error' v-if='loginError'>Woops! That wasn't right, please try again.</p>
   </div>
 </template>
 
@@ -25,6 +32,7 @@ export default {
   },
   meteor: {
     redirectWhenAuthenticated() {
+      // will re-run when Meteor.user() changes, and redirect if appropriate
       if (Meteor.user()) {
         this.$router.replace(this.urlRedirect || '/');
       }
@@ -32,14 +40,13 @@ export default {
   },
   computed: {
     ...mapState({
-      urlRedirect: (state) => { 
-        return state.route.query.redirect;
-      }
+      urlRedirect: (state) => state.route.query.redirect,
+      loginError: (state) => state.auth.loginError
     })
   },
   methods: {
     ...mapActions({ 
-      loginUser: (actions) => actions.auth.loginUser
+      loginUser: (actions) => actions.auth.loginUser,
     }),
     async submitForm() {
       try {
@@ -47,7 +54,6 @@ export default {
           username: this.formData.username,
           password: this.formData.password
         });
-        console.log('--authenticated=', authenticated);
         if (authenticated) {
           this.$router.replace(this.urlRedirect || '/');
         }

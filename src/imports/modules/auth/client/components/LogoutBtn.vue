@@ -1,5 +1,5 @@
 <template>
-  <button @click="logoutUser" class='LogoutBtn'>Logout</button>
+  <button @click="logoutUserAndRedirect" class='LogoutBtn'>Logout</button>
 </template>
 
 <script>
@@ -9,7 +9,17 @@ export default {
   methods: {
     ...mapActions({
       logoutUser: (actions) => actions.auth.logoutUser
-    })
+    }),
+    async logoutUserAndRedirect() {
+      try {
+        const worked = await this.logoutUser();
+        if (worked) {
+          this.$router.replace('/');
+        }
+      } catch (e) {
+        console.error('Logout error: ' + e);
+      }
+    }
   }
 }
 </script>
