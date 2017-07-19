@@ -36,6 +36,13 @@ Now to run the application:
 
 ```
 meteor npm start
+``` 
+
+# Mimic Production
+To run the app with a production bundle and using the production settings located at `config/config.production.json`, run:
+
+```
+meteor npm run start:mimic-prod
 ```
 
 # Application Config
