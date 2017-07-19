@@ -7,7 +7,7 @@
 
 <template>
   <div class='Layout'>
-    <app-header/>
+    <!-- <app-header/> -->
     <app-navigation/>
     <div class='Layout-children'>
       <slot></slot> <!--child components rendered in slot -->

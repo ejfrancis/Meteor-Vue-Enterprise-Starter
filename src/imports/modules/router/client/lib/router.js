@@ -1,23 +1,35 @@
 import VueRouter from 'vue-router';
+import { requireAuth } from './require-auth';
 
+const PageSignUpAsync = async (resolve) => {
+  import('/src/imports/modules/pages/client/components/PageSignUp.vue')
+    .then(PageSignUp => resolve(PageSignUp.default));
+};
+const PageSignInAsync = (resolve) => {
+  import('/src/imports/modules/pages/client/components/PageSignIn.vue')
+    .then(PageSignIn => resolve(PageSignIn.default));
+};
 const PageHomeAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageHome.vue')
     .then((PageHome) => resolve(PageHome.default));
 };
-const PageAboutAsync = (resolve) => {
-  import('/src/imports/modules/pages/client/components/PageAbout.vue')
-    .then(PageAbout => resolve(PageAbout.default));
+const PagePrivateAsync = (resolve) => {
+  import('/src/imports/modules/pages/client/components/PagePrivate.vue')
+    .then(PagePrivate => resolve(PagePrivate.default));
 };
 
 const createRouter = () => {
   const routes = [
+    { path: '/sign-up', component: PageSignUpAsync },
+    { path: '/sign-in', component: PageSignInAsync },
     { path: '/', component: PageHomeAsync },
     { path: '/home', component: PageHomeAsync },
-    { path: '/about', component: PageAboutAsync }
+    { path: '/private', component: PagePrivateAsync, beforeEnter: requireAuth }
   ];
 
   const router = new VueRouter({
-    routes
+    routes,
+    mode: 'history'
   });
 
   return router;

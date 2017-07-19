@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 import { sync } from 'vuex-router-sync';
 import { VuexAltPlugin } from 'vuex-alt';
+import VueMeteorTracker from 'vue-meteor-tracker';
 
 import { createRouter as createRouterOriginal } from './../../modules/router/client/lib/router';
 import { createStore as createStoreOriginal } from './../../modules/store/client/lib/store';
@@ -22,6 +23,7 @@ export const setupVue = ({
  } = {}) => {
   Vue.use(VueRouter);
   Vue.use(Vuex);
+  Vue.use(VueMeteorTracker);
 
   const store = createStore();
   const router = createRouter();
