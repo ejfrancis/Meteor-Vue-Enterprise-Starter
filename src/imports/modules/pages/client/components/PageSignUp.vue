@@ -4,7 +4,8 @@
 
 <template>
   <div class='PageSignUp'>
-    <register-form />
+    <p>Hi</p>
+     <register-form /> 
   </div>  
 </template>
 
@@ -14,6 +15,9 @@ import RegisterForm from '/src/imports/modules/auth/client/components/RegisterFo
 export default {
   components: {
     RegisterForm
+  },
+  created() {
+    // debugger;
   }
 }
 </script>

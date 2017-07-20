@@ -1,13 +1,17 @@
 import VueRouter from 'vue-router';
 import { requireAuth } from './require-auth';
 
-const PageSignUpAsync = async (resolve) => {
+
+const PageSignUpAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageSignUp.vue')
-    .then(PageSignUp => resolve(PageSignUp.default));
+    .then((PageHome) => resolve(PageHome.default));
 };
 const PageSignInAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageSignIn.vue')
-    .then(PageSignIn => resolve(PageSignIn.default));
+    .then(PageSignIn => {
+      console.log('PageSignIn.default=', PageSignIn.default); 
+      resolve(PageSignIn.default);
+    });
 };
 const PageHomeAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageHome.vue')
@@ -22,9 +26,9 @@ const createRouter = () => {
   const routes = [
     { path: '/sign-up', component: PageSignUpAsync },
     { path: '/sign-in', component: PageSignInAsync },
-    { path: '/', component: PageHomeAsync },
     { path: '/home', component: PageHomeAsync },
-    { path: '/private', component: PagePrivateAsync, beforeEnter: requireAuth }
+    { path: '/private', component: PageHomeAsync, beforeEnter: requireAuth },
+    { path: '/', component: PageHomeAsync }
   ];
 
   const router = new VueRouter({
