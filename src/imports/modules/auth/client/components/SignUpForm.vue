@@ -46,14 +46,19 @@ export default {
   },
   methods: {
     ...mapActions({
-      registerUser: (actions) => actions.auth.registerUser
+      registerUser: (actions) => actions.auth.registerUser,
+      clearRegisterFailure: (actions) => actions.auth.clearRegisterFailure
     }),
-    submitForm() {
-      this.registerUser({
-        username: this.formData.username,
-        email: this.formData.email,
-        password: this.formData.password
-      });
+    async submitForm() {
+      try {
+        this.registerUser({
+          username: this.formData.username,
+          email: this.formData.email,
+          password: this.formData.password
+        });
+      } catch (e) {
+        // don't need to handle it, stored in vuex
+      }
     }
   }
 }
