@@ -67,9 +67,6 @@ const mutations = {
     if (!user) {
       state.user = user;
     }
-    // state.user += {
-    //   _id: user._id
-    // };
   },
   [MUTATION_TYPES.LOGIN_FAILED]: (state, { error }) => {
     state.loginError = error;

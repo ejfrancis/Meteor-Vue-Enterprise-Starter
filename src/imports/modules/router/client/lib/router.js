@@ -10,8 +10,8 @@ const PageSignInAsync = (resolve) => {
     .then(PageSignIn => resolve(PageSignIn.default));
 };
 const PageResetPasswordAsync = (resolve) => {
-import('/src/imports/modules/pages/client/components/PageResetPassword.vue')
-  .then(PageResetPassword => resolve(PageResetPassword.default));
+  import('/src/imports/modules/pages/client/components/PageResetPassword.vue')
+    .then(PageResetPassword => resolve(PageResetPassword.default));
 };
 const PageHomeAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageHome.vue')
