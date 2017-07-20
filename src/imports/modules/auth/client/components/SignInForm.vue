@@ -5,27 +5,33 @@
 </style>
 
 <template>
-  <div class='SignInForm'>
-    <form @submit.prevent="submitForm">
-      <h3>Login</h3>
-      <div>
-        <label>username</label>
-        <input v-model="formData.username" />
-      </div>
-      <div>
-        <label>password</label>
-        <input v-model="formData.password" />
-      </div>
-      <button type='submit'>Login</button>
-    </form>
-    <p class='error' v-if='loginError'>Woops! That wasn't right, please try again.</p>
-  </div>
+  <auth-loading-mask>
+    <div class='SignInForm'>
+      <form @submit.prevent="submitForm">
+        <h3>Login</h3>
+        <div>
+          <label>username</label>
+          <input v-model="formData.username" />
+        </div>
+        <div>
+          <label>password</label>
+          <input v-model="formData.password" />
+        </div>
+        <button type='submit'>Login</button>
+      </form>
+      <p class='error' v-if='loginError'>Woops! That wasn't right, please try again.</p>
+    </div>
+  </auth-loading-mask>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex-alt';
+import AuthLoadingMask from './AuthLoadingMask.vue';
 
 export default {
+  components: {
+    AuthLoadingMask
+  },
   data() {
     return {
       formData: {

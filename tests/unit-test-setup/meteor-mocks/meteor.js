@@ -9,7 +9,7 @@ export const Meteor = {
   user: () => {
     return {
       username: 'testuser',
-      email: 'testuser@test.com',
+      emails: ['testuser@test.com'],
       profile: {}
     };
   }
