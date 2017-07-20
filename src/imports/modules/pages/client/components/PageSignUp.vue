@@ -4,7 +4,6 @@
 
 <template>
   <div class='PageSignUp'>
-    <p>Hi</p>
      <register-form /> 
   </div>  
 </template>

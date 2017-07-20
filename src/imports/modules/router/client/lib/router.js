@@ -4,14 +4,11 @@ import { requireAuth } from './require-auth';
 
 const PageSignUpAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageSignUp.vue')
-    .then((PageHome) => resolve(PageHome.default));
+    .then(PageSignUp => resolve(PageSignUp.default));
 };
 const PageSignInAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageSignIn.vue')
-    .then(PageSignIn => {
-      console.log('PageSignIn.default=', PageSignIn.default); 
-      resolve(PageSignIn.default);
-    });
+    .then(PageSignIn => resolve(PageSignIn.default));
 };
 const PageHomeAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageHome.vue')
@@ -27,7 +24,7 @@ const createRouter = () => {
     { path: '/sign-up', component: PageSignUpAsync },
     { path: '/sign-in', component: PageSignInAsync },
     { path: '/home', component: PageHomeAsync },
-    { path: '/private', component: PageHomeAsync, beforeEnter: requireAuth },
+    { path: '/private', component: PagePrivateAsync, beforeEnter: requireAuth },
     { path: '/', component: PageHomeAsync }
   ];
 
