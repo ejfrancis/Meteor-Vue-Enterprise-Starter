@@ -1,36 +1,32 @@
 <style scoped>
-.error {
-  color: red;
-}
+
 </style>
 
 <template>
-  <auth-loading-mask>
-    <div class='SignInForm'>
-      <form @submit.prevent="submitForm">
-        <h3>Login</h3>
-        <div>
-          <label>username</label>
-          <input v-model="formData.username" />
-        </div>
-        <div>
-          <label>password</label>
-          <input v-model="formData.password" />
-        </div>
-        <button type='submit'>Login</button>
-      </form>
-      <p class='error' v-if='loginError'>Woops! That wasn't right, please try again.</p>
-    </div>
-  </auth-loading-mask>
+  <div class='SignInForm'>
+    <form @submit.prevent="submitForm">
+      <h3>Login</h3>
+      <div>
+        <label>username</label>
+        <input v-model="formData.username" />
+      </div>
+      <div>
+        <label>password</label>
+        <input v-model="formData.password" type='password' />
+      </div>
+      <button type='submit' :disabled='loggingIn'>Login</button>
+    </form>
+    <auth-error />
+  </div>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex-alt';
-import AuthLoadingMask from './AuthLoadingMask.vue';
+import AuthError from './AuthError.vue';
 
 export default {
   components: {
-    AuthLoadingMask
+    AuthError
   },
   data() {
     return {
@@ -44,6 +40,7 @@ export default {
     this.clearLoginFailure();
   },
   meteor: {
+    loggingIn: () => Meteor.loggingIn(),
     redirectWhenAuthenticated() {
       // will re-run when Meteor.user() changes, and redirect if appropriate
       if (Meteor.user()) {
@@ -53,8 +50,7 @@ export default {
   },
   computed: {
     ...mapState({
-      urlRedirect: (state) => state.route.query.redirect,
-      loginError: (state) => state.auth.loginError
+      urlRedirect: (state) => state.route.query.redirect
     })
   },
   methods: {

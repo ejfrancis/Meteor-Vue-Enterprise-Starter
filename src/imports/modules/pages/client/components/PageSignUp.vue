@@ -4,19 +4,16 @@
 
 <template>
   <div class='PageSignUp'>
-     <register-form /> 
+     <sign-up-form /> 
   </div>  
 </template>
 
 <script>
-import RegisterForm from '/src/imports/modules/auth/client/components/RegisterForm.vue';
+import SignUpForm from '/src/imports/modules/auth/client/components/SignUpForm.vue';
 
 export default {
   components: {
-    RegisterForm
-  },
-  created() {
-    // debugger;
+    SignUpForm
   }
 }
 </script>

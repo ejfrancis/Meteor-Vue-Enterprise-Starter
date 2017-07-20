@@ -1,7 +1,7 @@
 <template>
   <div class='RegisterForm'>
     <form @submit.prevent="submitForm">
-      <h3>Register</h3>
+      <h3>Sign Up</h3>
       <div>
         <label>username</label>
         <input v-model="formData.username" />
@@ -12,17 +12,22 @@
       </div>
       <div>
         <label>password</label>
-        <input v-model="formData.password" />
+        <input v-model="formData.password" type='password'/>
       </div>
       <button type='submit'>Register</button>
     </form>
+    <auth-error />
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex-alt';
+import AuthError from './AuthError.vue';
 
 export default {
+  components: {
+    AuthError
+  },
   data() {
     return {
       formData: {
