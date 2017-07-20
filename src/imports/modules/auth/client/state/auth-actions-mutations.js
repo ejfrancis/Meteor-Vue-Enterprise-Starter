@@ -66,7 +66,6 @@ const mutations = {
   [MUTATION_TYPES.SET_USER]: (state, { user }) => {
     if (!user) {
       state.user = user;
-      return;
     }
     // state.user += {
     //   _id: user._id

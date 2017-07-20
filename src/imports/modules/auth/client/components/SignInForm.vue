@@ -16,6 +16,10 @@
       </div>
       <button type='submit' :disabled='loggingIn'>Login</button>
     </form>
+    <div class='password-reset'>
+        <router-link to='reset-password'>Forgot your password?</router-link>  
+        <!-- <router-lnk to='reset-password'>Forgot your password?</router-link>   -->
+    </div>
     <auth-error />
   </div>
 </template>

@@ -9,6 +9,10 @@ const PageSignInAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageSignIn.vue')
     .then(PageSignIn => resolve(PageSignIn.default));
 };
+const PageResetPasswordAsync = (resolve) => {
+import('/src/imports/modules/pages/client/components/PageResetPassword.vue')
+  .then(PageResetPassword => resolve(PageResetPassword.default));
+};
 const PageHomeAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageHome.vue')
     .then((PageHome) => resolve(PageHome.default));
@@ -22,6 +26,7 @@ const createRouter = () => {
   const routes = [
     { path: '/sign-up', component: PageSignUpAsync },
     { path: '/sign-in', component: PageSignInAsync },
+    { path: '/reset-password', component: PageResetPasswordAsync },
     { path: '/home', component: PageHomeAsync },
     { path: '/private', component: PagePrivateAsync, beforeEnter: requireAuth },
     { path: '/', component: PageHomeAsync }
