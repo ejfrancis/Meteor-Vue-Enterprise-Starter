@@ -11,6 +11,6 @@ export const Meteor = {
       username: 'testuser',
       email: 'testuser@test.com',
       profile: {}
-    }
+    };
   }
 };
