@@ -2,13 +2,19 @@
   <div class='RegisterForm'>
     <form @submit.prevent="submitForm">
       <h3>Register</h3>
-      <label>username</label>
-      <input v-model="formData.username"/>
-      <label>email</label>
-      <input v-model="formData.email"/>
-      <label>password</label>
-      <input v-model="formData.password" />
-      <button>Register</button>
+      <div>
+        <label>username</label>
+        <input v-model="formData.username" />
+      </div>
+      <div>
+        <label>email</label>
+        <input v-model="formData.email" />
+      </div>
+      <div>
+        <label>password</label>
+        <input v-model="formData.password" />
+      </div>
+      <button type='submit'>Register</button>
     </form>
   </div>
 </template>
@@ -23,6 +29,13 @@ export default {
         username: '',
         email: '',
         password: ''
+      }
+    }
+  },
+  meteor: {
+    redirectLoggedInUser () {
+      if (Meteor.user()) {
+        this.$router.replace('/');
       }
     }
   },
