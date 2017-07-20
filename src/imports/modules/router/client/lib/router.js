@@ -1,7 +1,6 @@
 import VueRouter from 'vue-router';
 import { requireAuth } from './require-auth';
 
-
 const PageSignUpAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageSignUp.vue')
     .then(PageSignUp => resolve(PageSignUp.default));
