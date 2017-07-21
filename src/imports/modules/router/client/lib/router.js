@@ -26,7 +26,7 @@ const createRouter = () => {
   const routes = [
     { path: '/sign-up', component: PageSignUpAsync, beforeEnter: requireNoAuth },
     { path: '/sign-in', component: PageSignInAsync, beforeEnter: requireNoAuth },
-    { path: '/reset-password', component: PageResetPasswordAsync, beforeEnter: requireNoAuth },
+    { path: '/reset-password/:token', component: PageResetPasswordAsync, beforeEnter: requireNoAuth },
     { path: '/home', component: PageHomeAsync },
     { path: '/private', component: PagePrivateAsync, beforeEnter: requireAuth },
     { path: '/', component: PageHomeAsync }

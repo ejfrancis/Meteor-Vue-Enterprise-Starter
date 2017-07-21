@@ -1,5 +1,6 @@
 {
   "public": {
+    "siteName": "SomeWebsite-dev",
     "someConfigValue": "I'm from config.development.json"
   },
   "private": {

@@ -3,7 +3,9 @@ import { actions, mutations } from './auth-actions-mutations';
 const initialState = {
   user: null,
   loginError: undefined,
-  registerError: undefined
+  registerError: undefined,
+  passwordResetEmailSent: false,
+  passwordResetError: undefined
 };
 
 const getters = {
