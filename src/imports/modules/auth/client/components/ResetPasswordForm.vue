@@ -17,6 +17,9 @@
     <div v-if='passwordResetError'>
       {{ passwordResetError.reason }}
     </div>
+    <div v-if='token'>
+      Token found in URL.
+    </div>
   </div>
 </template>
 
@@ -47,7 +50,8 @@ export default {
   computed: {
    ...mapState({
      passwordResetEmailSent: (state) => state.auth.passwordResetEmailSent,
-     passwordResetError: (state) => state.auth.passwordResetError
+     passwordResetError: (state) => state.auth.passwordResetError,
+     token: (state) => state.route.params.token
    })
   },
   methods: {
