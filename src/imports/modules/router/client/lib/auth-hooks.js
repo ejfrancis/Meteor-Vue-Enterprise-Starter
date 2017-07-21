@@ -14,7 +14,7 @@ const requireAuth = (to, from, next) => {
 const requireNoAuth = (to, from, next) => {
   if (Meteor.userId()) {
     next({
-      path: '/'
+      path: '/home'
     });
   } else {
     next();

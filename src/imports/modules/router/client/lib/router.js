@@ -24,11 +24,12 @@ const PagePrivateAsync = (resolve) => {
 
 const createRouter = () => {
   const routes = [
-    { path: '/sign-up', component: PageSignUpAsync, beforeEnter: requireNoAuth },
-    { path: '/sign-in', component: PageSignInAsync, beforeEnter: requireNoAuth },
-    { path: '/reset-password/:token', component: PageResetPasswordAsync, beforeEnter: requireNoAuth },
-    { path: '/home', component: PageHomeAsync },
-    { path: '/private', component: PagePrivateAsync, beforeEnter: requireAuth },
+    { path: '/sign-up', name: 'sign-up', component: PageSignUpAsync, beforeEnter: requireNoAuth },
+    { path: '/sign-in', name: 'sign-in', component: PageSignInAsync, beforeEnter: requireNoAuth },
+    { path: '/reset-password', name: 'reset-password', component: PageResetPasswordAsync, beforeEnter: requireNoAuth },
+    { path: '/reset-password/:token', name: 'reset-password-token', component: PageResetPasswordAsync, beforeEnter: requireNoAuth },
+    { path: '/home', name: 'home', component: PageHomeAsync },
+    { path: '/private', name: 'private', component: PagePrivateAsync, beforeEnter: requireAuth },
     { path: '/', component: PageHomeAsync }
   ];
 

@@ -1,24 +1,45 @@
 <style scoped>
+
 </style>
 
 <template>
   <div class='ResetPasswordForm'>
     <h3>Reset Password</h3>
-    <form @submit.prevent="submitForm">
-       <div>
-        <label>Enter your email</label>
-        <input v-model="formData.email" />
-      </div> 
-      <button type='submit' :disabled='formData.email.length === 0'>Reset Password</button>
-    </form>
-    <div v-if='passwordResetEmailSent'>
-      Email sent!
+    <!-- no token, send email form -->
+    <div v-if='!token'>
+      <form @submit.prevent="submitSendEmailForm">
+        <div>
+          <label>Enter your email</label>
+          <input v-model='formData.email' />
+        </div>
+        <button type='submit' :disabled='formData.email.length === 0'>Reset Password</button>
+        <div v-if='passwordResetEmailSent'>
+          Email sent!
+        </div>
+      </form>
+      <div v-if='passwordResetError'>
+        {{ passwordResetError.reason }}
+      </div>
     </div>
-    <div v-if='passwordResetError'>
-      {{ passwordResetError.reason }}
-    </div>
+    <!-- token, reset pass form -->
     <div v-if='token'>
       Token found in URL.
+      <form @submit.prevent="submitResetEmailForm">
+        <div>
+          <label>Enter your new password</label>
+          <input type='password' v-model='formData.newPassword1'>
+        </div>
+        <div>
+          <label>Please re-enter your new password</label>
+          <input type='password' v-model='formData.newPassword2'>
+        </div>
+        <button type='submit' :disabled='
+          !formData.newPassword1
+          || !formData.newPassword2 
+          || (formData.newPassword1 !== formData.newPassword2) '>
+          Submit
+        </button>
+      </form>
     </div>
   </div>
 </template>
@@ -32,7 +53,9 @@ export default {
   data() {
     return {
       formData: {
-        email: ''
+        email: '',
+        newPassword1: '',
+        newPassword2: ''
       }
     }
   },
@@ -48,17 +71,17 @@ export default {
     }
   },
   computed: {
-   ...mapState({
-     passwordResetEmailSent: (state) => state.auth.passwordResetEmailSent,
-     passwordResetError: (state) => state.auth.passwordResetError,
-     token: (state) => state.route.params.token
-   })
+    ...mapState({
+      passwordResetEmailSent: (state) => state.auth.passwordResetEmailSent,
+      passwordResetError: (state) => state.auth.passwordResetError,
+      token: (state) => state.route.params.token
+    })
   },
   methods: {
     ...mapActions({
       sendResetPasswordEmail: (actions) => actions.auth.sendResetPasswordEmail
     }),
-    async submitForm() {
+    async submitSendEmailForm() {
       try {
         if (!this.formData.email) {
           return;
