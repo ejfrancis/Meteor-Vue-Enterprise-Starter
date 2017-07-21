@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 
 const requireAuth = (to, from, next) => {
-  if (!Meteor.user()) {
+  if (!Meteor.userId()) {
     next({
       path: '/sign-in',
       query: { redirect: to.fullPath }
@@ -11,6 +11,17 @@ const requireAuth = (to, from, next) => {
   }
 };
 
+const requireNoAuth = (to, from, next) => {
+  if (Meteor.userId()) {
+    next({
+      path: '/'
+    });
+  } else {
+    next();
+  }
+};
+
 export {
-  requireAuth
+  requireAuth,
+  requireNoAuth
 };

@@ -37,13 +37,6 @@ export default {
       }
     }
   },
-  meteor: {
-    redirectLoggedInUser () {
-      if (Meteor.user()) {
-        this.$router.replace('/');
-      }
-    }
-  },
   methods: {
     ...mapActions({
       registerUser: (actions) => actions.auth.registerUser,
