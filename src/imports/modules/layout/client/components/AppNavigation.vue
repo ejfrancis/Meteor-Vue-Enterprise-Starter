@@ -6,7 +6,7 @@
   height: 40px;
 }
 
-.auth-container {
+.navbar-auth-container {
   position: relative;
   float: right;
   margin-right: 10px;
@@ -39,18 +39,18 @@ a {
   <nav class='AppNavigation'>
     <router-link to='home'>Home</router-link>
     <router-link to='private'>Private</router-link>
-    <span class='auth-container'>
-      <Auth />
+    <span class='navbar-auth-container'>
+      <nav-bar-auth />
     </span>
   </nav>
 </template>
 
 <script>
-import Auth from '/src/imports/modules/auth/client/components/Auth.vue';
+import NavBarAuth from '/src/imports/modules/auth/client/components/NavBarAuth.vue';
 
 export default {
   components: {
-    Auth
+    NavBarAuth
   }
 }
 </script>

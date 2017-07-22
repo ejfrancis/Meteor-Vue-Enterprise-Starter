@@ -1,5 +1,5 @@
 import VueRouter from 'vue-router';
-import { requireAuth, requireNoAuth } from './auth-hooks';
+import { requireAuth, requireNoAuth } from '/src/imports/modules/auth/client/lib/router-auth-hooks';
 
 const PageSignUpAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageSignUp.vue')
@@ -9,9 +9,9 @@ const PageSignInAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageSignIn.vue')
     .then(PageSignIn => resolve(PageSignIn.default));
 };
-const PageResetPasswordAsync = (resolve) => {
-  import('/src/imports/modules/pages/client/components/PageResetPassword.vue')
-    .then(PageResetPassword => resolve(PageResetPassword.default));
+const PagePasswordResetAsync = (resolve) => {
+  import('/src/imports/modules/pages/client/components/PagePasswordReset.vue')
+    .then(PagePasswordReset => resolve(PagePasswordReset.default));
 };
 const PageHomeAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageHome.vue')
@@ -26,8 +26,7 @@ const createRouter = () => {
   const routes = [
     { path: '/sign-up', name: 'sign-up', component: PageSignUpAsync, beforeEnter: requireNoAuth },
     { path: '/sign-in', name: 'sign-in', component: PageSignInAsync, beforeEnter: requireNoAuth },
-    { path: '/reset-password', name: 'reset-password', component: PageResetPasswordAsync, beforeEnter: requireNoAuth },
-    { path: '/reset-password/:token', name: 'reset-password-token', component: PageResetPasswordAsync, beforeEnter: requireNoAuth },
+    { path: '/reset-password', name: 'reset-password', component: PagePasswordResetAsync, beforeEnter: requireNoAuth },
     { path: '/home', name: 'home', component: PageHomeAsync },
     { path: '/private', name: 'private', component: PagePrivateAsync, beforeEnter: requireAuth },
     { path: '/', component: PageHomeAsync }

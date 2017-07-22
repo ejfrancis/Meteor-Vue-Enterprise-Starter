@@ -9,10 +9,11 @@ const MUTATION_TYPES = {
   // register
   REGISTER_FAILED: 'REGISTER_FAILED',
   CLEAR_REGISTER_FAILURE: 'CLEAR_REGISTER_FAILURE',
-  // reset password
+  // password reset
   PASSWORD_RESET_EMAIL_SENT: 'PASSWORD_RESET_EMAIL_SENT',
   PASSWORD_RESET_FAILED: 'PASSWORD_RESET_FAILED',
-  CLEAR_PASSWORD_RESET_FAILURE: 'CLEAR_PASSWORD_RESET_FAILURE'
+  CLEAR_PASSWORD_RESET_FAILURE: 'CLEAR_PASSWORD_RESET_FAILURE',
+  PASSWORD_RESET_COMPLETE: 'PASSWORD_RESET_COMPLETE'
 };
 
 const actions = {
@@ -66,7 +67,10 @@ const actions = {
   clearRegisterFailure: ({ commit }) => {
     commit(MUTATION_TYPES.CLEAR_REGISTER_FAILURE);
   },
-  sendResetPasswordEmail ({ commit, state }, { email }) {
+  clearPasswordResetFailure: ({ commit }) => {
+    commit(MUTATION_TYPES.CLEAR_PASSWORD_RESET_FAILURE);
+  },
+  sendPasswordResetEmail ({ commit, state }, { email }) {
     return new Promise((resolve, reject) => {
       Accounts.forgotPassword({ email }, (err) => {
         if (err) {
@@ -75,6 +79,19 @@ const actions = {
         }
         commit(MUTATION_TYPES.CLEAR_PASSWORD_RESET_FAILURE);
         commit(MUTATION_TYPES.PASSWORD_RESET_EMAIL_SENT);
+        return resolve(true);
+      });
+    });
+  },
+  passwordReset ({ commit, state }, { token, newPassword }) {
+    return new Promise((resolve, reject) => {
+      Accounts.resetPassword(token, newPassword, (err) => {
+        if (err) {
+          commit(MUTATION_TYPES.PASSWORD_RESET_FAILED, { error: err });
+          return resolve(false);
+        }
+        commit(MUTATION_TYPES.CLEAR_PASSWORD_RESET_FAILURE);
+        commit(MUTATION_TYPES.PASSWORD_RESET_COMPLETE);
         return resolve(true);
       });
     });
@@ -110,6 +127,9 @@ const mutations = {
   },
   [MUTATION_TYPES.CLEAR_PASSWORD_RESET_FAILURE]: (state) => {
     state.passwordResetError = undefined;
+  },
+  [MUTATION_TYPES.PASSWORD_RESET_COMPLETE]: (state) => {
+    state.passwordResetComplete = true;
   }
 };
 

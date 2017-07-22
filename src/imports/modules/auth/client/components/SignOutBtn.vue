@@ -1,5 +1,5 @@
 <template>
-  <button @click="logoutUserAndRedirect" class='LogoutBtn'>Logout</button>
+  <button @click="logoutUserAndRedirect" class='SignOutBtn'>Logout</button>
 </template>
 
 <script>
@@ -14,7 +14,7 @@ export default {
       try {
         const worked = await this.logoutUser();
         if (worked) {
-          this.$router.replace('/');
+          this.$router.push('/');
         }
       } catch (e) {
         console.warn('Logout error: ' + e);

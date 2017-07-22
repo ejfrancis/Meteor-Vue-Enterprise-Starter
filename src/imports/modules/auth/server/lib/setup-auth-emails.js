@@ -8,7 +8,9 @@ const setUpAuthEmails = () => {
 
 A password reset has been requested for your account on ${Meteor.settings.public.siteName}. To continue resetting your password please click the following link:
 
-${url.replace('#/', '')}
+${url.replace('#/', '').replace('reset-password/', 'reset-password?token=')}
+
+Your token is: ${url.substring(url.lastIndexOf('/') + 1, url.length)}
 
 If you didn't request to change your password, please ignore this email. If it keeps happening, please contact us.
 

@@ -1,5 +1,5 @@
 <style scoped>
-.Auth {
+.NavBarAuth {
   position: relative;
   max-width: 300px;
   display: block;
@@ -16,11 +16,11 @@
 </style>
 
 <template>
-  <div class='Auth'>
+  <div class='NavBarAuth'>
     <div v-if='user' class='signed-in'>
       <span class='hello'>Hello {{user.username}}</span>
       <span>
-        <logout-btn />
+        <sign-out-btn />
       </span>
     </div>
     <div v-if='!user' class='signed-out'>
@@ -39,7 +39,7 @@ import { mapState, mapActions } from 'vuex-alt';
 import { Meteor } from 'meteor/meteor';
 import SignUpBtn from './SignUpBtn.vue';
 import SignInBtn from './SignInBtn.vue';
-import LogoutBtn from './LogoutBtn.vue';
+import SignOutBtn from './SignOutBtn.vue';
 
 
 // // only import the icons you use to reduce bundle size
@@ -55,12 +55,9 @@ import LogoutBtn from './LogoutBtn.vue';
 
 export default {
   components: {
-    LogoutBtn,
     SignUpBtn,
-    SignInBtn
-  },
-  props: {
-    loginPath: '/'
+    SignInBtn,
+    SignOutBtn
   },
   meteor: {
     // load the user object

@@ -5,7 +5,8 @@ const initialState = {
   loginError: undefined,
   registerError: undefined,
   passwordResetEmailSent: false,
-  passwordResetError: undefined
+  passwordResetError: undefined,
+  passwordResetComplete: false
 };
 
 const getters = {

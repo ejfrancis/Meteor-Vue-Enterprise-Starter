@@ -47,7 +47,7 @@ export default {
     redirectWhenAuthenticated() {
       // will re-run when Meteor.user() changes, and redirect if appropriate
       if (Meteor.user()) {
-        this.$router.replace(this.urlRedirect || '/');
+        this.$router.push(this.urlRedirect || '/');
       }
     }
   },
@@ -68,7 +68,7 @@ export default {
           password: this.formData.password
         });
         if (authenticated) {
-          this.$router.replace(this.urlRedirect || '/');
+          this.$router.push(this.urlRedirect || '/');
         }
       } catch (e) {
         console.warn('Authentication error: ' + e);
