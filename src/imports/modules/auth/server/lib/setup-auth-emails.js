@@ -14,7 +14,8 @@ Your token is: ${url.substring(url.lastIndexOf('/') + 1, url.length)}
 
 If you didn't request to change your password, please ignore this email. If it keeps happening, please contact us.
 
-Thank you.
+Thank you,
+${Meteor.settings.public.siteName}
 `;
 };
 
