@@ -28,15 +28,20 @@ The directory structure is built in a way to make things predictable and enforce
 All of the application's business logic and UI will live inside application modules within the `src/imports/modules/` directory. An application module consists of all of the code, both client and server, related to a specific feature or domain. Classes and components that are related to each other or use each other are kept within the same module if possible. This keeps code modular, and makes it easy to distribute certain parts of your code as packages later on if you see fit.
 
 An application module contains the following:
-* client code
+* client code - `client/` directory
   * components - all Vue components for this module
   * state - all Vuex state and actions, as well as any data mocks, for this module
   * library - any client classes or functions for this module that aren't a component or Vuex-related
-* server code
+* server code - `server/` directory
   * publications - all Meteor data publications
-  * methods - all Meteor methods using the Meteor RPC system
   * rest - any REST endpoints
-  * library - any server classes or functions for this module that aren't a publication, method, or REST endpoint
+  * email - code and templates used for emails that are sent by the server
+  * library - any server classes or functions for this module that aren't a publication or REST endpoint
+* shared code - `shared/` directory
+  * methods - all Meteor methods using the Meteor RPC system
+  * collections - Meteor Mongo database collections
+  * schemas - schemas used for validation on both client and server
+
 
 ### Complete Application Module Example
 Below is what a complete module's directory might look like. This would live inside `src/imports/modules/module-name/`.
@@ -51,15 +56,23 @@ Below is what a complete module's directory might look like. This would live ins
   |  |_lib/
   |    |_some-feature-specific-library.js
   |_server/
-    |_publications/
-    |  |_some-publication.js
+  |  |_publications/
+  |  |  |_some-publication.js
+  |  |_rest/
+  |  |  |_one-rest-endpoint.js
+  |  |  |_another-rest-endpoint.js
+  |  |_email/
+  |  |  |_some-email-template.html
+  |  |  |_some-email-setup.js
+  |  |_lib/
+  |     |_some-server-library.js
+  |_shared/
     |_methods/
     |  |_some-methods.js
-    |_rest/
-    |  |_one-rest-endpoint.js
-    |  |_another-rest-endpoint.js
-    |_lib/
-       |_some-server-library.js
+    |_collections/
+    |  |_some-collection.js
+    |_schemas/
+      |_a-schema.js
 ```
 
 ### Simple Application Module Example
