@@ -45,7 +45,7 @@ const userSchema = new SimpleSchema({
   },
   profile: {
     type: userProfileSchema,
-    optional: true
+    required: true
   },
   // Make sure this services field is in your schema if you're using any of the accounts packages
   services: {

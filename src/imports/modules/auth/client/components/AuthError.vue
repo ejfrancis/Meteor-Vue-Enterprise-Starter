@@ -9,18 +9,26 @@
     <p class='error' v-if='loginError'>Woops! That wasn't right, please try again.</p>
     <p class='error' v-if='registerError'>{{registerError.reason || registerError.details && registerError.details[0] && registerError.details[0].message || 'Registration failed.'}}</p>
     <p class='error' v-if='passwordResetError'>Your password reset link has expired.</p>
+    <p class='error' v-if='enrollAccountError'>{{ enrollAccountErrorMessage }}</p>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex-alt';
+import { passwordSchema } from './../../shared/schemas/password-schema';
 
 export default {
+  data() {
+    return {
+      enrollAccountErrorMessage: passwordSchema.summary
+    }
+  },
   computed: {
     ...mapState({
       loginError: (state) => state.auth.loginError,
       registerError: (state) => state.auth.registerError,
-      passwordResetError: (state) => state.auth.passwordResetError
+      passwordResetError: (state) => state.auth.passwordResetError,
+      enrollAccountError: (state) => state.auth.enrollAccountError 
     }),
     registerErrorMessage() {
       if (this.registerError && this.registerError.details && this.registerError.details.length > 0) {

@@ -8,18 +8,18 @@ const passwordSchema = new SimpleSchema({
     min: 8,
     max: 16,
     custom: function () {
-      const capitals = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+      const uppercase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
       const lowercase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
       const specialCharacters = ['?', '!', '@', '#', '$', '%', '&', '<', '>', '(', ')', '_', '-', '+', '=', '{', '}', '[', ']', '/', '\\', ',', '.', '`', '~'];
-      const requiredCapitals = 1;
+      const requiredUppsercase = 1;
       const requiredLowercase = 1;
       const requiredSpecialCharacters = 1;
-      let numCapitals = 0;
+      let numUppercase = 0;
       let numLowercase = 0;
       let numSpecialCharacters = 0;
       Array.from(this.value).forEach((letter) => {
-        if (capitals.indexOf(letter) !== -1) {
-          numCapitals++;
+        if (uppercase.indexOf(letter) !== -1) {
+          numUppercase++;
         }
         if (lowercase.indexOf(letter) !== -1) {
           numLowercase++;
@@ -29,7 +29,7 @@ const passwordSchema = new SimpleSchema({
         }
       });
 
-      if (numCapitals < requiredCapitals ||
+      if (numUppercase < requiredUppsercase ||
         numLowercase < requiredLowercase ||
         numSpecialCharacters < requiredSpecialCharacters) {
         return SimpleSchema.ErrorTypes.VALUE_NOT_ALLOWED;
@@ -38,7 +38,7 @@ const passwordSchema = new SimpleSchema({
     }
   }
 });
-console.log('--valid=', passwordSchema.validate({ password: 'a!bcDefgh' }));
+passwordSchema.summary = 'Passwords must be between 8 and 16 characters long, and should include at least one lowercase letter, one uppercase letter, and one special character.';
 
 export {
   passwordSchema

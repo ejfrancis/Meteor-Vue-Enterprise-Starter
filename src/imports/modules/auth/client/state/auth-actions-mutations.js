@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { createUnverifiedUser } from './../../shared/methods/create-unverified-user';
+import { enrollVerifyAccount } from './../../shared/methods/enroll-verify-account';
 
 const MUTATION_TYPES = {
   SET_USER: 'SET_USER',
@@ -14,9 +15,11 @@ const MUTATION_TYPES = {
   PASSWORD_RESET_EMAIL_SENT: 'PASSWORD_RESET_EMAIL_SENT',
   PASSWORD_RESET_FAILED: 'PASSWORD_RESET_FAILED',
   CLEAR_PASSWORD_RESET_FAILURE: 'CLEAR_PASSWORD_RESET_FAILURE',
-  PASSWORD_RESET_COMPLETE: 'PASSWORD_RESET_COMPLETE',
   // enroll account via email
-  ENROLL_ACCOUNT_EMAIL_SENT: 'ENROLL_ACCOUNT_EMAIL_SENT'
+  ENROLL_ACCOUNT_EMAIL_SENT: 'ENROLL_ACCOUNT_EMAIL_SENT',
+  ENROLL_ACCOUNT_SUBMIT_ATTEMPTED: 'ENROLL_ACCOUNT_SUBMIT_ATTEMPTED',
+  ENROLL_ACCOUNT_FAILED: 'ENROLL_ACCOUNT_FAILED',
+  CLEAR_ENROLL_ACCOUNT_FAILURE: 'CLEAR_ENROLL_ACCOUNT_FAILURE'
 };
 
 const actions = {
@@ -41,19 +44,8 @@ const actions = {
         return reject(e);
       }
     });
-    //   Accounts.createUser({
-    //     profile: { firstName, lastName },
-    //     email
-    //   }, (err) => {
-    //     if (err) {
-    //       console.warn(`Error registering user: ${err}`);
-    //       commit(MUTATION_TYPES.REGISTER_FAILED, { error: err });
-    //       return reject(err);
-    //     }
-    //     commit(MUTATION_TYPES.CLEAR_REGISTER_FAILURE);
-    //     return resolve();
-    //   });
   },
+  // login
   loginUser ({ commit, state }, { username, password }) {
     return new Promise((resolve, reject) => {
       Meteor.loginWithPassword(username, password, (err) => {
@@ -67,6 +59,13 @@ const actions = {
       });
     });
   },
+  clearLoginFailure: ({ commit }) => {
+    commit(MUTATION_TYPES.CLEAR_LOGIN_FAILURE);
+  },
+  setUser: ({ commit }, { user }) => {
+    commit(MUTATION_TYPES.SET_USER, { user });
+  },
+  // logout
   logoutUser () {
     return new Promise((resolve, reject) => {
       Meteor.logout((err) => {
@@ -76,12 +75,6 @@ const actions = {
         return resolve(true);
       });
     });
-  },
-  setUser: ({ commit }, { user }) => {
-    commit(MUTATION_TYPES.SET_USER, { user });
-  },
-  clearLoginFailure: ({ commit }) => {
-    commit(MUTATION_TYPES.CLEAR_LOGIN_FAILURE);
   },
   // register
   clearRegisterFailure: ({ commit }) => {
@@ -115,6 +108,29 @@ const actions = {
         commit(MUTATION_TYPES.PASSWORD_RESET_COMPLETE);
         return resolve(true);
       });
+    });
+  },
+  enrollVerifyAccount ({ commit, state }, { token, newPassword }) {
+    return new Promise((resolve, reject) => {
+      try {
+        commit(MUTATION_TYPES.ENROLL_ACCOUNT_SUBMIT_ATTEMPTED);
+        enrollVerifyAccount.call({ token, newPassword }, (err) => {
+          if (err) {
+            commit(MUTATION_TYPES.ENROLL_ACCOUNT_FAILED, { error: err });
+            return reject(err);
+            // return;
+          }
+          commit(MUTATION_TYPES.CLEAR_ENROLL_ACCOUNT_FAILURE);
+          commit(MUTATION_TYPES.ENROLL_ACCOUNT_SUCCESS);
+          return resolve(true);
+        });
+      } catch (e) {
+        // validation error causes throw on the client, to avoid server
+        // round trip just to find out its invalid
+        console.log('--enrollVerifyAccount caught err:', e);
+        commit(MUTATION_TYPES.REGISTER_FAILED, { error: e });
+        return reject(e);
+      }
     });
   }
 };
@@ -150,12 +166,21 @@ const mutations = {
   [MUTATION_TYPES.CLEAR_PASSWORD_RESET_FAILURE]: (state) => {
     state.passwordResetError = undefined;
   },
-  [MUTATION_TYPES.PASSWORD_RESET_COMPLETE]: (state) => {
-    state.passwordResetComplete = true;
-  },
   // enroll account via email
   [MUTATION_TYPES.ENROLL_ACCOUNT_EMAIL_SENT]: (state) => {
     state.enrollAccountEmailSent = true;
+  },
+  [MUTATION_TYPES.ENROLL_ACCOUNT_SUBMIT_ATTEMPTED]: (state) => {
+    state.enrollAccountSubmitAttempted = true;
+  },
+  [MUTATION_TYPES.ENROLL_ACCOUNT_FAILED]: (state, { error }) => {
+    state.enrollAccountError = error;
+  },
+  [MUTATION_TYPES.CLEAR_ENROLL_ACCOUNT_FAILURE]: (state) => {
+    state.enrollAccountError = undefined;
+  },
+  [MUTATION_TYPES.ENROLL_ACCOUNT_COMPLETE]: (state) => {
+    state.enrollAccountComplete = true;
   }
 };
 

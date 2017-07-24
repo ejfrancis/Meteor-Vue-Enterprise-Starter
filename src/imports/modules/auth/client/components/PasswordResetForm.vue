@@ -5,7 +5,7 @@
 <template>
   <div class='PasswordResetForm'>
     <h3>Reset Password</h3>
-
+  
     <form @submit.prevent="submitResetPasswordForm">
       <div>
         <label>Enter your new password</label>
@@ -26,6 +26,7 @@
 <script>
 import { mapState, mapActions } from 'vuex-alt';
 import AuthError from './AuthError';
+import { passwordSchema } from './../../shared/schemas/password-schema';
 
 export default {
   components: {
@@ -51,10 +52,17 @@ export default {
       changedSuccessfully: (state) => state.route.query.success
     }),
     isNewPasswordSubmitDisabled() {
-      return !this.formData.newPassword1 
-        || !this.formData.newPassword2 
-        || (this.formData.newPassword1 !== this.formData.newPassword2)
-        ||  this.formData.newPassword1.length < 2;
+      if (!this.formData.newPassword1 ||
+        !this.formData.newPassword2 ||
+        (this.formData.newPassword1 !== this.formData.newPassword2)) {
+        return true;
+      }
+      try {
+        passwordSchema.validate({ password: this.formData.newPassword });
+        return false;
+      } catch (e) {
+        return true;
+      }
     }
   },
   methods: {
@@ -78,12 +86,12 @@ export default {
         if (this.formData.newPassword1 !== this.formData.newPassword2) {
           return;
         }
-        const resetSuccess = await this.passwordReset({ 
-          token: this.token, 
+        const resetSuccess = await this.passwordReset({
+          token: this.token,
           newPassword: this.formData.newPassword1
         });
         if (resetSuccess) {
-          this.$router.push({ path: 'reset-password', query: { success: true }});
+          this.$router.push({ path: 'reset-password', query: { success: true } });
         }
       } catch (e) {
         // handled in vuex

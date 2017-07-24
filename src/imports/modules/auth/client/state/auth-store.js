@@ -8,9 +8,10 @@ const initialState = {
   // password resret
   passwordResetEmailSent: false,
   passwordResetError: undefined,
-  passwordResetComplete: false,
   // enroll account via email
-  enrollAccountEmailSent: false
+  enrollAccountEmailSent: false,
+  enrollAccountSubmitAttempted: false,
+  enrollAccountError: undefined
 };
 
 const getters = {
