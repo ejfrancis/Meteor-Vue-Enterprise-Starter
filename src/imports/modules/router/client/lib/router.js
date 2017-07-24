@@ -13,6 +13,10 @@ const PagePasswordResetAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PagePasswordReset.vue')
     .then(PagePasswordReset => resolve(PagePasswordReset.default));
 };
+const PageEnrollAccountAsync = (resolve) => {
+  import('/src/imports/modules/pages/client/components/PageEnrollAccount.vue')
+    .then(PageEnrollAccount => resolve(PageEnrollAccount.default));
+};
 const PageHomeAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageHome.vue')
     .then((PageHome) => resolve(PageHome.default));
@@ -25,6 +29,7 @@ const PagePrivateAsync = (resolve) => {
 const createRouter = () => {
   const routes = [
     { path: '/sign-up', name: 'sign-up', component: PageSignUpAsync, beforeEnter: requireNoAuth },
+    { path: '/enroll-account', name: 'enroll-account', component: PageEnrollAccountAsync, beforeEnter: requireNoAuth },
     { path: '/sign-in', name: 'sign-in', component: PageSignInAsync, beforeEnter: requireNoAuth },
     { path: '/reset-password', name: 'reset-password', component: PagePasswordResetAsync, beforeEnter: requireNoAuth },
     { path: '/home', name: 'home', component: PageHomeAsync },

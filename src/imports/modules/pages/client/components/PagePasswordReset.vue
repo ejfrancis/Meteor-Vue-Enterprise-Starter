@@ -4,7 +4,7 @@
 
 <template>
   <div class='PagePasswordReset'>
-     <!-- no token and didn't complete changing password, show email form -->
+     <!-- no token in url and didn't complete changing password, show email form -->
     <div v-if='!token && !changedSuccessfully'>
       <password-reset-email-form />
     </div>
