@@ -7,7 +7,7 @@
 <template>
   <div class='AuthError'>
     <p class='error' v-if='loginError'>Woops! That wasn't right, please try again.</p>
-    <p class='error' v-if='registerError'>{{registerError.details && registerError.details[0] && registerError.details[0].message || 'Registration failed.'}}</p>
+    <p class='error' v-if='registerError'>{{registerError.reason || registerError.details && registerError.details[0] && registerError.details[0].message || 'Registration failed.'}}</p>
     <p class='error' v-if='passwordResetError'>Your password reset link has expired.</p>
   </div>
 </template>

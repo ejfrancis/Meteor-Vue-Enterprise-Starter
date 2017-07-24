@@ -14,7 +14,9 @@ const MUTATION_TYPES = {
   PASSWORD_RESET_EMAIL_SENT: 'PASSWORD_RESET_EMAIL_SENT',
   PASSWORD_RESET_FAILED: 'PASSWORD_RESET_FAILED',
   CLEAR_PASSWORD_RESET_FAILURE: 'CLEAR_PASSWORD_RESET_FAILURE',
-  PASSWORD_RESET_COMPLETE: 'PASSWORD_RESET_COMPLETE'
+  PASSWORD_RESET_COMPLETE: 'PASSWORD_RESET_COMPLETE',
+  // enroll account via email
+  ENROLL_ACCOUNT_EMAIL_SENT: 'ENROLL_ACCOUNT_EMAIL_SENT'
 };
 
 const actions = {
@@ -28,7 +30,8 @@ const actions = {
             // return;
           }
           commit(MUTATION_TYPES.CLEAR_REGISTER_FAILURE);
-          return resolve();
+          commit(MUTATION_TYPES.ENROLL_ACCOUNT_EMAIL_SENT);
+          return resolve(true);
         });
       } catch (e) {
         // validation error causes throw on the client, to avoid server
@@ -80,9 +83,11 @@ const actions = {
   clearLoginFailure: ({ commit }) => {
     commit(MUTATION_TYPES.CLEAR_LOGIN_FAILURE);
   },
+  // register
   clearRegisterFailure: ({ commit }) => {
     commit(MUTATION_TYPES.CLEAR_REGISTER_FAILURE);
   },
+  // password reset
   clearPasswordResetFailure: ({ commit }) => {
     commit(MUTATION_TYPES.CLEAR_PASSWORD_RESET_FAILURE);
   },
@@ -130,6 +135,7 @@ const mutations = {
   // register
   [MUTATION_TYPES.REGISTER_FAILED]: (state, { error }) => {
     state.registerError = error;
+    state.enrollAccountEmailSent = false;
   },
   [MUTATION_TYPES.CLEAR_REGISTER_FAILURE]: (state) => {
     state.registerError = undefined;
@@ -146,6 +152,10 @@ const mutations = {
   },
   [MUTATION_TYPES.PASSWORD_RESET_COMPLETE]: (state) => {
     state.passwordResetComplete = true;
+  },
+  // enroll account via email
+  [MUTATION_TYPES.ENROLL_ACCOUNT_EMAIL_SENT]: (state) => {
+    state.enrollAccountEmailSent = true;
   }
 };
 

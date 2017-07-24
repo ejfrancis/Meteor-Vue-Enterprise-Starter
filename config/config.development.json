@@ -1,7 +1,12 @@
 {
   "public": {
     "siteName": "SomeWebsite-dev",
-    "someConfigValue": "I'm from config.development.json"
+    "someConfigValue": "I'm from config.development.json",
+    "accounts": {
+      "emails": {
+        "fromAddress": "no-reply@example.com"
+      }
+    }
   },
   "private": {
     "someApiSecret": "someDevKey"

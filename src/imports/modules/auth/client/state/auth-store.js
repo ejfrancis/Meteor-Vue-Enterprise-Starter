@@ -3,10 +3,14 @@ import { actions, mutations } from './auth-actions-mutations';
 const initialState = {
   user: null,
   loginError: undefined,
+  // register
   registerError: undefined,
+  // password resret
   passwordResetEmailSent: false,
   passwordResetError: undefined,
-  passwordResetComplete: false
+  passwordResetComplete: false,
+  // enroll account via email
+  enrollAccountEmailSent: false
 };
 
 const getters = {

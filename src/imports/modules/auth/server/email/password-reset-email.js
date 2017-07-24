@@ -2,7 +2,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 
 const setupPasswordResetEmail = () => {
-  Accounts.emailTemplates.resetPassword.from = () => 'someemail@test.com';
+  Accounts.emailTemplates.resetPassword.from = () => `${Meteor.settings.public.accounts.emails.fromAddress}`;
   Accounts.emailTemplates.resetPassword.subject = () => `Password reset for ${Meteor.settings.public.siteName}`;
   Accounts.emailTemplates.resetPassword.text = (user, url) => `Hello ${user.username},
 

@@ -1,3 +1,9 @@
+<style scoped>
+.success {
+  color: green;
+}
+</style>
+
 <template>
   <div class='RegisterForm'>
     <form @submit.prevent="submitForm">
@@ -21,12 +27,13 @@
       </div> -->
       <button type='submit' :disabled='!formData.firstName || !formData.lastName || !formData.email'>Register</button>
     </form>
+    <p class='success' v-if='enrollAccountEmailSent'>Alright! Please check your email to find a link to complete account registration.</p>
     <auth-error />
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex-alt';
+import { mapActions, mapState } from 'vuex-alt';
 import AuthError from './AuthError.vue';
 
 export default {
@@ -42,10 +49,15 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapState({
+      enrollAccountEmailSent: (state) => state.auth.enrollAccountEmailSent
+    })
+  },
   methods: {
     ...mapActions({
       registerUser: (actions) => actions.auth.registerUser,
-      clearRegisterFailure: (actions) => actions.auth.clearRegisterFailure
+      clearRegisterFailure: (actions) => actions.auth.clearRegisterFailure,
     }),
     async submitForm() {
       try {
