@@ -25,7 +25,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex-alt';
-import { maskEmailAddress } from './../lib/user-data-masking';
 import AuthError from './AuthError';
 
 export default {
@@ -43,11 +42,6 @@ export default {
   },
   destroyed() {
     this.clearPasswordResetFailure();
-  },
-  filters: {
-    maskEmail(emailAddress) {
-      return maskEmailAddress(emailAddress);
-    }
   },
   computed: {
     ...mapState({
@@ -82,7 +76,6 @@ export default {
     async submitResetPasswordForm() {
       try {
         if (this.formData.newPassword1 !== this.formData.newPassword2) {
-          console.log('not equal passwords, res=', this.formData.newPassword1 !== this.formData.newPassword2);
           return;
         }
         const resetSuccess = await this.passwordReset({ 

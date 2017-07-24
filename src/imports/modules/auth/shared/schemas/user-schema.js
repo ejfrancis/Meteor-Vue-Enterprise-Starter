@@ -35,7 +35,7 @@ const userSchema = new SimpleSchema({
   },
   'emails.$.address': {
     type: String,
-    regEx: SimpleSchema.RegEx.Email
+    regEx: SimpleSchema.RegEx.EmailWithTLD
   },
   'emails.$.verified': {
     type: Boolean
