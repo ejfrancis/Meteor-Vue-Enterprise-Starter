@@ -14,7 +14,7 @@
         <label>password</label>
         <input v-model="formData.password" type='password' />
       </div>
-      <button type='submit' :disabled='loggingIn'>Login</button>
+      <button type='submit' :disabled='loggingIn || !formData.password || !formData.username'>Login</button>
     </form>
     <div class='password-reset'>
         <router-link to='reset-password'>Forgot your password?</router-link>  

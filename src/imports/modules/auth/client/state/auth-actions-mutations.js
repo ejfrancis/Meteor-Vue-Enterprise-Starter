@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
+import { createUnverifiedUser } from './../../shared/methods/create-unverified-user';
 
 const MUTATION_TYPES = {
   SET_USER: 'SET_USER',
@@ -17,23 +18,38 @@ const MUTATION_TYPES = {
 };
 
 const actions = {
-  registerUser ({ commit, state }, { username, email, password, name }) {
+  registerUser ({ commit, state }, { firstName, lastName, email }) {
     return new Promise((resolve, reject) => {
-      Accounts.createUser({
-        username,
-        password,
-        email,
-        name
-      }, (err) => {
-        if (err) {
-          console.warn(`Error registering user: ${err}`);
-          commit(MUTATION_TYPES.REGISTER_FAILED, { error: err });
-          return reject(err);
-        }
-        commit(MUTATION_TYPES.CLEAR_REGISTER_FAILURE);
-        return resolve();
-      });
+      try {
+        createUnverifiedUser.call({ email, firstName, lastName }, (err) => {
+          if (err) {
+            commit(MUTATION_TYPES.REGISTER_FAILED, { error: err });
+            return reject(err);
+            // return;
+          }
+          commit(MUTATION_TYPES.CLEAR_REGISTER_FAILURE);
+          return resolve();
+        });
+      } catch (e) {
+        // validation error causes throw on the client, to avoid server
+        // round trip just to find out its invalid
+        console.log('--registerUser caught err:', e);
+        commit(MUTATION_TYPES.REGISTER_FAILED, { error: e });
+        return reject(e);
+      }
     });
+    //   Accounts.createUser({
+    //     profile: { firstName, lastName },
+    //     email
+    //   }, (err) => {
+    //     if (err) {
+    //       console.warn(`Error registering user: ${err}`);
+    //       commit(MUTATION_TYPES.REGISTER_FAILED, { error: err });
+    //       return reject(err);
+    //     }
+    //     commit(MUTATION_TYPES.CLEAR_REGISTER_FAILURE);
+    //     return resolve();
+    //   });
   },
   loginUser ({ commit, state }, { username, password }) {
     return new Promise((resolve, reject) => {

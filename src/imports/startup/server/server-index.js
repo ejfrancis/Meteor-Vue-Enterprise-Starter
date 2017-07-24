@@ -1,8 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import { setupPasswordResetEmail } from '/src/imports/modules/auth/server/email/password-reset-email';
 import { setupAccountsValidation } from '/src/imports/modules/auth/server/lib/accounts-validation';
-
 import SimpleSchema from 'simpl-schema';
+
+// server-side of Meteor Methods must be imported
+import '/src/imports/modules/auth/shared/methods/create-unverified-user';
 
 Meteor.startup(() => {
   // configure the password reset email via the accounts-password package

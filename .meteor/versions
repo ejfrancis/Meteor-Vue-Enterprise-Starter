@@ -44,6 +44,7 @@ less@2.7.10-beta.8
 livedata@1.0.18
 localstorage@1.2.0-beta.8
 logging@1.1.17
+mdg:validated-method@1.1.0
 meteor@1.8.0-beta.8
 meteor-base@1.2.0-beta.8
 minifier-css@1.2.16

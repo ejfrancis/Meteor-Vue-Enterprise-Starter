@@ -3,18 +3,23 @@
     <form @submit.prevent="submitForm">
       <h3>Sign Up</h3>
       <div>
-        <label>username</label>
-        <input v-model="formData.username" />
+        <label>First Name</label>
+        <input v-model="formData.firstName" />
       </div>
       <div>
-        <label>email</label>
+        <label>Last Name</label>
+        <input v-model="formData.lastName" />
+      </div>
+      <div>
+        <label>Email</label>
         <input v-model="formData.email" />
       </div>
-      <div>
+      <!-- email verification requires setting password after Accounts.sendVerificationEmail -->
+      <!-- <div>
         <label>password</label>
         <input v-model="formData.password" type='password'/>
-      </div>
-      <button type='submit'>Register</button>
+      </div> -->
+      <button type='submit' :disabled='!formData.firstName || !formData.lastName || !formData.email'>Register</button>
     </form>
     <auth-error />
   </div>
@@ -31,9 +36,9 @@ export default {
   data() {
     return {
       formData: {
-        username: '',
-        email: '',
-        password: ''
+        firstName: '',
+        lastName: '',
+        email: ''
       }
     }
   },
@@ -44,10 +49,10 @@ export default {
     }),
     async submitForm() {
       try {
-        this.registerUser({
-          username: this.formData.username,
-          email: this.formData.email,
-          password: this.formData.password
+        await this.registerUser({
+          firstName: this.formData.firstName,
+          lastName: this.formData.lastName,
+          email: this.formData.email
         });
       } catch (e) {
         // don't need to handle it, stored in vuex
