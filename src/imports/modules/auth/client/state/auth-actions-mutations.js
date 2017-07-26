@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { createUnverifiedUser } from './../../shared/methods/create-unverified-user';
-import { enrollVerifyAccount } from './../../shared/methods/enroll-verify-account';
+import { passwordSchema } from './../../shared/schemas/password-schema';
 
 const MUTATION_TYPES = {
   SET_USER: 'SET_USER',
@@ -17,12 +17,13 @@ const MUTATION_TYPES = {
   CLEAR_PASSWORD_RESET_FAILURE: 'CLEAR_PASSWORD_RESET_FAILURE',
   // enroll account via email
   ENROLL_ACCOUNT_EMAIL_SENT: 'ENROLL_ACCOUNT_EMAIL_SENT',
-  ENROLL_ACCOUNT_SUBMIT_ATTEMPTED: 'ENROLL_ACCOUNT_SUBMIT_ATTEMPTED',
   ENROLL_ACCOUNT_FAILED: 'ENROLL_ACCOUNT_FAILED',
-  CLEAR_ENROLL_ACCOUNT_FAILURE: 'CLEAR_ENROLL_ACCOUNT_FAILURE'
+  CLEAR_ENROLL_ACCOUNT_FAILURE: 'CLEAR_ENROLL_ACCOUNT_FAILURE',
+  ENROLL_ACCOUNT_COMPLETE: 'ENROLL_ACCOUNT_COMPLETE'
 };
 
 const actions = {
+  // sign up and enrollment
   registerUser ({ commit, state }, { firstName, lastName, email }) {
     return new Promise((resolve, reject) => {
       try {
@@ -39,18 +40,39 @@ const actions = {
       } catch (e) {
         // validation error causes throw on the client, to avoid server
         // round trip just to find out its invalid
-        console.log('--registerUser caught err:', e);
         commit(MUTATION_TYPES.REGISTER_FAILED, { error: e });
         return reject(e);
       }
     });
+  },
+  enrollVerfiyAccount ({ commit, state }, { token, newPassword }) {
+    return new Promise((resolve, reject) => {
+      // make sure password validates before sending
+      try {
+        passwordSchema.validate({ password: newPassword });
+      } catch (e) {
+        commit(MUTATION_TYPES.ENROLL_ACCOUNT_FAILED, { error: e });
+        return resolve(false);
+      }
+      Accounts.resetPassword(token, newPassword, (err) => {
+        if (err) {
+          commit(MUTATION_TYPES.ENROLL_ACCOUNT_FAILED, { error: err });
+          return resolve(false);
+        }
+        commit(MUTATION_TYPES.CLEAR_ENROLL_ACCOUNT_FAILURE);
+        commit(MUTATION_TYPES.ENROLL_ACCOUNT_COMPLETE);
+        return resolve(true);
+      });
+    });
+  },
+  clearEnrollAccountFailure: ({ commit }) => {
+    commit(MUTATION_TYPES.CLEAR_ENROLL_ACCOUNT_FAILURE);
   },
   // login
   loginUser ({ commit, state }, { username, password }) {
     return new Promise((resolve, reject) => {
       Meteor.loginWithPassword(username, password, (err) => {
         if (err) {
-          console.warn(`Error logging in: ${err}`);
           commit(MUTATION_TYPES.LOGIN_FAILED, { error: err });
           return resolve(false);
         }
@@ -109,37 +131,12 @@ const actions = {
         return resolve(true);
       });
     });
-  },
-  enrollVerifyAccount ({ commit, state }, { token, newPassword }) {
-    return new Promise((resolve, reject) => {
-      try {
-        commit(MUTATION_TYPES.ENROLL_ACCOUNT_SUBMIT_ATTEMPTED);
-        enrollVerifyAccount.call({ token, newPassword }, (err) => {
-          if (err) {
-            commit(MUTATION_TYPES.ENROLL_ACCOUNT_FAILED, { error: err });
-            return reject(err);
-            // return;
-          }
-          commit(MUTATION_TYPES.CLEAR_ENROLL_ACCOUNT_FAILURE);
-          commit(MUTATION_TYPES.ENROLL_ACCOUNT_SUCCESS);
-          return resolve(true);
-        });
-      } catch (e) {
-        // validation error causes throw on the client, to avoid server
-        // round trip just to find out its invalid
-        console.log('--enrollVerifyAccount caught err:', e);
-        commit(MUTATION_TYPES.REGISTER_FAILED, { error: e });
-        return reject(e);
-      }
-    });
   }
 };
 
 const mutations = {
   [MUTATION_TYPES.SET_USER]: (state, { user }) => {
-    if (!user) {
-      state.user = user;
-    }
+    state.user = user;
   },
   // login
   [MUTATION_TYPES.LOGIN_FAILED]: (state, { error }) => {
@@ -169,9 +166,6 @@ const mutations = {
   // enroll account via email
   [MUTATION_TYPES.ENROLL_ACCOUNT_EMAIL_SENT]: (state) => {
     state.enrollAccountEmailSent = true;
-  },
-  [MUTATION_TYPES.ENROLL_ACCOUNT_SUBMIT_ATTEMPTED]: (state) => {
-    state.enrollAccountSubmitAttempted = true;
   },
   [MUTATION_TYPES.ENROLL_ACCOUNT_FAILED]: (state, { error }) => {
     state.enrollAccountError = error;

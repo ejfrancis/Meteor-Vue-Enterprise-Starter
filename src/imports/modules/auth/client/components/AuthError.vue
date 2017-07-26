@@ -28,7 +28,7 @@ export default {
       loginError: (state) => state.auth.loginError,
       registerError: (state) => state.auth.registerError,
       passwordResetError: (state) => state.auth.passwordResetError,
-      enrollAccountError: (state) => state.auth.enrollAccountError 
+      enrollAccountError: (state) => state.auth.enrollAccountError
     }),
     registerErrorMessage() {
       if (this.registerError && this.registerError.details && this.registerError.details.length > 0) {

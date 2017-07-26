@@ -25,7 +25,7 @@
         <label>password</label>
         <input v-model="formData.password" type='password'/>
       </div> -->
-      <button type='submit' :disabled='!formData.firstName || !formData.lastName || !formData.email'>Register</button>
+      <button type='submit' :disabled='isSubmitDisabled'>Register</button>
     </form>
     <p class='success' v-if='enrollAccountEmailSent'>Alright! Please check your email to find a link to complete account registration.</p>
     <auth-error />
@@ -35,6 +35,7 @@
 <script>
 import { mapActions, mapState } from 'vuex-alt';
 import AuthError from './AuthError.vue';
+import SimpleSchema from 'simpl-schema';
 
 export default {
   components: {
@@ -52,7 +53,13 @@ export default {
   computed: {
     ...mapState({
       enrollAccountEmailSent: (state) => state.auth.enrollAccountEmailSent
-    })
+    }),
+    isSubmitDisabled() {
+      return !this.formData.firstName || 
+      !this.formData.lastName || 
+      !this.formData.email ||
+      !SimpleSchema.RegEx.EmailWithTLD.test(this.formData.email);
+    }
   },
   methods: {
     ...mapActions({

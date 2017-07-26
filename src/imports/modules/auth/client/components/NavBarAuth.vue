@@ -18,7 +18,7 @@
 <template>
   <div class='NavBarAuth'>
     <div v-if='user' class='signed-in'>
-      <span class='hello'>Hello {{user.username}}</span>
+      <span class='hello'>{{user.profile.firstName}} {{user.profile.lastName}}</span>
       <span>
         <sign-out-btn />
       </span>

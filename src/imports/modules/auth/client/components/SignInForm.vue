@@ -7,11 +7,11 @@
     <form @submit.prevent="submitForm">
       <h3>Login</h3>
       <div>
-        <label>username</label>
+        <label>Email</label>
         <input v-model="formData.username" />
       </div>
       <div>
-        <label>password</label>
+        <label>Password</label>
         <input v-model="formData.password" type='password' />
       </div>
       <button type='submit' :disabled='loggingIn || !formData.password || !formData.username'>Login</button>
