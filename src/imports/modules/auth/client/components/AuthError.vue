@@ -6,10 +6,10 @@
 
 <template>
   <div class='AuthError'>
-    <p class='error' v-if='loginError'>Woops! That wasn't right, please try again.</p>
-    <p class='error' v-if='registerError'>{{registerError.reason || registerError.details && registerError.details[0] && registerError.details[0].message || 'Registration failed.'}}</p>
-    <p class='error' v-if='passwordResetError'>Your password reset link has expired.</p>
-    <p class='error' v-if='enrollAccountError'>{{ enrollAccountErrorMessage }}</p>
+    <p class='error login' v-if='loginError'>Woops! That wasn't right, please try again.</p>
+    <p class='error register' v-if='registerError'>{{registerError.reason || registerError.details && registerError.details[0] && registerError.details[0].message || 'Registration failed.'}}</p>
+    <p class='error password-reset' v-if='passwordResetError'>Your password reset link has expired.</p>
+    <p class='error enroll' v-if='enrollAccountError'>{{ enrollAccountErrorMessage }}</p>
   </div>
 </template>
 
