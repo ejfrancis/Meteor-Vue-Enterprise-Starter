@@ -45,7 +45,7 @@ const actions = {
       }
     });
   },
-  enrollVerfiyAccount ({ commit, state }, { token, newPassword }) {
+  enrollVerifyAccount ({ commit, state }, { token, newPassword }) {
     return new Promise((resolve, reject) => {
       // make sure password validates before sending
       try {

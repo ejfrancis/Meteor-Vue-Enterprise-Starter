@@ -7,12 +7,12 @@
     <h3>Account Set Up Completion</h3>
   
     <div class='enroll' v-if='!enrolledAccountSuccessfully'>
-      <form @submit.prevent="submitEnrollAccountForm">
-        <div>
+      <form @submit.prevent="submitEnrollAccountForm" class='enroll-password-form'>
+        <div class='password-1'>
           <label>Enter your new password</label>
           <input type='password' v-model='formData.newPassword1'>
         </div>
-        <div>
+        <div class='password-2'>
           <label>Please re-enter your new password</label>
           <input type='password' v-model='formData.newPassword2'>
         </div>
@@ -51,8 +51,6 @@ export default {
   computed: {
     ...mapState({
       token: (state) => state.route.query.token,
-      enrollAccountError: (state) => state.auth.enrollAccountError,
-      enrollAccountSubmitAttempted: (state) => state.auth.enrollAccountSubmitAttempted,
       enrolledAccountSuccessfully: (state) => state.route.query.success
     }),
     isNewPasswordSubmitDisabled() {
@@ -66,7 +64,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      enrollVerfiyAccount: (actions) => actions.auth.enrollVerfiyAccount,
+      enrollVerifyAccount: (actions) => actions.auth.enrollVerifyAccount,
       clearEnrollAccountFailure: (actions) => actions.auth.clearEnrollAccountFailure
     }),
     async submitEnrollAccountForm() {
@@ -74,7 +72,7 @@ export default {
         if (this.formData.newPassword1 !== this.formData.newPassword2) {
           return;
         }
-        const enrollSuccess = await this.enrollVerfiyAccount({ token: this.token, newPassword: this.formData.newPassword1 });
+        const enrollSuccess = await this.enrollVerifyAccount({ token: this.token, newPassword: this.formData.newPassword1 });
         if (enrollSuccess) {
           this.$router.push({ path: 'enroll-account', query: { success: true } });
         }
