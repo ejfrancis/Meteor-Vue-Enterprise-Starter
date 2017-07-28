@@ -46,7 +46,7 @@ describe('NavBarAuth', () => {
   });
   it('displays sign out button when signed in', () => {
     const authState = {
-      user: { profile: { firstName: 'Han', lastName: 'Solo' }}
+      user: { profile: { firstName: 'Han', lastName: 'Solo' } }
     };
     store.state.auth = authState;
     const wrapper = mount(NavBarAuth, { store, router });
