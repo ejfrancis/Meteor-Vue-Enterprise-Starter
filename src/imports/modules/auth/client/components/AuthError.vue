@@ -18,6 +18,7 @@ import { mapState } from 'vuex-alt';
 import { passwordSchema } from './../../shared/schemas/password-schema';
 
 export default {
+  name: 'AuthError',
   data() {
     return {
       enrollAccountErrorMessage: passwordSchema.summary

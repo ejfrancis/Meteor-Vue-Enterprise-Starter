@@ -22,5 +22,6 @@ a:hover {
 <script>
 
 export default {
+  name: 'SignInBtn'
 }
 </script>

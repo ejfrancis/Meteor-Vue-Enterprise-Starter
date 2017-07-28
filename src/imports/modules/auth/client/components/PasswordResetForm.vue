@@ -29,6 +29,7 @@ import AuthError from './AuthError';
 import { passwordSchema } from './../../shared/schemas/password-schema';
 
 export default {
+  name: 'PasswordResetForm',
   components: {
     AuthError
   },

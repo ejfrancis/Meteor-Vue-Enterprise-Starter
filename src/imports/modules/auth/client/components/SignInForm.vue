@@ -28,6 +28,7 @@ import { mapActions, mapState } from 'vuex-alt';
 import AuthError from './AuthError.vue';
 
 export default {
+  name: 'SignInForm',
   components: {
     AuthError
   },

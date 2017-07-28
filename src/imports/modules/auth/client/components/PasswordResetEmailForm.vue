@@ -26,6 +26,7 @@ import { maskEmailAddress } from './../lib/user-data-masking';
 import AuthError from './AuthError';
 
 export default {
+  name: 'PasswordResetEmailForm',
   components: {
     AuthError
   },

@@ -38,6 +38,7 @@ import AuthError from './AuthError.vue';
 import SimpleSchema from 'simpl-schema';
 
 export default {
+  name: 'SignUpForm',
   components: {
     AuthError
   },

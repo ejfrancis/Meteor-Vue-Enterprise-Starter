@@ -6,6 +6,7 @@
 import { mapActions } from 'vuex-alt';
 
 export default {
+  name: 'SignOutBtn',
   methods: {
     ...mapActions({
       logoutUser: (actions) => actions.auth.logoutUser

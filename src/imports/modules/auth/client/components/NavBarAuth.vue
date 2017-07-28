@@ -17,20 +17,20 @@
 
 <template>
   <div class='NavBarAuth'>
-    <div v-if='user' class='signed-in'>
-      <span class='hello'>{{user.profile.firstName}} {{user.profile.lastName}}</span>
+     <div v-if='user' class='signed-in'>
+      <span class='user-name'>{{user.profile.firstName}} {{user.profile.lastName}}</span>
       <span>
         <sign-out-btn />
       </span>
     </div>
-    <div v-if='!user' class='signed-out'>
-      <span class='signed-out-button'>
+     <div v-if='!user' class='signed-out'>
+       <span class='signed-out-button'>
         <sign-in-btn />
-      </span>
-      <span class='signed-out-button'>
+      </span> 
+      <!-- <span class='signed-out-button'>
         <sign-up-btn />
-      </span>
-    </div>
+      </span> -->
+    </div>  
   </div>
 </template>
 
@@ -54,6 +54,7 @@ import SignOutBtn from './SignOutBtn.vue';
 
 
 export default {
+  name: 'NavBarAuth',
   components: {
     SignUpBtn,
     SignInBtn,
@@ -64,9 +65,9 @@ export default {
     setUserInStore() {
       this.setUser({ user: Meteor.user() });
     },
-    user() {
-      return Meteor.user()
-    }
+    // user() {
+    //   return Meteor.user()
+    // }
   },
   computed: {
     ...mapState({
@@ -76,8 +77,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      setUser: (actions) => actions.auth.setUser,
-      toggleAuth: (actions) => actions.auth.toggleAuth
+      setUser: (actions) => actions.auth.setUser
     })
   }
 }
