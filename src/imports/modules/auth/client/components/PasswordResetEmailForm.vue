@@ -7,12 +7,12 @@
     <h3>Reset Password</h3>
   
     <form @submit.prevent="submitSendEmailForm">
-      <div>
+      <div class='email'>
         <label>Enter your email</label>
         <input v-model='formData.email' />
       </div>
-      <button type='submit' :disabled='formData.email.length === 0'>Reset Password</button>
-      <div v-if='passwordResetEmailSent'>
+      <button type='submit' class='submit-form-btn' :disabled='formData.email.length === 0'>Reset Password</button>
+      <div class='sent-success' v-if='passwordResetEmailSent'>
         Email sent!
       </div>
     </form>
@@ -43,13 +43,7 @@ export default {
   computed: {
     ...mapState({
       passwordResetEmailSent: (state) => state.auth.passwordResetEmailSent
-    }),
-    isNewPasswordSubmitDisabled() {
-      return !this.formData.newPassword1
-        || !this.formData.newPassword2
-        || (this.formData.newPassword1 !== this.formData.newPassword2)
-        || this.formData.newPassword1.length < 2;
-    }
+    })
   },
   methods: {
     ...mapActions({

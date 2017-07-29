@@ -7,15 +7,15 @@
     <h3>Reset Password</h3>
   
     <form @submit.prevent="submitResetPasswordForm">
-      <div>
+      <div class='password-1'>
         <label>Enter your new password</label>
         <input type='password' v-model='formData.newPassword1'>
       </div>
-      <div>
+      <div class='password-2'>
         <label>Please re-enter your new password</label>
         <input type='password' v-model='formData.newPassword2'>
       </div>
-      <button type='submit' :disabled='isNewPasswordSubmitDisabled '>
+      <button type='submit' class='submit-form-btn' :disabled='isNewPasswordSubmitDisabled '>
         Submit
       </button>
     </form>
@@ -36,7 +36,6 @@ export default {
   data() {
     return {
       formData: {
-        email: '',
         newPassword1: '',
         newPassword2: ''
       }
@@ -47,10 +46,7 @@ export default {
   },
   computed: {
     ...mapState({
-      passwordResetEmailSent: (state) => state.auth.passwordResetEmailSent,
-      passwordResetError: (state) => state.auth.passwordResetError,
-      token: (state) => state.route.query.token,
-      changedSuccessfully: (state) => state.route.query.success
+      token: (state) => state.route.query.token
     }),
     isNewPasswordSubmitDisabled() {
       if (!this.formData.newPassword1 ||
@@ -59,7 +55,7 @@ export default {
         return true;
       }
       try {
-        passwordSchema.validate({ password: this.formData.newPassword });
+        passwordSchema.validate({ password: this.formData.newPassword1 });
         return false;
       } catch (e) {
         return true;
@@ -68,20 +64,9 @@ export default {
   },
   methods: {
     ...mapActions({
-      sendPasswordResetEmail: (actions) => actions.auth.sendPasswordResetEmail,
       passwordReset: (actions) => actions.auth.passwordReset,
       clearPasswordResetFailure: (actions) => actions.auth.clearPasswordResetFailure
     }),
-    async submitSendEmailForm() {
-      try {
-        if (!this.formData.email) {
-          return;
-        }
-        await this.sendPasswordResetEmail({ email: this.formData.email });
-      } catch (e) {
-        // error handled by keeping it in vuex
-      }
-    },
     async submitResetPasswordForm() {
       try {
         if (this.formData.newPassword1 !== this.formData.newPassword2) {
