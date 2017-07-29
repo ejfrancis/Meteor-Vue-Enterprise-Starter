@@ -4,10 +4,13 @@ import { setupVue } from './../../../../startup/client/client-index';
 
 describe('SignInBtn', () => {
   let store;
+  let router;
   beforeEach(() => {
-    store = setupVue().store;
+    const setup = setupVue();
+    store = setup.store;
+    router = setup.router;
   });
   it('renders without crashing', () => {
-    mount(SignInBtn, { store });
+    mount(SignInBtn, { store, router });
   });
 });
