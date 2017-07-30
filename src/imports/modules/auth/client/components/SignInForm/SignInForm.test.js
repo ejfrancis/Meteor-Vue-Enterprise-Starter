@@ -1,20 +1,17 @@
-import Vue from 'vue';
 import { mount } from 'avoriaz';
 import SignInForm from './SignInForm.vue';
 import { setupVue } from '/src/imports/startup/client/client-index';
-import { getActions } from '/tests/unit-test-setup/vuex-alt-test-util';
+// import { getActions } from '/tests/unit-test-setup/vuex-alt-test-util';
 
 const getUsernameInput = (wrapper) => wrapper.find('.email input')[0];
 const getPasswordInput = (wrapper) => wrapper.find('.password input')[0];
 const getSubmitBtn = (wrapper) => wrapper.find('.sign-in-submit-btn')[0];
 const isDisabled = (el) => el.hasAttribute('disabled', 'disabled');
-import * as PageHomeModule from '/src/imports/modules/router/client/lib/router';
 
 describe('SignInForm', () => {
   let store;
   let router;
   beforeEach(() => {
-    PageHomeModule.default = new Vue();
     const setup = setupVue();
     store = setup.store;
     router = setup.router;
@@ -25,9 +22,9 @@ describe('SignInForm', () => {
   describe('submit btn', () => {
     it('disables submit if username empty and password empty', () => {
       const routeState = {
-        query: { redirect: 'redirect-path'}
+        query: { redirect: 'redirect-path' }
       };
-      store.state.route = routeState;``
+      store.state.route = routeState;
       const wrapper = mount(SignInForm, { store, router });
       const usernameInput = getUsernameInput(wrapper);
       const passwordInput = getPasswordInput(wrapper);
