@@ -1,6 +1,6 @@
 import { mount } from 'avoriaz';
 import PasswordResetForm from './PasswordResetForm.vue';
-import { setupVue } from './../../../../startup/client/client-index';
+import { setupVue } from '/src/imports/startup/client/client-index';
 import { getActions } from '/tests/unit-test-setup/vuex-alt-test-util';
 
 const getPasswordInput1 = (wrapper) => wrapper.find('.password-1 input')[0];

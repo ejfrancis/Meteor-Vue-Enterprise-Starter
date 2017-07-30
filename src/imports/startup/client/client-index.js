@@ -38,10 +38,13 @@ export const setupVue = ({
 // client application startup
 Meteor.startup(() => {
   const { store, router } = setupVue();
-
-  new Vue({
+  const instance = new Vue({
     render: h => h(App),
     router,
     store
-  }).$mount('#app');
+  });
+  // mounting will cause error in tests from missing #app
+  if (process.env.NODE_ENV !== 'test') {
+    instance.$mount('#app');
+  }
 });

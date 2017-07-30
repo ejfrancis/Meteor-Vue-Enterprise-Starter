@@ -46,7 +46,7 @@ a {
 </template>
 
 <script>
-import NavBarAuth from '/src/imports/modules/auth/client/components/NavBarAuth.vue';
+import NavBarAuth from '/src/imports/modules/auth/client/components/NavBarAuth/NavBarAuth.vue';
 
 export default {
   components: {

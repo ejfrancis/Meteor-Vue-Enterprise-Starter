@@ -1,6 +1,6 @@
 import { mount } from 'avoriaz';
 import SignInBtn from './SignInBtn.vue';
-import { setupVue } from './../../../../startup/client/client-index';
+import { setupVue } from '/src/imports/startup/client/client-index';
 
 describe('SignInBtn', () => {
   let store;

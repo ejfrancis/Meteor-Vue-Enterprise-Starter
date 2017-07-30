@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import AppHeader from './AppHeader.vue';
-import AppNavigation from './AppNavigation.vue';
+import AppHeader from './../AppHeader/AppHeader.vue';
+import AppNavigation from './../AppNavigation/AppNavigation.vue';
 
 export default {
   components: {

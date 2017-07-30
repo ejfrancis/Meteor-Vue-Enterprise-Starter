@@ -31,7 +31,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex-alt';
-import AuthError from './AuthError';
+import AuthError from './../AuthError/AuthError.vue';
 
 export default {
   name: 'EnrollAccountForm',

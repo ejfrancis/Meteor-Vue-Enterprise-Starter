@@ -54,7 +54,7 @@ input, button {
 </template>
 
 <script>
-import Layout from '/src/imports/modules/layout/client/components/Layout.vue';
+import Layout from '/src/imports/modules/layout/client/components/Layout/Layout.vue';
 export default {
   components: {
     Layout

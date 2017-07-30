@@ -15,7 +15,7 @@
 
 <script>
 import { mapState } from 'vuex-alt';
-import { passwordSchema } from './../../shared/schemas/password-schema';
+import { passwordSchema } from './../../../shared/schemas/password-schema';
 
 export default {
   name: 'AuthError',

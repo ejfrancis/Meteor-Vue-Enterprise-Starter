@@ -1,6 +1,6 @@
 import { mount } from 'avoriaz';
 import AuthError from './AuthError.vue';
-import { setupVue } from './../../../../startup/client/client-index';
+import { setupVue } from '/src/imports/startup/client/client-index';
 
 describe('AuthError', () => {
   let store;

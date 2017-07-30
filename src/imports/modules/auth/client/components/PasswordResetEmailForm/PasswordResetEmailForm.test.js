@@ -1,6 +1,6 @@
 import { mount } from 'avoriaz';
 import PasswordResetEmailForm from './PasswordResetEmailForm.vue';
-import { setupVue } from './../../../../startup/client/client-index';
+import { setupVue } from '/src/imports/startup/client/client-index';
 import { getActions } from '/tests/unit-test-setup/vuex-alt-test-util';
 
 const getEmailInput = (wrapper) => wrapper.find('.email input')[0];

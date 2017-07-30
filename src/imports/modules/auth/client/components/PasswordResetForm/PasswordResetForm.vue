@@ -25,8 +25,8 @@
 
 <script>
 import { mapState, mapActions } from 'vuex-alt';
-import AuthError from './AuthError';
-import { passwordSchema } from './../../shared/schemas/password-schema';
+import AuthError from './../AuthError/AuthError.vue';
+import { passwordSchema } from './../../../shared/schemas/password-schema';
 
 export default {
   name: 'PasswordResetForm',

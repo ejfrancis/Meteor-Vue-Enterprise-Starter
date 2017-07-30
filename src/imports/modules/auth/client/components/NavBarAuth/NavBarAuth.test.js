@@ -1,8 +1,8 @@
 import { mount } from 'avoriaz';
-import NavBarAuth from './NavBarAuth.vue';
-import SignOutBtn from './SignOutBtn.vue';
-import SignInBtn from './SignInBtn.vue';
-import { setupVue } from './../../../../startup/client/client-index';
+import NavBarAuth from './../NavBarAuth/NavBarAuth.vue';
+import SignOutBtn from './../SignOutBtn/SignOutBtn.vue';
+import SignInBtn from './../SignInBtn/SignInBtn.vue';
+import { setupVue } from '/src/imports/startup/client/client-index';
 
 describe('NavBarAuth', () => {
   let store;

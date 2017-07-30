@@ -37,9 +37,9 @@
 <script>
 import { mapState, mapActions } from 'vuex-alt';
 import { Meteor } from 'meteor/meteor';
-import SignUpBtn from './SignUpBtn.vue';
-import SignInBtn from './SignInBtn.vue';
-import SignOutBtn from './SignOutBtn.vue';
+import SignUpBtn from './../SignUpBtn/SignUpBtn.vue';
+import SignInBtn from './../SignInBtn/SignInBtn.vue';
+import SignOutBtn from './../SignOutBtn/SignOutBtn.vue';
 
 
 // // only import the icons you use to reduce bundle size

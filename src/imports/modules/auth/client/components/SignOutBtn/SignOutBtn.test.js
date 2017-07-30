@@ -1,6 +1,6 @@
 import { mount } from 'avoriaz';
 import SignOutBtn from './SignOutBtn.vue';
-import { setupVue } from './../../../../startup/client/client-index';
+import { setupVue } from '/src/imports/startup/client/client-index';
 import { getActions } from '/tests/unit-test-setup/vuex-alt-test-util';
 
 describe('SignOutBtn', () => {
