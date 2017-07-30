@@ -8,6 +8,7 @@
   ],
   "verbose": true,
   "collectCoverage": true,
+  "collectCoverageFrom": ["src/**/*"],
   "coverageDirectory": "<rootDir>/tests/coverage/unit-tests/",
   "moduleFileExtensions": [
     "js",
