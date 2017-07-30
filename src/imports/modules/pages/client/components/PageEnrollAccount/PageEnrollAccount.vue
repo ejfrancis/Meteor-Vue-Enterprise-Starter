@@ -20,7 +20,7 @@
 
 <script>
 import { mapState } from 'vuex-alt';
-import EnrollAccountForm from '/src/imports/modules/auth/client/components/EnrollAccountForm.vue';
+import EnrollAccountForm from '/src/imports/modules/auth/client/components/EnrollAccountForm/EnrollAccountForm.vue';
 
 export default {
   components: {

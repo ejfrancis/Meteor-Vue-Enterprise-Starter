@@ -23,8 +23,8 @@
 
 <script>
 import { mapState } from 'vuex-alt';
-import PasswordResetForm from '/src/imports/modules/auth/client/components/PasswordResetForm.vue';
-import PasswordResetEmailForm from '/src/imports/modules/auth/client/components/PasswordResetEmailForm.vue';
+import PasswordResetForm from '/src/imports/modules/auth/client/components/PasswordResetForm/PasswordResetForm.vue';
+import PasswordResetEmailForm from '/src/imports/modules/auth/client/components/PasswordResetEmailForm/PasswordResetEmailForm.vue';
 
 export default {
   components: {

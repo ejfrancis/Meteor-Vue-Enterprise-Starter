@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Counter from './../../../counter/client/components/Counter.vue';
+import Counter from '/src/imports/modules/counter/client/components/Counter/Counter.vue';
 import { Meteor } from 'meteor/meteor';
 
 export default {

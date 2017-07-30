@@ -1,29 +1,38 @@
 import VueRouter from 'vue-router';
 import { requireAuth, requireNoAuth } from '/src/imports/modules/auth/client/lib/router-auth-hooks';
 
+// unfortunate hack for now. jest is using babel-plugin-dynamic-import-node
+// which resolves as "module" not "module.default"
+const getModule = (mod) => {
+  if (process.env.NODE_ENV === 'test') {
+    return mod;
+  }
+  return mod.default;
+};
+
 const PageSignUpAsync = (resolve) => {
-  import('/src/imports/modules/pages/client/components/PageSignUp.vue')
-    .then(PageSignUp => resolve(PageSignUp.default));
+  import('/src/imports/modules/pages/client/components/PageSignUp/PageSignUp.vue')
+    .then(PageSignUp => resolve(getModule(PageSignUp)));
 };
 const PageSignInAsync = (resolve) => {
-  import('/src/imports/modules/pages/client/components/PageSignIn.vue')
-    .then(PageSignIn => resolve(PageSignIn.default));
+  import('/src/imports/modules/pages/client/components/PageSignIn/PageSignIn.vue')
+    .then(PageSignIn => resolve(getModule(PageSignIn)));
 };
 const PagePasswordResetAsync = (resolve) => {
-  import('/src/imports/modules/pages/client/components/PagePasswordReset.vue')
-    .then(PagePasswordReset => resolve(PagePasswordReset.default));
+  import('/src/imports/modules/pages/client/components/PagePasswordReset/PagePasswordReset.vue')
+    .then(PagePasswordReset => resolve(getModule(PagePasswordReset)));
 };
 const PageEnrollAccountAsync = (resolve) => {
-  import('/src/imports/modules/pages/client/components/PageEnrollAccount.vue')
-    .then(PageEnrollAccount => resolve(PageEnrollAccount.default));
+  import('/src/imports/modules/pages/client/components/PageEnrollAccount/PageEnrollAccount.vue')
+    .then(PageEnrollAccount => resolve(getModule(PageEnrollAccount)));
 };
 const PageHomeAsync = (resolve) => {
-  import('/src/imports/modules/pages/client/components/PageHome.vue')
-    .then((PageHome) => resolve(PageHome.default));
+  import('/src/imports/modules/pages/client/components/PageHome/PageHome.vue')
+    .then((PageHome) => resolve(getModule(PageHome)));
 };
 const PagePrivateAsync = (resolve) => {
-  import('/src/imports/modules/pages/client/components/PagePrivate.vue')
-    .then(PagePrivate => resolve(PagePrivate.default));
+  import('/src/imports/modules/pages/client/components/PagePrivate/PagePrivate.vue')
+    .then(PagePrivate => resolve(getModule(PagePrivate)));
 };
 
 const createRouter = () => {

@@ -12,5 +12,6 @@ export const Meteor = {
       emails: ['testuser@test.com'],
       profile: {}
     };
-  }
+  },
+  loggingIn: () => false
 };

@@ -6,6 +6,8 @@
   "coveragePathIgnorePatterns": [
     "<rootDir>/tests/"
   ],
+  "testURL": "http://www.meteor-vue-app.com",
+  "setupFiles": ["<rootDir>/tests/unit-test-setup/setup-tests.js"],
   "verbose": true,
   "collectCoverage": true,
   "collectCoverageFrom": ["src/**/*"],

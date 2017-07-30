@@ -6,15 +6,15 @@
   <div class='SignInForm'>
     <form @submit.prevent="submitForm">
       <h3>Login</h3>
-      <div>
+      <div class='email'>
         <label>Email</label>
         <input v-model="formData.username" />
       </div>
-      <div>
+      <div class='password'>
         <label>Password</label>
         <input v-model="formData.password" type='password' />
       </div>
-      <button type='submit' :disabled='loggingIn || !formData.password || !formData.username'>Login</button>
+      <button type='submit' class='sign-in-submit-btn' :disabled='loggingIn || !formData.password || !formData.username'>Login</button>
     </form>
     <div class='password-reset'>
         <router-link to='reset-password'>Forgot your password?</router-link>  
@@ -25,8 +25,8 @@
 
 <script>
 import { mapActions, mapState } from 'vuex-alt';
-import AuthError from './AuthError.vue';
-
+import AuthError from './../AuthError/AuthError.vue';
+import { Meteor } from 'meteor/meteor';
 export default {
   name: 'SignInForm',
   components: {

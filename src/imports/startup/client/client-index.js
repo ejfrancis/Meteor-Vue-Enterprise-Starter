@@ -15,7 +15,7 @@ import App from './App.vue';
  * router factory functions. Mostly for unit tests.
  * @param {Object} params
  * @param {Function} [params.createStore]     optional, function that returns a configured Vuex store
- * @param {Function} [params.createRouter]           optional, function that returns a configured VueRouter instance
+ * @param {Function} [params.createRouter]           optional, function that returns a configured VueRouter appInstance
  */
 export const setupVue = ({
   createStore = createStoreOriginal,
@@ -38,13 +38,13 @@ export const setupVue = ({
 // client application startup
 Meteor.startup(() => {
   const { store, router } = setupVue();
-  const instance = new Vue({
+  const appInstance = new Vue({
     render: h => h(App),
     router,
     store
   });
   // mounting will cause error in tests from missing #app
   if (process.env.NODE_ENV !== 'test') {
-    instance.$mount('#app');
+    appInstance.$mount('#app');
   }
 });
