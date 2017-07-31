@@ -69,11 +69,26 @@ describe('SignInForm', () => {
       expect(isDisabled(submitBn)).toEqual(false);
     });
   });
-  it('calls actions.auth.clearLoginFailure when destroyed', () => {
+  it('calls actions.auth.clearLoginFailure() when destroyed', () => {
     const wrapper = mount(SignInForm, { store, router });
     const actions = getActions(wrapper);
     actions.auth.clearLoginFailure = jest.fn();
     wrapper.destroy();
     expect(actions.auth.clearLoginFailure).toHaveBeenCalledTimes(1);
+  });
+  it('calls actions.auth.loginUser() when submitted', () => {
+    const wrapper = mount(SignInForm, { store, router });
+    const usernameInput = getUsernameInput(wrapper);
+    const passwordInput = getPasswordInput(wrapper);
+    const submitBn = getSubmitBtn(wrapper);
+    const actions = getActions(wrapper);
+    actions.auth.loginUser = jest.fn();
+    usernameInput.element.value = 'username';
+    usernameInput.trigger('input');
+    passwordInput.element.value = 'password';
+    passwordInput.trigger('input');
+    submitBn.trigger('click');
+    expect(actions.auth.loginUser).toHaveBeenCalledTimes(1);
+    expect(actions.auth.loginUser).toHaveBeenCalledWith({ username: 'username', password: 'password' });
   });
 });

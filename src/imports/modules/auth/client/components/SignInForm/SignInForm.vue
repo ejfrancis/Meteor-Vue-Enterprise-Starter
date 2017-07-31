@@ -27,6 +27,7 @@
 import { mapActions, mapState } from 'vuex-alt';
 import AuthError from './../AuthError/AuthError.vue';
 import { Meteor } from 'meteor/meteor';
+
 export default {
   name: 'SignInForm',
   components: {
