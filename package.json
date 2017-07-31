@@ -40,7 +40,7 @@
     "chromedriver": "^2.29.0",
     "jest": "^20.0.4",
     "jest-vue-preprocessor": "^0.2.0",
-    "meteor-husky": "^0.14.4",
+    "meteor-husky": "^0.14.5",
     "semistandard": "^11.0.0",
     "snazzy": "^7.0.0",
     "vue-template-compiler": "^2.3.3",
