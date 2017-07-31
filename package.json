@@ -8,8 +8,8 @@
     "test:unit": "jest --config tests/unit-test-setup/jest-config.json",
     "test:unit-debug": "meteor node --inspect-brk ./node_modules/.bin/jest --runInBand -i --config tests/unit-test-setup/jest-config.json",
     "test:e2e": "chimp --ddp=http://localhost:3000 --mocha --path=tests/e2e/tests",
-    "lint": "meteor node ./node_modules/semistandard/bin/cmd.js --parser babel-eslint --env=jest --global server --global browser --verbose | snazzy",
-    "lint:fix": "meteor node ./node_modules/semistandard/bin/cmd.js --parser babel-eslint --env=jest --global server --global browser --verbose  --fix | snazzy",
+    "lint": "semistandard --parser babel-eslint --env=jest --global server --global browser --verbose | snazzy",
+    "lint:fix": "semistandard --parser babel-eslint --env=jest --global server --global browser --verbose  --fix | snazzy",
     "precommit": "meteor npm run lint",
     "prepush": "meteor npm run lint:fix && npm run test:unit"
   },
