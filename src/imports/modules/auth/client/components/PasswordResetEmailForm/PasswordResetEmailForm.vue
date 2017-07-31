@@ -22,7 +22,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex-alt';
-// import { maskEmailAddress } from './../../lib/user-data-masking';
 import AuthError from './../AuthError/AuthError.vue';
 
 export default {

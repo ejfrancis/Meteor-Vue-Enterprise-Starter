@@ -6,6 +6,7 @@ export const Meteor = {
       title: 'Test Title'
     }
   },
+  userId: () => 'userid',
   user: () => {
     return {
       username: 'testuser',
