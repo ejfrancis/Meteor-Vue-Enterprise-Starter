@@ -1,3 +1,9 @@
 export const Tracker = {
-  autorun: (fn) => fn()
+  autorun: (fn) => {
+    fn();
+    const mockComputation = {
+      stop: () => {}
+    };
+    return mockComputation;
+  }
 };

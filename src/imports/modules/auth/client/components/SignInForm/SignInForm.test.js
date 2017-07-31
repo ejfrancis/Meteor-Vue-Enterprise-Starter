@@ -1,7 +1,7 @@
 import { mount } from 'avoriaz';
 import SignInForm from './SignInForm.vue';
 import { setupVue } from '/src/imports/startup/client/client-index';
-// import { getActions } from '/tests/unit-test-setup/vuex-alt-test-util';
+import { getActions } from '/tests/unit-test-setup/vuex-alt-test-util';
 
 const getUsernameInput = (wrapper) => wrapper.find('.email input')[0];
 const getPasswordInput = (wrapper) => wrapper.find('.password input')[0];
@@ -69,11 +69,11 @@ describe('SignInForm', () => {
       expect(isDisabled(submitBn)).toEqual(false);
     });
   });
-  // it('calls actions.auth.clearLoginFailure when destroyed', () => {
-  //     const wrapper = mount(SignInForm, { store, router });
-  //     const actions = getActions(wrapper);
-  //     actions.auth.clearLoginFailure = jest.fn();
-  //     wrapper.destroy();
-  //     expect(actions.auth.clearLoginFailure).toHaveBeenCalledTimes(1);
-  // });
+  it('calls actions.auth.clearLoginFailure when destroyed', () => {
+    const wrapper = mount(SignInForm, { store, router });
+    const actions = getActions(wrapper);
+    actions.auth.clearLoginFailure = jest.fn();
+    wrapper.destroy();
+    expect(actions.auth.clearLoginFailure).toHaveBeenCalledTimes(1);
+  });
 });
