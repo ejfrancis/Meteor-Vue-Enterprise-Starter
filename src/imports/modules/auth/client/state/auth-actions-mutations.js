@@ -18,8 +18,7 @@ const MUTATION_TYPES = {
   // enroll account via email
   ENROLL_ACCOUNT_EMAIL_SENT: 'ENROLL_ACCOUNT_EMAIL_SENT',
   ENROLL_ACCOUNT_FAILED: 'ENROLL_ACCOUNT_FAILED',
-  CLEAR_ENROLL_ACCOUNT_FAILURE: 'CLEAR_ENROLL_ACCOUNT_FAILURE',
-  ENROLL_ACCOUNT_COMPLETE: 'ENROLL_ACCOUNT_COMPLETE'
+  CLEAR_ENROLL_ACCOUNT_FAILURE: 'CLEAR_ENROLL_ACCOUNT_FAILURE'
 };
 
 const actions = {
@@ -45,6 +44,9 @@ const actions = {
       }
     });
   },
+  clearRegisterFailure: ({ commit }) => {
+    commit(MUTATION_TYPES.CLEAR_REGISTER_FAILURE);
+  },
   enrollVerifyAccount ({ commit, state }, { token, newPassword }) {
     return new Promise((resolve, reject) => {
       // make sure password validates before sending
@@ -60,7 +62,6 @@ const actions = {
           return resolve(false);
         }
         commit(MUTATION_TYPES.CLEAR_ENROLL_ACCOUNT_FAILURE);
-        commit(MUTATION_TYPES.ENROLL_ACCOUNT_COMPLETE);
         return resolve(true);
       });
     });
@@ -98,14 +99,7 @@ const actions = {
       });
     });
   },
-  // register
-  clearRegisterFailure: ({ commit }) => {
-    commit(MUTATION_TYPES.CLEAR_REGISTER_FAILURE);
-  },
   // password reset
-  clearPasswordResetFailure: ({ commit }) => {
-    commit(MUTATION_TYPES.CLEAR_PASSWORD_RESET_FAILURE);
-  },
   sendPasswordResetEmail ({ commit, state }, { email }) {
     return new Promise((resolve, reject) => {
       Accounts.forgotPassword({ email }, (err) => {
@@ -127,10 +121,12 @@ const actions = {
           return resolve(false);
         }
         commit(MUTATION_TYPES.CLEAR_PASSWORD_RESET_FAILURE);
-        commit(MUTATION_TYPES.PASSWORD_RESET_COMPLETE);
         return resolve(true);
       });
     });
+  },
+  clearPasswordResetFailure: ({ commit }) => {
+    commit(MUTATION_TYPES.CLEAR_PASSWORD_RESET_FAILURE);
   }
 };
 
@@ -172,9 +168,6 @@ const mutations = {
   },
   [MUTATION_TYPES.CLEAR_ENROLL_ACCOUNT_FAILURE]: (state) => {
     state.enrollAccountError = undefined;
-  },
-  [MUTATION_TYPES.ENROLL_ACCOUNT_COMPLETE]: (state) => {
-    state.enrollAccountComplete = true;
   }
 };
 
