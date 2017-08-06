@@ -31,5 +31,6 @@
       "lines": 85,
       "statements": 85
     }
-  }
+  },
+   "testResultsProcessor": "./node_modules/jest-junit"
 }
