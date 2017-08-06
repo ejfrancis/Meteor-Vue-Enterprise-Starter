@@ -6,11 +6,17 @@ jobs:
       - image: tozd/meteor:ubuntu-xenial
     steps:
       - checkout
+      - run:
+          name: check versions
+          command: |
+            meteor --version
+            meteor node -v
+            meteor npm -v
       - run: 
-          name: npm install
+          name: install npm dependencies
           command: meteor npm i
       - run:
-          name: code lintint
+          name: code linting
           command: meteor npm run lint
       - run:
           name: unit tests
