@@ -1,5 +1,7 @@
 <style scoped>
-
+.sent-success {
+  color: green;
+}
 </style>
 
 <template>

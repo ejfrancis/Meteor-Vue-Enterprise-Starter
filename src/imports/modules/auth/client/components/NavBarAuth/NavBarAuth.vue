@@ -26,6 +26,7 @@
      <div v-if='!user' class='signed-out'>
        <span class='signed-out-button'>
         <sign-in-btn />
+        <sign-up-btn />
       </span> 
       <!-- <span class='signed-out-button'>
         <sign-up-btn />

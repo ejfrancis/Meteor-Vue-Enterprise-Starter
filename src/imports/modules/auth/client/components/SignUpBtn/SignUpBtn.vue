@@ -1,6 +1,6 @@
 <style scoped>
 .SignUpBtn {
-  display: block;
+  display: inline-block;
   border: 1px solid black;
   line-height: 30px;
   height: 30px;

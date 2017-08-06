@@ -1,7 +1,7 @@
 <style scoped>
 .SignInBtn {
-  display: block;
-  /* border: 1px solid black; */
+  display: inline-block;
+   border: 1px solid black; 
   line-height: 30px;
   height: 30px;
   padding: 0px 10px;
