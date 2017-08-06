@@ -1,5 +1,7 @@
 # Meteor Vue Modular Application Starter
 
+[![CircleCI](https://circleci.com/gh/ejfrancis/Meteor-Vue-Modular-App-Starter/tree/master.svg?style=svg)](https://circleci.com/gh/ejfrancis/Meteor-Vue-Modular-App-Starter/tree/master)
+
 An opinionated starter kit application utilizing the following libraries/frameworks, with an emphasis on code modularity:
 
 * Meteor 1.6
