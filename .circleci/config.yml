@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/app
     docker:
-      - image: circleci/<language>:<version TAG>
+      - image: tozd/meteor:ubuntu-xenial
     steps:
       - checkout
       - run: echo "hello world"
