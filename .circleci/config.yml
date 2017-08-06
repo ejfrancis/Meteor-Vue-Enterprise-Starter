@@ -40,7 +40,7 @@ jobs:
       - save_cache:
           key: npm-packages-cache-{{ checksum "package.json" }}
           paths:
-            - ./node_modules/
+            - ./node_modules
       - save_cache:
           key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
           paths:
