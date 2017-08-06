@@ -7,11 +7,11 @@ jobs:
     steps:
       - checkout
       - run: 
-        name: npm install
-        command: meteor npm i
+          name: npm install
+          command: meteor npm i
       - run:
-        name: code lintint
-        command: meteor npm run lint
+          name: code lintint
+          command: meteor npm run lint
       - run:
-        name: unit tests
-        command: meteor npm run test:unit
+          name: unit tests
+          command: meteor npm run test:unit
