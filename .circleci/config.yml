@@ -23,11 +23,11 @@ jobs:
       - run:
           name: code linting
           command: |
-          echo "Installing semistandard deps manually (hacky fix)"
-          cd node_modules/semistandard
-          meteor npm i
-          cd ../../
-          meteor npm run lint
+            echo "Installing semistandard deps manually (hacky fix)"
+            cd node_modules/semistandard
+            meteor npm i
+            cd ../../
+            meteor npm run lint
       - run:
           name: unit tests
           command: meteor npm run test:unit
