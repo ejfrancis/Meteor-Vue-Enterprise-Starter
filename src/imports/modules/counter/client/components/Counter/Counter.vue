@@ -37,7 +37,6 @@ input {
 <script>
 
 import { mapGetters, mapActions, mapState } from 'vuex-alt';
-import { MUTATION_TYPES, counterStore } from './../state/counter-store.js';
 
 export default {
   data: () => {

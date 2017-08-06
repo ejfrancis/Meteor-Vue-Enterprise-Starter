@@ -5,5 +5,14 @@ export const Meteor = {
     public: {
       title: 'Test Title'
     }
-  }
+  },
+  userId: () => 'userid',
+  user: () => {
+    return {
+      username: 'testuser',
+      emails: ['testuser@test.com'],
+      profile: {}
+    };
+  },
+  loggingIn: () => false
 };

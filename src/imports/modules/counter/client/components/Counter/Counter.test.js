@@ -1,6 +1,6 @@
 import { mount } from 'avoriaz';
 import Counter from './Counter.vue';
-import { setupVue } from './../../../../startup/client/client-index';
+import { setupVue } from '/src/imports/startup/client/client-index';
 import timeout from 'timeout-as-promise';
 
 describe('Counter', () => {

@@ -6,8 +6,11 @@
   "coveragePathIgnorePatterns": [
     "<rootDir>/tests/"
   ],
+  "testURL": "http://www.meteor-vue-app.com",
+  "setupFiles": ["<rootDir>/tests/unit-test-setup/setup-tests.js"],
   "verbose": true,
   "collectCoverage": true,
+  "collectCoverageFrom": ["src/**/*"],
   "coverageDirectory": "<rootDir>/tests/coverage/unit-tests/",
   "moduleFileExtensions": [
     "js",
@@ -18,7 +21,8 @@
     ".*\\.(vue)$": "jest-vue-preprocessor"
   },
   "moduleNameMapper": {
-    "^meteor/(.*)": "<rootDir>/tests/unit-test-setup/meteor-mocks/$1.js"
+    "^meteor/(.*)": "<rootDir>/tests/unit-test-setup/meteor-mocks/$1.js",
+    "^[/](.*)": "<rootDir>/$1"
   },
   "coverageThreshold": {
     "global": {

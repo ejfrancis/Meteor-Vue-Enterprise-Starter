@@ -7,7 +7,7 @@
 
 <template>
   <div class='Layout'>
-    <app-header/>
+    <!-- <app-header/> -->
     <app-navigation/>
     <div class='Layout-children'>
       <slot></slot> <!--child components rendered in slot -->
@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import AppHeader from './AppHeader.vue';
-import AppNavigation from './AppNavigation.vue';
+import AppHeader from './../AppHeader/AppHeader.vue';
+import AppNavigation from './../AppNavigation/AppNavigation.vue';
 
 export default {
   components: {

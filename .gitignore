@@ -1,5 +1,8 @@
 node_modules/
 npm-debug.log
+false/
+true/
+undefined/
 
 # jest unit test coverage
 tests/coverage/unit-tests

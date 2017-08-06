@@ -6,6 +6,13 @@
   height: 40px;
 }
 
+.navbar-auth-container {
+  position: relative;
+  float: right;
+  margin-right: 10px;
+  margin-top: 4px;
+}
+
 a:hover{
   background-color: gray;
   color: white;
@@ -30,13 +37,20 @@ a {
 
 <template>
   <nav class='AppNavigation'>
-    <router-link to="home">Home</router-link>
-    <router-link to="about">About</router-link>
+    <router-link to='home'>Home</router-link>
+    <router-link to='private'>Private</router-link>
+    <span class='navbar-auth-container'>
+      <nav-bar-auth />
+    </span>
   </nav>
 </template>
 
 <script>
+import NavBarAuth from '/src/imports/modules/auth/client/components/NavBarAuth/NavBarAuth.vue';
+
 export default {
-  
+  components: {
+    NavBarAuth
+  }
 }
 </script>

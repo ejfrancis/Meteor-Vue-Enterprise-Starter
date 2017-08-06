@@ -8,6 +8,7 @@ An opinionated starter kit application utilizing the following libraries/framewo
 * vue-router 2
 * vuex-router-sync
 * vuex-alt
+* vue-meteor-tracker
 
 The following development tools are used:
 
@@ -35,6 +36,13 @@ Now to run the application:
 
 ```
 meteor npm start
+``` 
+
+# Mimic Production
+To run the app with a production bundle and using the production settings located at `config/config.production.json`, run:
+
+```
+meteor npm run start:mimic-prod
 ```
 
 # Application Config
