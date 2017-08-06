@@ -1,0 +1,51 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/app
+    docker:
+      - image: tozd/meteor:ubuntu-xenial
+    environment:
+      - METEOR_ALLOW_SUPERUSER: true
+    steps:
+      - checkout
+      - restore_cache:
+          key: meteor-release-cache-{{ checksum ".meteor/release" }}
+      - restore_cache:
+          key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
+      - restore_cache:
+          key: npm-packages-cache-{{ checksum "package.json" }}
+      - run:
+          name: check versions
+          command: |
+            echo "Meteor version:"
+            meteor --version
+            echo "Meteor node version:"
+            meteor node -v
+            echo "Meteor npm version:"
+            meteor npm -v
+      - run: 
+          name: install npm dependencies
+          command: meteor npm i
+      - run:
+          name: code linting
+          command: |
+            echo "Installing semistandard deps manually (hacky fix)"
+            cd node_modules/semistandard
+            meteor npm i
+            cd ../../
+            meteor npm run lint
+      - run:
+          name: unit tests
+          command: meteor npm run test:unit
+      - save_cache:
+          key: npm-packages-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules/
+      - save_cache:
+          key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
+          paths:
+            - ./meteor
+      - save_cache:
+          key: meteor-release-cache-{{ checksum ".meteor/release" }}
+          paths:
+            - ~/.meteor

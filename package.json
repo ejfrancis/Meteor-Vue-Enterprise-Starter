@@ -21,7 +21,7 @@
     "timeout-as-promise": "^1.0.0",
     "vue": "^2.3.3",
     "vue-awesome": "^2.3.1",
-    "vue-meteor-tracker": "file://./../vue-meteor-tracker/",
+    "vue-meteor-tracker": "ejfrancis/vue-meteor-tracker#import-tracker-checkin-build",
     "vue-router": "^2.5.3",
     "vuex": "^2.3.1",
     "vuex-alt": "^0.0.7",
