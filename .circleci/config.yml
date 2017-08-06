@@ -36,11 +36,11 @@ jobs:
             meteor npm run lint
       - run:
           name: unit tests
-          command: meteor npm run test:unit
+          command: meteor npm run test:unit-ci
       - save_cache:
           key: npm-packages-cache-{{ checksum "package.json" }}
           paths:
-            - ./node_modules/
+            - ./node_modules
       - save_cache:
           key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
           paths:
@@ -49,5 +49,3 @@ jobs:
           key: meteor-release-cache-{{ checksum ".meteor/release" }}
           paths:
             - ~/.meteor
-      - store_test_results:
-          path: ./tests/coverage/unit-tests/
