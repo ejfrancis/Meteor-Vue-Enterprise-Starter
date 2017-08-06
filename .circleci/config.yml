@@ -5,7 +5,7 @@ jobs:
     docker:
       - image: tozd/meteor:ubuntu-xenial
     environment:
-      - METEOR_ALLOW_SUPERUSER=true
+      - METEOR_ALLOW_SUPERUSER: true
     steps:
       - checkout
       - run:
