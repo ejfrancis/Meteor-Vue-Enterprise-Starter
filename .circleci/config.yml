@@ -9,9 +9,11 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: npm-packages-cache-{{ checksum "package.json" }}
+          key: meteor-release-cache-{{ checksum ".meteor/release" }}
       - restore_cache:
           key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
+      - restore_cache:
+          key: npm-packages-cache-{{ checksum "package.json" }}
       - run:
           name: check versions
           command: |
@@ -43,3 +45,7 @@ jobs:
           key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
           paths:
             - ./meteor
+      - save_cache:
+          key: meteor-release-cache-{{ checksum ".meteor/release" }}
+          paths:
+            - ~/.meteor
