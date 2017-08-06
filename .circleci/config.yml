@@ -49,5 +49,6 @@ jobs:
           key: meteor-release-cache-{{ checksum ".meteor/release" }}
           paths:
             - ~/.meteor
-      - store_test_results:
+      - store_artifacts:
           path: ./tests/coverage/unit-tests/
+          destination: unit-tests
