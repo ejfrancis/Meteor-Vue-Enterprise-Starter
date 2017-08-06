@@ -3,10 +3,12 @@ class ValidatedMethodMock {
     this.name = name;
     this.validate = validate;
     this.run = run;
-    const method = function (args) {
-      return this.run(...args);
+    const call = function () {
+      this.run(...arguments);
     };
-    return method;
+    return {
+      call: call.bind(this)
+    };
   }
 }
 
