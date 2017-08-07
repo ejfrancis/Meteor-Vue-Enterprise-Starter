@@ -67,6 +67,9 @@ jobs:
           key: meteor-packages-{{ checksum ".meteor/versions" }}
       - restore_cache:
           key: npm-packages-{{ checksum "package.json" }}
+      - run:
+          name: install git-all for chimp
+          command: apt-get install git-all -y
       - run: 
           name: install npm dependencies
           command: meteor npm i
