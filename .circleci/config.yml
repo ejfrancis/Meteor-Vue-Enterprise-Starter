@@ -16,7 +16,7 @@ jobs:
           key: npm-packages-{{ checksum "package.json" }}
       - run:
           name: fix inotify file watchter for Meteor
-          command: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+          command: echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
       - run:
           name: check versions
           command: |
@@ -72,7 +72,7 @@ jobs:
           key: npm-packages-{{ checksum "package.json" }}
       - run:
           name: fix inotify file watchter for Meteor
-          command: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+          command: echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
       - run: 
           name: install npm dependencies
           command: meteor npm i
