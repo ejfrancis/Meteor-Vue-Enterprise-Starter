@@ -67,8 +67,8 @@ jobs:
       - restore_cache:
           key: npm-packages-cache-{{ checksum "package.json" }}
       - run:
-          name: start app in background, mimic prod
-          command: meteor npm run start:mimic-prod
+          name: start app in background
+          command: meteor npm run start
           background: true
       - run:
           name: wait for app to start
