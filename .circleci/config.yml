@@ -55,7 +55,7 @@ jobs:
   e2e_tests:
     working_directory: ~/app
     docker:
-      - image: tozd/meteor:ubuntu-xenial
+      - image: jshimko/meteor-launchpad:devbuild
     environment:
       - METEOR_ALLOW_SUPERUSER: true
     steps:
