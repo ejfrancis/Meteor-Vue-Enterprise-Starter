@@ -44,7 +44,7 @@ jobs:
       - save_cache:
           key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
           paths:
-            - ./meteor
+            - ./.meteor
       - save_cache:
           key: meteor-release-cache-{{ checksum ".meteor/release" }}
           paths:
