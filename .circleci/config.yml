@@ -71,6 +71,9 @@ jobs:
           command: meteor npm run start:mimic-prod
           background: true
       - run:
+          name: wait for app to start
+          command: sleep 1m
+      - run:
           name: e2e tests
           command: meteor npm run test:e2e
           no_output_timeout: 1m
