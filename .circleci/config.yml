@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/app
     docker:
-      - image: jshimko/meteor-launchpad:devbuild
+      - image: ubuntu:16.04
     environment:
       - METEOR_ALLOW_SUPERUSER: true
     steps:
@@ -14,6 +14,9 @@ jobs:
       #     key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
       # - restore_cache:
       #     key: npm-packages-cache-{{ checksum "package.json" }}
+      - run:
+          name: install meteor
+          command: curl https://install.meteor.com/ | sh
       - run:
           name: check versions
           command: |
@@ -55,7 +58,7 @@ jobs:
   e2e_tests:
     working_directory: ~/app
     docker:
-      - image: jshimko/meteor-launchpad:devbuild
+      - image: ubuntu:16.04
     environment:
       - METEOR_ALLOW_SUPERUSER: true
     steps:
