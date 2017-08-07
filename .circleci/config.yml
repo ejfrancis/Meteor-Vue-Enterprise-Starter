@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/app
     docker:
-      - image: jshimko/meteor-launchpad:latest
+      - image: tzapu/development-meteor:latest
     environment:
       - METEOR_ALLOW_SUPERUSER: true
     steps:
@@ -61,7 +61,7 @@ jobs:
   e2e_tests:
     working_directory: ~/app
     docker:
-      - image: jshimko/meteor-launchpad:latest
+      - image: tzapu/development-meteor:latest
     environment:
       - METEOR_ALLOW_SUPERUSER: true
     steps:
