@@ -16,7 +16,10 @@ jobs:
       #     key: npm-packages-cache-{{ checksum "package.json" }}
       - run:
           name: install meteor
-          command: curl https://install.meteor.com/ | sh
+          command: |
+            sudo apt-get update
+            sudo apt-get install curl
+            curl https://install.meteor.com/ | sh
       - run:
           name: check versions
           command: |
