@@ -70,15 +70,8 @@ jobs:
           name: install npm dependencies
           command: meteor npm i
       - run:
-          name: start app in background
-          command: meteor npm run start
-          background: true
-      - run:
-          name: wait for app to start
-          command: sleep 3m
-      - run:
-          name: e2e tests
-          command: meteor npm run test:e2e
+          name: starting app and running e2e tests
+          command: meteor npm run test:e2e-standalone
           no_output_timeout: 2m
 workflows:
   version: 2
