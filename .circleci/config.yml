@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/app
     docker:
-      - image: jshimko/meteor-launchpad:latest
+      - image: jshimko/meteor-launchpad:devbuild
     environment:
       - METEOR_ALLOW_SUPERUSER: true
     steps:
