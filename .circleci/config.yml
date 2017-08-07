@@ -24,7 +24,7 @@ jobs:
             echo "Meteor npm version:"
             meteor npm -v
       - run: 
-          name: install npm dependencies
+          name: install npm packages
           command: meteor npm i
       - run:
           name: code linting
@@ -67,13 +67,8 @@ jobs:
           key: meteor-packages-{{ checksum ".meteor/versions" }}
       - restore_cache:
           key: npm-packages-{{ checksum "package.json" }}
-      - run:
-          name: install git-all for chimp
-          command: |
-            apt-get update 
-            apt-get install git-all -y
       - run: 
-          name: install npm dependencies
+          name: install npm packages
           command: meteor npm i
       - run:
           name: starting app and running e2e tests
