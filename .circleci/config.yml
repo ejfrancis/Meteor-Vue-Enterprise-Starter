@@ -8,12 +8,12 @@ jobs:
       - METEOR_ALLOW_SUPERUSER: true
     steps:
       - checkout
-      - restore_cache:
-          key: meteor-release-cache-{{ checksum ".meteor/release" }}
-      - restore_cache:
-          key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
-      - restore_cache:
-          key: npm-packages-cache-{{ checksum "package.json" }}
+      # - restore_cache:
+      #     key: meteor-release-cache-{{ checksum ".meteor/release" }}
+      # - restore_cache:
+      #     key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
+      # - restore_cache:
+      #     key: npm-packages-cache-{{ checksum "package.json" }}
       - run:
           name: check versions
           command: |
@@ -38,17 +38,17 @@ jobs:
           name: unit tests
           command: meteor npm run test:unit
       - save_cache:
-          key: npm-packages-cache-{{ checksum "package.json" }}
+          key: meteor-release-cache-{{ checksum ".meteor/release" }}
           paths:
-            - ./node_modules/
+            - ~/.meteor
       - save_cache:
           key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
           paths:
             - ./.meteor
       - save_cache:
-          key: meteor-release-cache-{{ checksum ".meteor/release" }}
+          key: npm-packages-cache-{{ checksum "package.json" }}
           paths:
-            - ~/.meteor
+            - ./node_modules/
       - store_artifacts:
           path: ./tests/coverage/unit-tests/
           destination: unit-tests
@@ -60,12 +60,12 @@ jobs:
       - METEOR_ALLOW_SUPERUSER: true
     steps:
       - checkout
-      - restore_cache:
-          key: meteor-release-cache-{{ checksum ".meteor/release" }}
-      - restore_cache:
-          key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
-      - restore_cache:
-          key: npm-packages-cache-{{ checksum "package.json" }}
+      # - restore_cache:
+      #     key: meteor-release-cache-{{ checksum ".meteor/release" }}
+      # - restore_cache:
+      #     key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
+      # - restore_cache:
+      #     key: npm-packages-cache-{{ checksum "package.json" }}
       - run: 
           name: install npm dependencies
           command: meteor npm i
@@ -75,7 +75,7 @@ jobs:
           background: true
       - run:
           name: wait for app to start
-          command: sleep 2m
+          command: sleep 2m30s
       - run:
           name: e2e tests
           command: meteor npm run test:e2e
