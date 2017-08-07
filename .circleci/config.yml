@@ -73,6 +73,9 @@ jobs:
       - run:
           name: e2e tests
           command: meteor npm run test:e2e
+      - run:
+          name: wait
+          command: sleep 20s
 workflows:
   version: 2
   build-and-e2e-tests:
