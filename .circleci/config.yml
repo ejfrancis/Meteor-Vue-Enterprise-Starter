@@ -8,12 +8,12 @@ jobs:
       - METEOR_ALLOW_SUPERUSER: true
     steps:
       - checkout
-      - restore_cache:
-          key: meteor-release-cache-{{ checksum ".meteor/release" }}
-      - restore_cache:
-          key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
-      - restore_cache:
-          key: npm-packages-cache-{{ checksum "package.json" }}
+      # - restore_cache:
+      #     key: meteor-release-cache-{{ checksum ".meteor/release" }}
+      # - restore_cache:
+      #     key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
+      # - restore_cache:
+      #     key: npm-packages-cache-{{ checksum "package.json" }}
       - run:
           name: check versions
           command: |
