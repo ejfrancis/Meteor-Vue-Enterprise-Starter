@@ -69,7 +69,9 @@ jobs:
           key: npm-packages-{{ checksum "package.json" }}
       - run:
           name: install git-all for chimp
-          command: apt-get install git-all -y
+          command: |
+            apt-get update 
+            apt-get install git-all -y
       - run: 
           name: install npm dependencies
           command: meteor npm i
