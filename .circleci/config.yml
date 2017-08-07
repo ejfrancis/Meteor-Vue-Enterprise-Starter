@@ -73,7 +73,7 @@ jobs:
       - run:
           name: starting app and running e2e tests
           command: meteor npm run test:e2e-standalone
-          no_output_timeout: 2m
+          no_output_timeout: 5m
 workflows:
   version: 2
   build-and-e2e-tests:
