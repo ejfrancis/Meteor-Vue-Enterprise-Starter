@@ -15,6 +15,9 @@ jobs:
       - restore_cache:
           key: npm-packages-{{ checksum "package.json" }}
       - run:
+          name: fix inotify file watchter for Meteor
+          command: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+      - run:
           name: check versions
           command: |
             echo "Meteor version:"
@@ -49,6 +52,7 @@ jobs:
           key: npm-packages-{{ checksum "package.json" }}
           paths:
             - ./node_modules/
+            - ~/.npm/
       - store_artifacts:
           path: ./tests/coverage/unit-tests/
           destination: unit-tests
@@ -66,6 +70,9 @@ jobs:
           key: meteor-packages-{{ checksum ".meteor/versions" }}
       - restore_cache:
           key: npm-packages-{{ checksum "package.json" }}
+      - run:
+          name: fix inotify file watchter for Meteor
+          command: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
       - run: 
           name: install npm dependencies
           command: meteor npm i
