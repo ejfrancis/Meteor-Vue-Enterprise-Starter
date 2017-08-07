@@ -17,8 +17,8 @@ jobs:
       - run:
           name: install meteor
           command: |
-            sudo apt-get update
-            sudo apt-get install curl
+            apt-get update
+            apt-get install curl
             curl https://install.meteor.com/ | sh
       - run:
           name: check versions
