@@ -68,11 +68,11 @@ jobs:
           key: npm-packages-cache-{{ checksum "package.json" }}
       - run:
           name: start app in background, mimic prod
-          run: meteor npm run start:mimic-prod
+          command: meteor npm run start:mimic-prod
           background: true
       - run:
           name: e2e tests
-          run: meteor npm run test:e2e
+          command: meteor npm run test:e2e
 workflows:
   version: 2
   build-and-e2e-tests:
