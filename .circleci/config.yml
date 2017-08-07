@@ -66,6 +66,9 @@ jobs:
           key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
       - restore_cache:
           key: npm-packages-cache-{{ checksum "package.json" }}
+      - run: 
+          name: install npm dependencies
+          command: meteor npm i
       - run:
           name: start app in background
           command: meteor npm run start
