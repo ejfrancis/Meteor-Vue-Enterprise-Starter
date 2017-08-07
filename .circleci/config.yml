@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/app
     docker:
-      - image: tozd/meteor:ubuntu-xenial
+      - image: golden:meteor-dev/latest
     environment:
       - METEOR_ALLOW_SUPERUSER: true
     steps:
