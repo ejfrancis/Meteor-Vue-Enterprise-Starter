@@ -9,11 +9,11 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: meteor-release-cache-{{ checksum ".meteor/release" }}
+          key: meteor-release-cache-v1{{ checksum ".meteor/release" }}
       - restore_cache:
-          key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
+          key: meteor-packages-cache-v1{{ checksum ".meteor/versions" }}
       - restore_cache:
-          key: npm-packages-cache-{{ checksum "package.json" }}
+          key: npm-packages-cache-v1{{ checksum "package.json" }}
       - run:
           name: check versions
           command: |
@@ -38,15 +38,15 @@ jobs:
           name: unit tests
           command: meteor npm run test:unit
       - save_cache:
-          key: meteor-release-cache-{{ checksum ".meteor/release" }}
+          key: meteor-release-cache-v1{{ checksum ".meteor/release" }}
           paths:
             - ~/.meteor
       - save_cache:
-          key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
+          key: meteor-packages-cache-v1{{ checksum ".meteor/versions" }}
           paths:
-            - ./.meteor
+            - .meteor/
       - save_cache:
-          key: npm-packages-cache-{{ checksum "package.json" }}
+          key: npm-packages-cache-v1{{ checksum "package.json" }}
           paths:
             - ./node_modules/
       - store_artifacts:
@@ -61,11 +61,11 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: meteor-release-cache-{{ checksum ".meteor/release" }}
+          key: meteor-release-cache-v1{{ checksum ".meteor/release" }}
       - restore_cache:
-          key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
+          key: meteor-packages-cache-v1{{ checksum ".meteor/versions" }}
       - restore_cache:
-          key: npm-packages-cache-{{ checksum "package.json" }}
+          key: npm-packages-cache-v1{{ checksum "package.json" }}
       - run: 
           name: install npm dependencies
           command: meteor npm i
