@@ -19,6 +19,9 @@ jobs:
       - restore_cache:
           key: npm-packages-2{{ checksum "package.json" }}
       - run:
+          name: install build essentials
+          command: apt-get install -y build-essential
+      - run:
           name: install Meteor
           command: meteor || curl https://install.meteor.com | /bin/sh
       - run:
