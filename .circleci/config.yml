@@ -3,28 +3,41 @@ jobs:
   build:
     working_directory: ~/app
     docker:
-      - image: tozd/meteor:ubuntu-xenial
-    environment:
-      - METEOR_ALLOW_SUPERUSER: true
+      - image: circleci/openjdk:8-jdk-browsers
+        environment:
+          # lang settings required for Meteor's Mongo
+          LANG: C.UTF-8
+          LANGUAGE: C.UTF-8
+          LC_ALL: C.UTF-8
+          LC_NUMERIC: en_US.UTF-8
     steps:
       - checkout
       - restore_cache:
-          key: meteor-release-cache-{{ checksum ".meteor/release" }}
+          key: meteor-release-2{{ checksum ".meteor/release" }}
       - restore_cache:
-          key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
+          key: meteor-packages-2{{ checksum ".meteor/versions" }}
       - restore_cache:
-          key: npm-packages-cache-{{ checksum "package.json" }}
+          key: npm-packages-2{{ checksum "package.json" }}
+      - run:
+          name: install build essentials
+          command: sudo apt-get install -y build-essential
+      - run:
+          name: install Meteor
+          command: meteor || curl https://install.meteor.com | /bin/sh
       - run:
           name: check versions
           command: |
             echo "Meteor version:"
+            # this forces Meteor to download whatever release your project is using
             meteor --version
             echo "Meteor node version:"
             meteor node -v
             echo "Meteor npm version:"
             meteor npm -v
+            echo "Java version:"
+            java -version
       - run: 
-          name: install npm dependencies
+          name: install npm packages
           command: meteor npm i
       - run:
           name: code linting
@@ -37,18 +50,23 @@ jobs:
       - run:
           name: unit tests
           command: meteor npm run test:unit
+      - run:
+          name: start app and run e2e tests
+          command: meteor npm run test:e2e-standalone
+          no_output_timeout: 5m
       - save_cache:
-          key: npm-packages-cache-{{ checksum "package.json" }}
-          paths:
-            - ./node_modules/
-      - save_cache:
-          key: meteor-packages-cache-{{ checksum ".meteor/versions" }}
-          paths:
-            - ./meteor
-      - save_cache:
-          key: meteor-release-cache-{{ checksum ".meteor/release" }}
+          key: meteor-release-2{{ checksum ".meteor/release" }}
           paths:
             - ~/.meteor
+      - save_cache:
+          key: meteor-packages-2{{ checksum ".meteor/versions" }}
+          paths:
+            - .meteor/
+      - save_cache:
+          key: npm-packages-2{{ checksum "package.json" }}
+          paths:
+            - ./node_modules/
+            - ~/.npm/
       - store_artifacts:
           path: ./tests/coverage/unit-tests/
           destination: unit-tests

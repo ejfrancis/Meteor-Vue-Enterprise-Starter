@@ -8,6 +8,12 @@ To run e2e tests on you local machine, first run your Meteor application with `m
 meteor npm run test:e2e
 ```
 
+You can also start an instance of your app and run e2e tests with one command (if another instance of the app isn't already running) with this command:
+
+```
+meteor npm run test:e2e-standalone
+```
+
 ### Overriding App Port and Url Base
 The base class that Page Objects extend is at [tests/e2e/page-objects/PageObjectBase.js](/tests/page-objects/HomePage.js). To override this, you can provide different arguments to `super()` when making a new Page Object, or you can provide the following environment variables:
 
