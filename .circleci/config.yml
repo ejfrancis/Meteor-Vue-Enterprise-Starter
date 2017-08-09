@@ -39,15 +39,15 @@ jobs:
           name: unit tests
           command: meteor npm run test:unit
       - save_cache:
-          key: meteor-release-{{ checksum ".meteor/release" }}
+          key: meteor-release-1{{ checksum ".meteor/release" }}
           paths:
             - ~/.meteor
       - save_cache:
-          key: meteor-packages-{{ checksum ".meteor/versions" }}
+          key: meteor-packages-1{{ checksum ".meteor/versions" }}
           paths:
             - .meteor/
       - save_cache:
-          key: npm-packages-{{ checksum "package.json" }}
+          key: npm-packages-1{{ checksum "package.json" }}
           paths:
             - ./node_modules/
             - ~/.npm/
@@ -61,11 +61,11 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: meteor-release-{{ checksum ".meteor/release" }}
+          key: meteor-release-1{{ checksum ".meteor/release" }}
       - restore_cache:
-          key: meteor-packages-{{ checksum ".meteor/versions" }}
+          key: meteor-packages-1{{ checksum ".meteor/versions" }}
       - restore_cache:
-          key: npm-packages-{{ checksum "package.json" }}
+          key: npm-packages-1{{ checksum "package.json" }}
       - run:
           name: install Meteor
           command: meteor || curl https://install.meteor.com | /bin/sh
