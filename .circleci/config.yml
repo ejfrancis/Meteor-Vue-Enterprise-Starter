@@ -93,6 +93,8 @@ jobs:
           paths:
             - ./node_modules/
             - ~/.npm/
+      - store_test_results:
+          path: ./tests/coverage/unit-tests/
       - store_artifacts:
           path: ./tests/coverage/unit-tests/
           destination: unit-tests
