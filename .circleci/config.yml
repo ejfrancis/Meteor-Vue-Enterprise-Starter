@@ -30,6 +30,7 @@ jobs:
             echo "Meteor version:"
             # this forces Meteor to download whatever release your project is using
             meteor --version
+            which meteor
             echo "Meteor node version:"
             meteor node -v
             echo "Meteor npm version:"
@@ -58,6 +59,7 @@ jobs:
           key: meteor-release-2{{ checksum ".meteor/release" }}
           paths:
             - ~/.meteor
+            - /usr/local/bin/meteor
       - save_cache:
           key: meteor-packages-2{{ checksum ".meteor/versions" }}
           paths:
