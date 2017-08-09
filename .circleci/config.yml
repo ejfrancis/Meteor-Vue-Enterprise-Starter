@@ -4,8 +4,6 @@ jobs:
     working_directory: ~/app
     docker:
       - image: circleci/node:latest-browsers
-    environment:
-      - METEOR_ALLOW_SUPERUSER: true
     steps:
       - checkout
       - restore_cache:
@@ -60,8 +58,6 @@ jobs:
     working_directory: ~/app
     docker:
       - image: tzapu/development-meteor:latest
-    environment:
-      - METEOR_ALLOW_SUPERUSER: true
     steps:
       - checkout
       - restore_cache:
