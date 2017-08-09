@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/app
     docker:
-      - image: circleci/node:latest-browsers
+      - image: circleci/java:8-jdk-browsers
     steps:
       - checkout
       - restore_cache:
@@ -57,7 +57,7 @@ jobs:
   e2e_tests:
     working_directory: ~/app
     docker:
-      - image: circleci/node:latest-browsers
+      - image: circleci/java:8-jdk-browsers
         environment:
           LANG: C.UTF-8
           LANGUAGE: C.UTF-8
