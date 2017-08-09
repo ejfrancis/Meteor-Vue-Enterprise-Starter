@@ -4,61 +4,8 @@ jobs:
     working_directory: ~/app
     docker:
       - image: circleci/openjdk:8-jdk-browsers
-    steps:
-      - checkout
-      - restore_cache:
-          key: meteor-release-1{{ checksum ".meteor/release" }}
-      - restore_cache:
-          key: meteor-packages-1{{ checksum ".meteor/versions" }}
-      - restore_cache:
-          key: npm-packages-1{{ checksum "package.json" }}
-      - run:
-          name: install Meteor
-          command: meteor || curl https://install.meteor.com | /bin/sh
-      - run:
-          name: check versions
-          command: |
-            echo "Meteor version:"
-            meteor --version
-            echo "Meteor node version:"
-            meteor node -v
-            echo "Meteor npm version:"
-            meteor npm -v
-      - run: 
-          name: install npm packages
-          command: meteor npm i
-      - run:
-          name: code linting
-          command: |
-            echo "Installing semistandard deps manually (hacky fix)"
-            cd node_modules/semistandard
-            meteor npm i
-            cd ../../
-            meteor npm run lint
-      - run:
-          name: unit tests
-          command: meteor npm run test:unit
-      - save_cache:
-          key: meteor-release-1{{ checksum ".meteor/release" }}
-          paths:
-            - ~/.meteor
-      - save_cache:
-          key: meteor-packages-1{{ checksum ".meteor/versions" }}
-          paths:
-            - .meteor/
-      - save_cache:
-          key: npm-packages-1{{ checksum "package.json" }}
-          paths:
-            - ./node_modules/
-            - ~/.npm/
-      - store_artifacts:
-          path: ./tests/coverage/unit-tests/
-          destination: unit-tests
-  e2e_tests:
-    working_directory: ~/app
-    docker:
-      - image: circleci/openjdk:8-jdk-browsers
         environment:
+          # lang settings required for Meteor's Mongo
           LANG: C.UTF-8
           LANGUAGE: C.UTF-8
           LC_ALL: C.UTF-8
@@ -78,23 +25,45 @@ jobs:
           name: check versions
           command: |
             echo "Meteor version:"
+            # this forces Meteor to download whatever release your project is using
             meteor --version
             echo "Meteor node version:"
             meteor node -v
             echo "Meteor npm version:"
             meteor npm -v
+            echo "Java version:"
+            java -version
       - run: 
           name: install npm packages
           command: meteor npm i
       - run:
-          name: starting app and running e2e tests
+          name: code linting
+          command: |
+            echo "Installing semistandard deps manually (hacky fix)"
+            cd node_modules/semistandard
+            meteor npm i
+            cd ../../
+            meteor npm run lint
+      - run:
+          name: unit tests
+          command: meteor npm run test:unit
+      - run:
+          name: start app and run e2e tests
           command: meteor npm run test:e2e-standalone
           no_output_timeout: 5m
-workflows:
-  version: 2
-  build-and-e2e-tests:
-    jobs:
-      - build
-      - e2e_tests:
-          requires:
-            - build
+      - save_cache:
+          key: meteor-release-1{{ checksum ".meteor/release" }}
+          paths:
+            - ~/.meteor
+      - save_cache:
+          key: meteor-packages-1{{ checksum ".meteor/versions" }}
+          paths:
+            - .meteor/
+      - save_cache:
+          key: npm-packages-1{{ checksum "package.json" }}
+          paths:
+            - ./node_modules/
+            - ~/.npm/
+      - store_artifacts:
+          path: ./tests/coverage/unit-tests/
+          destination: unit-tests
