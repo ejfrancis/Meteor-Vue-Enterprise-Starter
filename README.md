@@ -17,7 +17,7 @@ The following development tools are used:
 * Jest - unit tests
 * Chimp - e2e tests
 * semistandard - code linting
-* husky - git hooks
+* meteor-husky - git hooks
 * CircleCI - continuous integration
 
 *Note:* This starter kit is geared towards enterprise software. If you're looking to put together a quick prototype, this may be overkill.
