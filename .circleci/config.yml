@@ -57,7 +57,7 @@ jobs:
   e2e_tests:
     working_directory: ~/app
     docker:
-      - image: tzapu/development-meteor:latest
+      - image: circleci/node:latest-browsers
     steps:
       - checkout
       - restore_cache:
