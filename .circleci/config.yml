@@ -72,11 +72,6 @@ jobs:
           command: meteor npm run test:e2e-standalone
           no_output_timeout: 5m
       - run:
-          name: store test results
-          command: |
-            sudo mkdir -p "$CIRCLE_TEST_REPORTS/reports"
-            sudo cp "tests/coverage/unit-tests/junit.xml" "$CIRCLE_TEST_REPORTS/reports/unit-tests.xml"
-      - run:
           name: copy meteor bin to build cache
           command: |
             mkdir -p ~/build-temp
@@ -98,6 +93,8 @@ jobs:
           paths:
             - ./node_modules/
             - ~/.npm/
+      - store_test_results:
+          path: ./tests/coverage/unit-tests/
       - store_artifacts:
           path: ./tests/coverage/unit-tests/
           destination: unit-tests
