@@ -58,6 +58,11 @@ jobs:
     working_directory: ~/app
     docker:
       - image: circleci/node:latest-browsers
+        environment:
+          LANG: C.UTF-8
+          LANGUAGE: C.UTF-8
+          LC_ALL: C.UTF-8
+          LC_NUMERIC: en_US.UTF-8
     steps:
       - checkout
       - restore_cache:
