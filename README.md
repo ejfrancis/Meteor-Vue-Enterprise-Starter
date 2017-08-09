@@ -18,6 +18,9 @@ The following development tools are used:
 * Chimp - e2e tests
 * semistandard - code linting
 * husky - git hooks
+* CircleCI - continuous integration
+
+*Note:* This starter kit is geared towards enterprise software. If you're looking to put together a quick prototype, this may be overkill.
 
 # Usage
 
@@ -84,3 +87,6 @@ See the [Vuex State Management documentation](/docs/vuex-client-state-management
 The directory structure is built in a way to make things predictable and enforce code modularity and organization per feature/domain by splitting the code into "Application Modules".
 
 See the [Application Structure documentation](/docs/application-structure.md).
+
+# Continuous Integration
+A CircleCI configuration for running code linting, unit tests, and e2e tests against a local app server is located in [`.circle/config.yml`](/.circleci/config.yml). If the build is taking too long, you can split the unit tests and code linting into one job, and e2e tests in another job with a CircleCI Workflow.
