@@ -30,7 +30,7 @@ jobs:
           command: |
             if [ -e ~/build-temp/meteor-bin ]
             then
-                echo "Cached Meteor bin found, restoring it"
+                echo "Cached Meteor bin found, restoring it."
                 sudo cp ~/build-temp/meteor-bin /usr/local/bin/meteor
             else
                 echo "No cached Meteor bin found."
