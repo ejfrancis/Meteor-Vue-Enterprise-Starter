@@ -13,11 +13,11 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: meteor-release-2{{ checksum ".meteor/release" }}
+          key: meteor-release-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
       - restore_cache:
-          key: meteor-packages-2{{ checksum ".meteor/versions" }}
+          key: meteor-packages-{{ checksum ".meteor/versions" }}-{{ checksum ".circleci/config.yml" }}
       - restore_cache:
-          key: npm-packages-2{{ checksum "package.json" }}
+          key: npm-packages-{{ checksum "package.json" }}-{{ checksum ".circleci/config.yml" }}
       - run:
           name: install build essentials
           command: sudo apt-get install -y build-essential
@@ -56,16 +56,16 @@ jobs:
           command: meteor npm run test:e2e-standalone
           no_output_timeout: 5m
       - save_cache:
-          key: meteor-release-2{{ checksum ".meteor/release" }}
+          key: meteor-release-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
           paths:
             - ~/.meteor
             - /usr/local/bin/meteor
       - save_cache:
-          key: meteor-packages-2{{ checksum ".meteor/versions" }}
+          key: meteor-packages-{{ checksum ".meteor/versions" }}-{{ checksum ".circleci/config.yml" }}
           paths:
             - .meteor/
       - save_cache:
-          key: npm-packages-2{{ checksum "package.json" }}
+          key: npm-packages-{{ checksum "package.json" }}-{{ checksum ".circleci/config.yml" }}
           paths:
             - ./node_modules/
             - ~/.npm/
