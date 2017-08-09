@@ -69,6 +69,15 @@ jobs:
       - run:
           name: install Meteor
           command: meteor || curl https://install.meteor.com | /bin/sh
+      - run:
+          name: check versions
+          command: |
+            echo "Meteor version:"
+            meteor --version
+            echo "Meteor node version:"
+            meteor node -v
+            echo "Meteor npm version:"
+            meteor npm -v
       - run: 
           name: install npm packages
           command: meteor npm i
