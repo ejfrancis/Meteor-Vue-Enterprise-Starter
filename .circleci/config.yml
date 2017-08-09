@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/app
     docker:
-      - image: tzapu/development-meteor:latest
+      - image: circleci/node:latest-browsers
     environment:
       - METEOR_ALLOW_SUPERUSER: true
     steps:
@@ -14,6 +14,9 @@ jobs:
           key: meteor-packages-{{ checksum ".meteor/versions" }}
       - restore_cache:
           key: npm-packages-{{ checksum "package.json" }}
+      - run:
+          name: install Meteor
+          command: meteor || curl https://install.meteor.com | /bin/sh
       - run:
           name: check versions
           command: |
@@ -67,6 +70,9 @@ jobs:
           key: meteor-packages-{{ checksum ".meteor/versions" }}
       - restore_cache:
           key: npm-packages-{{ checksum "package.json" }}
+      - run:
+          name: install Meteor
+          command: meteor || curl https://install.meteor.com | /bin/sh
       - run: 
           name: install npm packages
           command: meteor npm i
