@@ -20,7 +20,7 @@ The following development tools are used:
 * husky - git hooks
 * CircleCI - continuous integration
 
-This starter kit is geared towards enterprise software. If you're looking to put together a quick prototype, this may be overkill.
+*Note:* This starter kit is geared towards enterprise software. If you're looking to put together a quick prototype, this may be overkill.
 
 # Usage
 
