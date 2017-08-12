@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
+import iView from 'iview';
 import { sync } from 'vuex-router-sync';
 import { VuexAltPlugin } from 'vuex-alt';
 import VueMeteorTracker from 'vue-meteor-tracker';
@@ -21,14 +22,15 @@ export const setupVue = ({
   createStore = createStoreOriginal,
   createRouter = createRouterOriginal
  } = {}) => {
-  Vue.use(VueRouter);
-  Vue.use(Vuex);
-  Vue.use(VueMeteorTracker);
+  Vue.use(VueRouter);                 // router
+  Vue.use(Vuex);                      // global state management (similar to Redux)
+  Vue.use(VueMeteorTracker);          // Meteor Tracker integration
+  Vue.use(iView);                     // UI component framework
 
-  const store = createStore();
-  const router = createRouter();
+  const store = createStore();        // vuex store
+  const router = createRouter();      // vue-router instance
 
-  Vue.use(VuexAltPlugin, { store });
+  Vue.use(VuexAltPlugin, { store });  // alternative mapActions() and mapGetters() for vuex
 
   sync(store, router);
 
