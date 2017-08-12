@@ -4,6 +4,7 @@
   "scripts": {
     "start": "meteor run --settings config/config.development.json",
     "start:mimic-prod": "meteor run --settings config/config.production.json --production",
+    "start:bundle-visualizer": "meteor npm run start:mimic-prod -- --extra-packages bundle-visualizer",
     "debug": "meteor debug --settings config/config.development.json",
     "test:unit": "JEST_JUNIT_OUTPUT=tests/coverage/unit-tests/junit.xml jest --config tests/unit-test-setup/jest-config.json",
     "test:unit-debug": "meteor node --inspect-brk ./node_modules/.bin/jest --runInBand -i --config tests/unit-test-setup/jest-config.json",
