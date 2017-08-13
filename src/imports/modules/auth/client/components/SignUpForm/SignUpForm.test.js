@@ -3,9 +3,9 @@ import SignUpForm from './SignUpForm.vue';
 import { setupVue } from '/src/imports/startup/client/client-index';
 import { getActions } from '/tests/unit-test-setup/vuex-alt-test-util';
 
-const getFirstNameInput = (wrapper) => wrapper.find('.first-name-input')[0];
-const getLastNameInput = (wrapper) => wrapper.find('.last-name-input')[0];
-const getEmailInput = (wrapper) => wrapper.find('.email-input')[0];
+const getFirstNameInput = (wrapper) => wrapper.find('.first-name-input > input')[0];
+const getLastNameInput = (wrapper) => wrapper.find('.last-name-input > input')[0];
+const getEmailInput = (wrapper) => wrapper.find('.email-input > input')[0];
 const getSuccessMessage = (wrapper) => wrapper.find('.success')[0];
 const getSubmitBtn = (wrapper) => wrapper.find('.sign-up-submit-btn')[0];
 const isDisabled = (el) => el.hasAttribute('disabled', 'disabled');
@@ -28,6 +28,7 @@ describe('SignUpForm', () => {
       const lastNameInput = getLastNameInput(wrapper);
       const emailInput = getEmailInput(wrapper);
       const submitBtn = getSubmitBtn(wrapper);
+      debugger;
       firstNameInput.element.value = '';
       firstNameInput.trigger('input');
       lastNameInput.element.value = '';
