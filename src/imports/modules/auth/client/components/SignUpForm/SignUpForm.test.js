@@ -28,7 +28,6 @@ describe('SignUpForm', () => {
       const lastNameInput = getLastNameInput(wrapper);
       const emailInput = getEmailInput(wrapper);
       const submitBtn = getSubmitBtn(wrapper);
-      debugger;
       firstNameInput.element.value = '';
       firstNameInput.trigger('input');
       lastNameInput.element.value = '';
