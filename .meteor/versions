@@ -29,7 +29,7 @@ ecmascript@0.9.0-beta.19
 ecmascript-runtime@0.5.0-beta.19
 ecmascript-runtime-client@0.5.0-beta.19
 ecmascript-runtime-server@0.5.0-beta.19
-efrancis:iview@0.0.9
+efrancis:iview@0.0.10
 ejson@1.1.0-beta.19
 email@1.2.3
 es5-shim@4.6.15

@@ -40,15 +40,14 @@ a {
 
 <template>
   <nav class='AppNavigation'>
-    <Menu mode="horizontal" theme="dark" active-name="1">
-      <div class="layout-logo"></div>
-      <div class="layout-nav">
-        <Menu-item name="1">
-          <Icon type="ios-navigate"></Icon>
+    <Menu mode='horizontal' theme='dark' active-name='1'>
+      <div class='layout-nav'>
+        <Menu-item name='1'>
+          <Icon type='home'></Icon>
           <router-link to='home'>Home</router-link>
         </Menu-item>
-        <Menu-item name="2">
-          <Icon type="ios-keypad"></Icon>
+        <Menu-item name='2'>
+          <Icon type='locked'></Icon>
            <router-link to='private'>Private</router-link>
         </Menu-item>
       </div>
