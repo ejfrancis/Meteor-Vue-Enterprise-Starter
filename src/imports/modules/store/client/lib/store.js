@@ -4,6 +4,7 @@ import createLogger from 'vuex/dist/logger';
 // vuex store modules
 import { counterStoreModule } from '/src/imports/modules/counter/client/state/counter-store';
 import { authStoreModule } from '/src/imports/modules/auth/client/state/auth-store';
+import { layoutStoreModule } from '/src/imports/modules/layout/client/state/layout-store';
 
 const plugins = [];
 
@@ -16,7 +17,8 @@ const createStore = () => {
     plugins,
     modules: {
       counter: counterStoreModule,
-      auth: authStoreModule
+      auth: authStoreModule,
+      layout: layoutStoreModule
     }
   });
   return store;

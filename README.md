@@ -11,6 +11,8 @@ An opinionated starter kit application utilizing the following libraries/framewo
 * vuex-router-sync
 * vuex-alt
 * vue-meteor-tracker
+* iView UI toolkit
+* vue-media
 
 The following development tools are used:
 
