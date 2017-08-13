@@ -12,13 +12,13 @@
         <i-col :xs='24' :sm='{ span: 11 }'>
           <div class='first-name'>
             <label>First Name</label>
-            <Input v-model='formData.firstName' placeholder='First name' icon='person' />
+            <Input class='first-name-input' v-model='formData.firstName' placeholder='First name' icon='person' />
           </div>
         </i-col>
         <i-col :xs='24' :sm='{ span: 11, push: 2 }'>
           <div class='last-name'>
             <label>Last Name</label>
-            <Input v-model='formData.lastName' placeholder='Last name' icon='person' />
+            <Input class='last-name-input' v-model='formData.lastName' placeholder='Last name' icon='person' />
           </div>
         </i-col>
       </Row>
@@ -26,7 +26,7 @@
         <i-col span='24'>
           <div class='email'>
             <label>Email</label>
-            <Input v-model='formData.email' placeholder='Email' icon='email' />
+            <Input class='email-input' v-model='formData.email' placeholder='Email' icon='email' />
           </div>
         </i-col>
       </Row>
