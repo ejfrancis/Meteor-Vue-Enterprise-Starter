@@ -10,14 +10,14 @@
 
 <template>
   <div class='Layout'>
-    <media :query='{ maxWidth: 600 }' @media-enter='showMobileNav'>
+    <media :query='{ maxWidth: 600 }' @media-enter='handleEnterMobile' @media-leave='handleEnterLarge'>
       <div v-if='isMobileNavVisible'>
         <layout-mobile v-if='isMobileNavVisible'>
           <slot></slot>
         </layout-mobile>
       </div>
     </media>
-    <media :query='{ minWidth: 601 }' @media-enter='showLargeNav'>
+    <media :query='{ minWidth: 600 }' @media-enter='handleEnterLarge' @media-leave='handleEnterMobile'>
       <div v-if='!isMobileNavVisible'>
         <layout-large>
           <slot></slot>
@@ -34,26 +34,11 @@ import LayoutMobile from './../LayoutMobile/LayoutMobile.vue';
 import LayoutLarge from './../LayoutLarge/LayoutLarge.vue';
 
 export default {
+  name: 'Layout',
   components: {
     Media,
     LayoutMobile,
     LayoutLarge
-  },
-  data() {
-    return {
-      routes: [
-        {
-          name: 'Home',
-          path: '/',
-          icon: 'home'
-        },
-        {
-          name: 'Private',
-          path: '/private',
-          icon: 'locked'
-        }
-      ]
-    }
   },
   computed: {
     ...mapState({
@@ -64,7 +49,17 @@ export default {
     ...mapActions({
       showMobileNav: (actions) => actions.layout.showMobileNav,
       showLargeNav: (actions) => actions.layout.showLargeNav
-    })
+    }),
+    handleEnterMobile() {
+      if (!this.isMobileNavVisible) {
+        this.showMobileNav();
+      }
+    },
+    handleEnterLarge() {
+      if (this.isMobileNavVisible) {
+        this.showLargeNav();
+      }
+    }
   }
 }
 </script>

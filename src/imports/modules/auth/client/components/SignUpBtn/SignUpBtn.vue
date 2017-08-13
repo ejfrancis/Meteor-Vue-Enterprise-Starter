@@ -1,30 +1,26 @@
 <style scoped>
-.SignUpBtn {
-  display: inline-block;
-  border: 1px solid black;
-  line-height: 30px;
-  height: 30px;
-  padding: 0px 10px;
-}
-.SignUpBtn:hover {
-  border: 1px solid white;
+.ivu-btn {
+  color: white;
 }
 a {
   text-decoration: none;
-  color: black;
-}
-a:hover {
-  color: white;
 }
 </style>
 
 <template>
-  <router-link class='SignUpBtn' to='sign-up'>Sign Up</router-link> 
+  <Button class='SignUpBtn' type='ghost' @click='handleClick'>
+    Sign Up
+  </Button>
 </template>
 
 <script>
 
 export default {
   name: 'SignUpBtn',
+   methods: {
+    handleClick() {
+      this.$router.push({ path: 'sign-up' });
+    }
+  }
 }
 </script>

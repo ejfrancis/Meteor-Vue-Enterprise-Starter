@@ -14,15 +14,15 @@
 
 
 /* vue-router active class */
-
 .router-link-exact-active {
   color: white;
   font-weight: bold;
 }
-
+a {
+  color: #a6a4a4;
+}
 
 /* icol expand transition */
-
 .ivu-col {
   transition: width .2s ease-in-out;
 }
@@ -35,7 +35,7 @@
         v-bind:class='{ "nav-mobile-container-hidden": !isMobileNavExpanded }'
       >
         <nav class='nav-mobile-container'>
-          <Menu active-name='1' theme='dark' width='auto' v-if='areMobileNavItemsVisible'>
+          <Menu active-name='1' theme='dark' width='auto' v-if='areMobileNavItemsVisible' @on-select='goToRoute'>
             <Menu-item v-for='route in navRoutes' :key='route.name' :name='route.name'>
               <Icon :type='route.icon'></Icon>
               <router-link :to='route.path'>{{ route.name }}</router-link>
@@ -61,6 +61,7 @@
 <script>
 import { mapState, mapActions } from 'vuex-alt';
 export default {
+  name: 'LayoutMobile',
   data() {
     return {
       // used for transition timeout
@@ -90,7 +91,10 @@ export default {
   methods: {
     ...mapActions({
       toggleMobileNavExpanded: (state) => state.layout.toggleMobileNavExpanded
-    })
+    }),
+    goToRoute(name) {
+      this.$router.push({ path: name });
+    }
   },
   computed: {
     ...mapState({

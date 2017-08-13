@@ -6,7 +6,7 @@ const initialState = {
   navRoutes: [
     {
       name: 'Home',
-      path: '/',
+      path: '/home',
       icon: 'home'
     },
     {

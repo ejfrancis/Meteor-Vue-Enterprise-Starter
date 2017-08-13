@@ -14,32 +14,36 @@
   color: white;
   font-weight: bold;
 }
+a {
+  color: #a6a4a4;
+}
+.ivue-btn:hover {
+  border-color: white !important;
+}
 </style>
 
 <template>
   <div class='LayoutLarge'>
     <nav class='nav-large-container'>
-      <Row type='flex'>
-        <i-col span='24'>
-          <!-- horizontal nav menu -->
-          <Menu mode='horizontal' theme='dark' active-name='1'>
-            <i-col span='18'>
-              <Menu-item 
-                v-for='route in navRoutes' 
-                :key='route.name' 
-                :name='route.name'
-              >
-                <Icon :type='route.icon'></Icon>
-                <router-link :to='route.path'>{{ route.name }}</router-link>
-              </Menu-item>
-            </i-col>
-            <!-- auth buttons -->
-            <i-col span='6' theme='dark'>
-              <nav-bar-auth />
-            </i-col>
-          </Menu>
-        </i-col>
-      </Row>
+      <!-- horizontal nav -->
+      <Menu mode='horizontal' theme='dark' active-name='1' @on-select='goToRoute'>
+        <Row type='flex'>
+          <i-col span='16'>
+            <Menu-item 
+              v-for='route in navRoutes' 
+              :key='route.name' 
+              :name='route.name'
+            >
+              <Icon :type='route.icon'></Icon>
+              <router-link :to='route.path'>{{ route.name }}</router-link>
+            </Menu-item>
+          </i-col>
+          <!-- auth buttons -->
+          <i-col span='8' theme='dark'>
+            <nav-bar-auth />
+          </i-col>
+        </Row>
+      </Menu>
     </nav>
     <div class='layout-children'>
       <!--child components rendered in slot -->
@@ -53,6 +57,7 @@ import { mapState } from 'vuex-alt';
 import NavBarAuth from '/src/imports/modules/auth/client/components/NavBarAuth/NavBarAuth.vue';
 
 export default {
+  name: 'LayoutLarge',
   components: {
     NavBarAuth
   },
@@ -60,6 +65,11 @@ export default {
     ...mapState({
       navRoutes: (state) => state.layout.navRoutes
     })
+  },
+  methods: {
+    goToRoute(name) {
+      this.$router.push({ path: name });
+    }
   }
 }
 </script>

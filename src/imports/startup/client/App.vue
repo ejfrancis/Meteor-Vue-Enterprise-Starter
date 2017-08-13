@@ -40,6 +40,12 @@ input, button {
   padding: 5px 5px;
 }
 
+/* iView framework overrides */
+.ivu-btn {
+  border-radius: 0;
+}
+/* end iView framework override */
+
 
 </style>
 
@@ -56,6 +62,7 @@ input, button {
 <script>
 import Layout from '/src/imports/modules/layout/client/components/Layout/Layout.vue';
 export default {
+  name: 'App',
   components: {
     Layout
   }

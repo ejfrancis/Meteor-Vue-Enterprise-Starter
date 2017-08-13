@@ -9,6 +9,10 @@
   position: relative;
   display: block;
 }
+.signed-out {
+  float: right;
+  margin-right: 20px;
+}
 
 .signed-out-button {
   display: inline-block;

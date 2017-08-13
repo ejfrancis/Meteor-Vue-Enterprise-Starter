@@ -1,11 +1,11 @@
 const MUTATION_TYPES = {
   SHOW_MOBILE_NAV: 'SHOW_MOBILE_NAV',
   SHOW_LARGE_NAV: 'SHOW_LARGE_NAV',
-  TOGGLE_MOBILE_NAV_EXPANDED: 'TOGGLE_MOBILE_NAV_EXPANDED' 
+  TOGGLE_MOBILE_NAV_EXPANDED: 'TOGGLE_MOBILE_NAV_EXPANDED'
 };
 
 const actions = {
-  showMobileNav: ({ commit }) => {
+  showMobileNav: ({ commit, state }) => {
     commit(MUTATION_TYPES.SHOW_MOBILE_NAV);
   },
   showLargeNav: ({ commit }) => {

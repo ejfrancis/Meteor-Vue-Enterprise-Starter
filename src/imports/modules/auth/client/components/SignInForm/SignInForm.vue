@@ -5,7 +5,7 @@
 <template>
   <div class='SignInForm'>
     <form @submit.prevent="submitForm">
-      <h3>Login</h3>
+      <h3>Sign In</h3>
       <div class='email'>
         <label>Email</label>
         <input v-model="formData.username" />

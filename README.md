@@ -52,6 +52,9 @@ To run the app with a production bundle and using the production settings locate
 meteor npm run start:mimic-prod
 ```
 
+# UI Framework Components
+The [iView UI framework](https://www.iviewui.com) is used for reusable, uniform components for things like form inputs, buttons, and a responsive grid layout. See the documentation of iView for more information on the components available.
+
 # Application Config
 You can provide application config/settings values in the `config/` directory, which will be made available via `Meteor.settings` in your code. You'll see two files:
 
@@ -59,6 +62,7 @@ You can provide application config/settings values in the `config/` directory, w
 * `config/config.production.json`: production config, use this for production values. ([see the Meteor guide](https://docs.meteor.com/environment-variables.html#METEOR-SETTINGS))
 
 # Testing
+
 ## Unit Tests
 See the [Unit Tests documentation](/docs/unit-tests.md).
 
