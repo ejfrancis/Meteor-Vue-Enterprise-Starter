@@ -13,10 +13,11 @@
   margin-top: 4px;
 }
 
-a:hover{
+a:hover {
   background-color: gray;
   color: white;
 }
+
 a {
   padding: 0 10px;
   display: inline-block;
@@ -29,16 +30,29 @@ a {
   margin-right: -2px;
 }
 
+
 /* class is added by vue-router automatically to active route */
+
 .router-link-active {
-  background: #ebebeb;
+  color: #ebebeb;
 }
 </style>
 
 <template>
   <nav class='AppNavigation'>
-    <router-link to='home'>Home</router-link>
-    <router-link to='private'>Private</router-link>
+    <Menu mode="horizontal" theme="dark" active-name="1">
+      <div class="layout-logo"></div>
+      <div class="layout-nav">
+        <Menu-item name="1">
+          <Icon type="ios-navigate"></Icon>
+          <router-link to='home'>Home</router-link>
+        </Menu-item>
+        <Menu-item name="2">
+          <Icon type="ios-keypad"></Icon>
+           <router-link to='private'>Private</router-link>
+        </Menu-item>
+      </div>
+    </Menu>
     <span class='navbar-auth-container'>
       <nav-bar-auth />
     </span>
