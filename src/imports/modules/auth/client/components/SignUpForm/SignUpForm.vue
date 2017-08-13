@@ -8,23 +8,33 @@
   <div class='RegisterForm'>
     <form @submit.prevent="submitForm">
       <h3>Sign Up</h3>
-      <div class='first-name'>
-        <label>First Name</label>
-        <input v-model="formData.firstName" />
-      </div>
-      <div class='last-name'>
-        <label>Last Name</label>
-        <input v-model="formData.lastName" />
-      </div>
-      <div class='email'>
-        <label>Email</label>
-        <input v-model="formData.email" />
-      </div>
+      <Row>
+        <i-col :xs='24' :sm='{ span: 11 }'>
+          <div class='first-name'>
+            <label>First Name</label>
+            <Input v-model='formData.firstName' placeholder='First name' icon='person' />
+          </div>
+        </i-col>
+        <i-col :xs='24' :sm='{ span: 11, push: 2 }'>
+          <div class='last-name'>
+            <label>Last Name</label>
+            <Input v-model='formData.lastName' placeholder='Last name' icon='person' />
+          </div>
+        </i-col>
+      </Row>
+      <Row>
+        <i-col span='24'>
+          <div class='email'>
+            <label>Email</label>
+            <Input v-model='formData.email' placeholder='Email' icon='email' />
+          </div>
+        </i-col>
+      </Row>
       <!-- email verification requires setting password after Accounts.sendVerificationEmail -->
       <!-- <div>
-        <label>password</label>
-        <input v-model="formData.password" type='password'/>
-      </div> -->
+          <label>password</label>
+          <input v-model="formData.password" type='password'/>
+        </div> -->
       <button type='submit' class='sign-up-submit-btn' :disabled='isSubmitDisabled'>Register</button>
     </form>
     <p class='success' v-if='enrollAccountEmailSent'>Alright! Please check your email to find a link to complete account registration.</p>
@@ -59,10 +69,10 @@ export default {
       enrollAccountEmailSent: (state) => state.auth.enrollAccountEmailSent
     }),
     isSubmitDisabled() {
-      return !this.formData.firstName || 
-      !this.formData.lastName || 
-      !this.formData.email ||
-      !SimpleSchema.RegEx.EmailWithTLD.test(this.formData.email);
+      return !this.formData.firstName ||
+        !this.formData.lastName ||
+        !this.formData.email ||
+        !SimpleSchema.RegEx.EmailWithTLD.test(this.formData.email);
     }
   },
   methods: {
