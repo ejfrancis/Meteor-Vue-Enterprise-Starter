@@ -28,7 +28,7 @@ a {
       <!-- horizontal nav -->
       <Menu mode='horizontal' theme='dark' active-name='1' @on-select='goToRoute'>
         <Row type='flex'>
-          <i-col span='16'>
+          <Col span='16'>
             <Menu-item 
               v-for='route in navRoutes' 
               :key='route.name' 
@@ -37,11 +37,11 @@ a {
               <Icon :type='route.icon'></Icon>
               <router-link :to='route.path'>{{ route.name }}</router-link>
             </Menu-item>
-          </i-col>
+          </Col>
           <!-- auth buttons -->
-          <i-col span='8' theme='dark'>
-            <nav-bar-auth />
-          </i-col>
+          <Col span='8' theme='dark'>
+            <nav-bar-auth theme='light'/>
+          </Col>
         </Row>
       </Menu>
     </nav>

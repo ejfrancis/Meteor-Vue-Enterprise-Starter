@@ -1,4 +1,5 @@
 import VueRouter from 'vue-router';
+import iView from 'iview';
 import { requireAuth, requireNoAuth } from '/src/imports/modules/auth/client/lib/router-auth-hooks';
 
 // unfortunate hack for now. jest is using babel-plugin-dynamic-import-node
@@ -49,6 +50,15 @@ const createRouter = () => {
   const router = new VueRouter({
     routes,
     mode: 'history'
+  });
+
+  // set up iView router loading bar
+  router.beforeEach((to, from, next) => {
+    iView.LoadingBar.start();
+    next();
+  });
+  router.afterEach((to, from, next) => {
+    iView.LoadingBar.finish();
   });
 
   return router;

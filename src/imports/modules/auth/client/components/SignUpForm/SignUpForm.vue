@@ -2,43 +2,78 @@
 .success {
   color: green;
 }
+
+
+.top-pad-large {
+  height: 55px;
+}
+
+.top-pad-mobile {
+  height: 35px;
+}
+
+.form-title {
+  margin-bottom: 20px;
+}
 </style>
 
 <template>
   <div class='RegisterForm'>
-    <form @submit.prevent="submitForm">
-      <h3>Sign Up</h3>
-      <Row>
-        <i-col :xs='24' :sm='{ span: 11 }'>
-          <div class='first-name'>
-            <label>First Name</label>
-            <Input class='first-name-input' v-model='formData.firstName' placeholder='First name' icon='person' />
-          </div>
-        </i-col>
-        <i-col :xs='24' :sm='{ span: 11, push: 2 }'>
-          <div class='last-name'>
-            <label>Last Name</label>
-            <Input class='last-name-input' v-model='formData.lastName' placeholder='Last name' icon='person' />
-          </div>
-        </i-col>
-      </Row>
-      <Row>
-        <i-col span='24'>
-          <div class='email'>
-            <label>Email</label>
-            <Input class='email-input' v-model='formData.email' placeholder='Email' icon='email' />
-          </div>
-        </i-col>
-      </Row>
-      <!-- email verification requires setting password after Accounts.sendVerificationEmail -->
-      <!-- <div>
-          <label>password</label>
-          <input v-model="formData.password" type='password'/>
-        </div> -->
-      <button type='submit' class='sign-up-submit-btn' :disabled='isSubmitDisabled'>Register</button>
-    </form>
-    <p class='success' v-if='enrollAccountEmailSent'>Alright! Please check your email to find a link to complete account registration.</p>
-    <auth-error />
+    <media :query='{ minWidth: 768 }'>
+      <div class='top-pad-large'>
+      </div>
+    </media>
+    <media :query='{ maxWidth: 768 }'>
+      <div class='top-pad-mobile'>
+      </div>
+    </media>
+    <Row>
+      <Col :xs='24' :sm='{ span: 14, push: 5}' class='form-col'>
+      <h1 class='form-title'>Sign Up</h1>
+      <Form :model='formData' :rules='formRules'>
+        <Row>
+          <Col :xs='24' :md='{ span: 11 }'>
+            <Form-item prop='firstName' class='first-name' label='First name'>
+              <Input type='text' v-model='formData.firstName' placeholder='First name'>
+              <Icon type='person' slot='append'></Icon>
+              </Input>
+            </Form-item>
+            </Col>
+          <Col :xs='24' :md='{ span: 11, push: 2 }'>
+            <Form-item prop='lastName' class='last-name' label='Last name'>
+              <Input type='text' v-model='formData.lastName' placeholder='Last name'>
+              <Icon type='person' slot='append'></Icon>
+              </Input>
+            </Form-item>
+          </Col>
+          <Col :xs='24'>
+            <Form-item prop='email' class='email' label='Email'>
+              <Input type='text' v-model='formData.email' placeholder='Email'>
+              <Icon type='email' slot='append'></Icon>
+              </Input>
+            </Form-item>
+          </Col>
+          <Col :xs='24'>
+            <Form-item>
+              <Button type='primary' @click='submitForm()' class='sign-up-submit-btn'>Register</Button>
+            </Form-item>
+          </Col>
+        </Row>
+        <!--   
+          <Form-item prop='lastName' class='last-name' label='Last name'>
+            <Input type='text' v-model='formData.lastName' placeholder='Last name'>
+            <Icon type='person' slot='append'></Icon>
+            </Input>
+          </Form-item>
+          <Form-item prop='email' class='email' label='Email'>
+            <Input type='text' v-model='formData.email' placeholder='Email'>
+            <Icon type='email' slot='append'></Icon>
+            </Input>
+          </Form-item> -->
+       
+      </Form>
+      </Col>
+    </Row>
   </div>
 </template>
 
@@ -46,11 +81,13 @@
 import { mapActions, mapState } from 'vuex-alt';
 import AuthError from './../AuthError/AuthError.vue';
 import SimpleSchema from 'simpl-schema';
+import Media from 'vue-media';
 
 export default {
   name: 'SignUpForm',
   components: {
-    AuthError
+    AuthError,
+    Media
   },
   data() {
     return {
@@ -58,6 +95,18 @@ export default {
         firstName: '',
         lastName: '',
         email: ''
+      },
+      formRules: {
+        firstName: [
+          { required: true, message: 'First name required', trigger: 'blur' }
+        ],
+        lastName: [
+          { required: true, message: 'Last name required', trigger: 'blur' }
+        ],
+        email: [
+          { required: true, message: 'Email required', trigger: 'blur' },
+          { type: 'email', message: 'Email must be a valid emai address ', trigger: 'blur' }
+        ]
       }
     }
   },
@@ -82,13 +131,25 @@ export default {
     }),
     async submitForm() {
       try {
-        await this.registerUser({
+        const success = await this.registerUser({
           firstName: this.formData.firstName,
           lastName: this.formData.lastName,
           email: this.formData.email
         });
+        if (success) {
+          this.$Message.success({
+            content: 'Email sent',
+            duration: 10,
+            closable: true
+          });
+        }
       } catch (e) {
         // don't need to handle it, stored in vuex
+        this.$Message.error({
+          content: e.message,
+          duration: 10,
+          closable: true
+        });
       }
     }
   }

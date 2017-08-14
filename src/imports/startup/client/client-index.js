@@ -11,6 +11,27 @@ import { createRouter as createRouterOriginal } from './../../modules/router/cli
 import { createStore as createStoreOriginal } from './../../modules/store/client/lib/store';
 import App from './App.vue';
 
+Vue.directive('hidden-xs', {
+  inserted: (el) => {
+    el.className += ' hidden-xs';
+  }
+});
+Vue.directive('hidden-sm', {
+  inserted: (el) => {
+    el.className += ' hidden-sm';
+  }
+});
+Vue.directive('hidden-md', {
+  inserted: (el) => {
+    el.className += ' hidden-md';
+  }
+});
+Vue.directive('hidden-lg', {
+  inserted: (el) => {
+    el.className += ' hidden-lg';
+  }
+});
+
 /**
  * Export the setup of Vue, and allow overriding of the store and
  * router factory functions. Mostly for unit tests.

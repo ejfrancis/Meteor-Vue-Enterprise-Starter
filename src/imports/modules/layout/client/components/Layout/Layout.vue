@@ -10,14 +10,14 @@
 
 <template>
   <div class='Layout'>
-    <media :query='{ maxWidth: 600 }' @media-enter='handleEnterMobile' @media-leave='handleEnterLarge'>
+    <media :query='{ maxWidth: 768 }' @media-enter='handleEnterMobile' @media-leave='handleEnterLarge'>
       <div v-if='isMobileNavVisible'>
         <layout-mobile v-if='isMobileNavVisible'>
           <slot></slot>
         </layout-mobile>
       </div>
     </media>
-    <media :query='{ minWidth: 600 }' @media-enter='handleEnterLarge' @media-leave='handleEnterMobile'>
+    <media :query='{ minWidth: 768 }' @media-enter='handleEnterLarge' @media-leave='handleEnterMobile'>
       <div v-if='!isMobileNavVisible'>
         <layout-large>
           <slot></slot>

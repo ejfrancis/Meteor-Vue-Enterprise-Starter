@@ -29,8 +29,8 @@
     </div>
      <div v-if='!user' class='signed-out'>
        <span class='signed-out-button'>
-        <sign-in-btn />
-        <sign-up-btn />
+        <sign-in-btn :theme='theme'/>
+        <sign-up-btn :theme='theme'/>
       </span> 
       <!-- <span class='signed-out-button'>
         <sign-up-btn />
@@ -46,20 +46,18 @@ import SignUpBtn from './../SignUpBtn/SignUpBtn.vue';
 import SignInBtn from './../SignInBtn/SignInBtn.vue';
 import SignOutBtn from './../SignOutBtn/SignOutBtn.vue';
 
-
-// // only import the icons you use to reduce bundle size
-// import 'vue-awesome/icons/flag';
-
-// // or import all icons if you don't care about bundle size
-// import 'vue-awesome/icons';
-
-// /* Register component with one of 2 methods */
-
-// import Icon from 'vue-awesome/components/Icon'
-
-
 export default {
   name: 'NavBarAuth',
+  props: {
+    theme: {
+      type: String,
+      required: false,
+      default: 'dark',
+      validator: (val) => {
+        return ['dark', 'light'].indexOf(val) !== -1;
+      }
+    }
+  },
   components: {
     SignUpBtn,
     SignInBtn,

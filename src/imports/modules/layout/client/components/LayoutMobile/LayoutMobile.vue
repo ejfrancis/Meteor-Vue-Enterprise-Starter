@@ -11,18 +11,27 @@
 .nav-mobile-container-hidden {
   width: 0;
 }
+.navbar-auth-container {
+  float: right;
+  margin-top: 7px;
+}
+
 
 
 /* vue-router active class */
+
 .router-link-exact-active {
   color: white;
   font-weight: bold;
 }
+
 a {
   color: #a6a4a4;
 }
 
+
 /* icol expand transition */
+
 .ivu-col {
   transition: width .2s ease-in-out;
 }
@@ -31,9 +40,7 @@ a {
 <template>
   <div class='LayoutMobile'>
     <Row type='flex'>
-      <i-col :span='mobileNavSpanLeft' 
-        v-bind:class='{ "nav-mobile-container-hidden": !isMobileNavExpanded }'
-      >
+      <Col :span='mobileNavSpanLeft' v-bind:class='{ "nav-mobile-container-hidden": !isMobileNavExpanded }'>
         <nav class='nav-mobile-container'>
           <Menu active-name='1' theme='dark' width='auto' v-if='areMobileNavItemsVisible' @on-select='goToRoute'>
             <Menu-item v-for='route in navRoutes' :key='route.name' :name='route.name'>
@@ -42,26 +49,44 @@ a {
             </Menu-item>
           </Menu>
         </nav>
-      </i-col>
-      <i-col :span='mobileNavSpanRight'>
-        <div class='nav-mobile-toggle'>
-          <i-button type='text' @click='toggleMobileNavExpanded'>
-            <Icon type='navicon' size='32'></Icon>
-          </i-button>
-        </div>
+      </Col>
+      <Col :span='mobileNavSpanRight'>
+        <Row>
+          <Col span='8'>
+            <div class='nav-mobile-toggle'>
+              <i-button type='text' @click='toggleMobileNavExpanded'>
+                <Icon type='navicon' size='32'></Icon>
+              </i-button>
+            </div>
+          </Col>
+          <Col span='16'>
+            <div class='navbar-auth-container'>
+              <nav-bar-auth theme='dark'/>
+            </div>
+          </Col>
+        </Row>
+  
+        <!-- <div class='navbar-auth-container'>
+         
+        </div> -->
         <div class='layout-children'>
           <slot></slot>
           <!--child components rendered in slot -->
         </div>
-      </i-col>
+      </Col>
     </Row>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex-alt';
+import NavBarAuth from '/src/imports/modules/auth/client/components/NavBarAuth/NavBarAuth.vue';
+
 export default {
   name: 'LayoutMobile',
+  components: {
+    NavBarAuth
+  },
   data() {
     return {
       // used for transition timeout
