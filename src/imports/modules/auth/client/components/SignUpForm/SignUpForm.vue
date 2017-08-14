@@ -55,7 +55,7 @@
           </Col>
           <Col :xs='24'>
             <Form-item>
-              <Button type='primary' @click='submitForm()' class='sign-up-submit-btn'>Register</Button>
+              <Button type='primary' @click='submitForm()' class='sign-up-submit-btn' :disabled='isSubmitDisabled'>Register</Button>
             </Form-item>
           </Col>
         </Row>
