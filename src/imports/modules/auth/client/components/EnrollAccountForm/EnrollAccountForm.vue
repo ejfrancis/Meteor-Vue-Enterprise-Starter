@@ -24,6 +24,10 @@
 .enroll-account-complete-btn {
   margin-top: 20px;
 }
+
+.show-password-checkbox > .ivu-icon {
+  margin-left: 10px;
+}
 </style>
 
 <template>
@@ -44,19 +48,25 @@
             <Row>
               <Col span='24'>
                 <Form-item prop='newPassword1' class='password-1' label='Enter your new password'>
-                  <Input type='text' v-model='formData.newPassword1' placeholder='*****'>
+                  <Input :type='passwordInputType' v-model='formData.newPassword1' placeholder='*****'>
                   <Icon type='locked' slot='append'></Icon>
                   </Input>
                 </Form-item>
               </Col>
               <Col span='24'>
                 <Form-item prop='newPassword2' class='password-1' label='Please re-enter your new password'>
-                  <Input type='text' v-model='formData.newPassword2' placeholder='*****'>
+                  <Input :type='passwordInputType' v-model='formData.newPassword2' placeholder='*****'>
                   <Icon type='locked' slot='append'></Icon>
                   </Input>
                 </Form-item>
               </Col>
               <Col span='24'>
+                <Form-item>
+                  <Checkbox v-model='showPassword' label='Show password' class='show-password-checkbox'>
+                    <Icon type='locked'></Icon>  
+                    <span>Show password</span>
+                  </Checkbox> 
+                </Form-item>
                 <Form-item>
                   <Button type='primary' 
                     @click='submitEnrollAccountForm()' 
@@ -95,6 +105,33 @@ import Media from 'vue-media'
 import AuthError from './../AuthError/AuthError.vue';
 import { passwordSchema } from './../../../shared/schemas/password-schema';
 
+function validatePasswordInputs (rule, value, callback) {
+  if (value.toLowerCase().indexOf('password') !== -1) {
+    return callback(new Error('Cannot contain the word "password"'));
+  }
+  const areBothFilled = 
+    this.formData.newPassword1.length > 0
+    && this.formData.newPassword2.length > 0;
+  const isOneFilled = this.formData.newPassword1.length > 0 && this.formData.newPassword2.length === 0
+    ||  this.formData.newPassword1.length === 0 && this.formData.newPassword2.length > 0;
+  if (isOneFilled) {
+    try {
+        passwordSchema.validate({ password: value });
+        return callback();
+      } catch (e) {
+      return callback(passwordSchema.summary);
+    }
+  }
+  if (areBothFilled) {  
+    if (this.formData.newPassword1 !== this.formData.newPassword2) {
+      return callback(new Error('Passwords must match'));
+    } else {          
+      return callback();
+    }
+  }
+  return callback();
+};
+
 export default {
   name: 'EnrollAccountForm',
   components: {
@@ -102,35 +139,10 @@ export default {
     Media
   },
   data() {
-    function validatePasswordInputs (rule, value, callback) {
-      if (value.toLowerCase().indexOf('password') !== -1) {
-        return callback(new Error('Cannot contain the word "password"'));
-      }
-      const areBothFilled = 
-        this.formData.newPassword1.length > 0
-        && this.formData.newPassword2.length > 0;
-      const isOneFilled = this.formData.newPassword1.length > 0 && this.formData.newPassword2.length === 0
-        ||  this.formData.newPassword1.length === 0 && this.formData.newPassword2.length > 0;
-      if (isOneFilled) {
-        try {
-            passwordSchema.validate({ password: value });
-            return callback();
-          } catch (e) {
-          return callback(passwordSchema.summary);
-        }
-      }
-      if (areBothFilled) {  
-        if (this.formData.newPassword1 !== this.formData.newPassword2) {
-          return callback(new Error('Passwords must match'));
-        } else {          
-          return callback();
-        }
-      }
-      return callback();
-    };
     // bind to get access to vm formData
     validatePasswordInputs = validatePasswordInputs.bind(this);
     return {
+      showPassword: false,
       formData: {
         newPassword1: '',
         newPassword2: ''
@@ -164,6 +176,9 @@ export default {
         return true;
       }
       return false;
+    },
+    passwordInputType() {
+      return this.showPassword === true ? 'text' : 'password';
     },
     siteName() {
       return Meteor.settings.public.siteName;
