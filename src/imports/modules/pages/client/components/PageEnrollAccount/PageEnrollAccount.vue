@@ -5,21 +5,21 @@
 <template>
   <div class='PageEnrollAccount'>
      <!-- token in url, reset pass form -->
-    <div v-if='token'>
+    <!-- <div v-if='token'> -->
       <enroll-account-form />
       <!-- <password-reset-form /> -->
-    </div>
+    <!-- </div> -->
     <!-- changed successfully -->
-    <div v-if='changedSuccessfully'>
+    <!-- <div v-if='changedSuccessfully'>
       <h3>Account Set Up Complete!</h3>
 
       <p><router-link to='home'>Click here</router-link> to go to the home page.</p>
-    </div>
+    </div> --> 
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex-alt';
+import { mapState, mapActions } from 'vuex-alt';
 import EnrollAccountForm from '/src/imports/modules/auth/client/components/EnrollAccountForm/EnrollAccountForm.vue';
 
 export default {
@@ -27,10 +27,21 @@ export default {
     EnrollAccountForm
   },
   created() {
-    if (!this.token) {
+    this.setLayoutThemeDark();
+    if (!this.token && !this.changedSuccessfully) {
+      console.log('---Page reroute');
       this.$router.push('/');
       return;
     }
+  },
+  destroyed() {
+    this.setLayoutThemeDark();
+  },
+  methods: {
+    ...mapActions({
+      setLayoutThemeLight: (actions) => actions.layout.setLayoutThemeLight,
+      setLayoutThemeDark: (actions) => actions.layout.setLayoutThemeDark
+    })
   },
   computed: {
     ...mapState({

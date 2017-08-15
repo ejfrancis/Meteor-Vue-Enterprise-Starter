@@ -1,9 +1,9 @@
 <style scoped>
-.light .ivu-btn {
+.light > .ivu-btn {
   color: white;
   border-color: white;
 }
-.dark .ivu-btn {
+.dark > .ivu-btn {
   color: black;
   border-color: black;
 }
@@ -13,8 +13,8 @@ a {
 </style>
 
 <template>
-  <span v-bind:class='{ "light": isLightTheme, "dark": isDarkTheme }'>
-    <Button class='SignInBtn' type='ghost' @click='handleClick'>
+  <span class='SignInBtn' v-bind:class='{ "light": isLightTheme, "dark": isDarkTheme }'>
+    <Button type='ghost' @click='handleClick'>
       Sign In
     </Button>
   </span>

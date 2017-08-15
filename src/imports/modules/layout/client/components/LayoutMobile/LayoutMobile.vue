@@ -1,4 +1,7 @@
 <style scoped>
+.LayoutMobile {
+  height: 100%;
+}
 .layout-children {
   padding: 0 30px 20px 30px;
 }

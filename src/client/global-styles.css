@@ -1,3 +1,7 @@
+html, body, #app-wrapper {
+  height: 100%;
+}
+
 /*        iView framework overrides */
 .ivu-btn {
   border-radius: 0;

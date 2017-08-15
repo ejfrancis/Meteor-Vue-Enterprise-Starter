@@ -24,7 +24,7 @@
      <div v-if='user' class='signed-in'>
       <span class='user-name'>{{user.profile.firstName}} {{user.profile.lastName}}</span>
       <span>
-        <sign-out-btn />
+        <sign-out-btn :theme='theme'/>
       </span>
     </div>
      <div v-if='!user' class='signed-out'>

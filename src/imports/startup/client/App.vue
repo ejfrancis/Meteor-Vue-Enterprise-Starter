@@ -1,9 +1,11 @@
 <style lang="scss">
-
+.App {
+  height: 100%;
+}
 </style>
 
 <template>
-  <div>
+  <div class='App'>
     <!-- layout contains global header/nav/footer, and renders pages inside it -->
     <layout>
       <!-- entire app gets rendered within router-view by vue-router -->

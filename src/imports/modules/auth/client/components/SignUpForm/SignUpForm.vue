@@ -1,9 +1,4 @@
 <style scoped>
-.success {
-  color: green;
-}
-
-
 .top-pad-large {
   height: 55px;
 }
@@ -14,6 +9,12 @@
 
 .form-title {
   margin-bottom: 20px;
+}
+
+.form-col {
+  border: 1px solid #b3b3b3;
+  background: white;
+  padding: 20px;
 }
 </style>
 
@@ -29,49 +30,45 @@
     </media>
     <Row>
       <Col :xs='24' :sm='{ span: 14, push: 5}' class='form-col'>
-      <h1 class='form-title'>Sign Up</h1>
-      <Form :model='formData' :rules='formRules'>
-        <Row>
-          <Col :xs='24' :md='{ span: 11 }'>
-            <Form-item prop='firstName' class='first-name' label='First name'>
-              <Input type='text' v-model='formData.firstName' placeholder='First name'>
-              <Icon type='person' slot='append'></Icon>
-              </Input>
-            </Form-item>
+        <h1 class='form-title'>Sign Up</h1>
+        <Form :model='formData' :rules='formRules'>
+          <Row>
+            <Col :xs='24' :md='{ span: 11 }'>
+              <Form-item prop='firstName' class='first-name' label='First name'>
+                <Input type='text' v-model='formData.firstName' placeholder='First name'>
+                <Icon type='person' slot='append'></Icon>
+                </Input>
+              </Form-item>
             </Col>
-          <Col :xs='24' :md='{ span: 11, push: 2 }'>
-            <Form-item prop='lastName' class='last-name' label='Last name'>
-              <Input type='text' v-model='formData.lastName' placeholder='Last name'>
-              <Icon type='person' slot='append'></Icon>
-              </Input>
-            </Form-item>
-          </Col>
-          <Col :xs='24'>
-            <Form-item prop='email' class='email' label='Email'>
-              <Input type='text' v-model='formData.email' placeholder='Email'>
-              <Icon type='email' slot='append'></Icon>
-              </Input>
-            </Form-item>
-          </Col>
-          <Col :xs='24'>
-            <Form-item>
-              <Button type='primary' @click='submitForm()' class='sign-up-submit-btn' :disabled='isSubmitDisabled'>Register</Button>
-            </Form-item>
-          </Col>
-        </Row>
-        <!--   
-          <Form-item prop='lastName' class='last-name' label='Last name'>
-            <Input type='text' v-model='formData.lastName' placeholder='Last name'>
-            <Icon type='person' slot='append'></Icon>
-            </Input>
-          </Form-item>
-          <Form-item prop='email' class='email' label='Email'>
-            <Input type='text' v-model='formData.email' placeholder='Email'>
-            <Icon type='email' slot='append'></Icon>
-            </Input>
-          </Form-item> -->
-       
-      </Form>
+            <Col :xs='24' :md='{ span: 11, push: 2 }'>
+              <Form-item prop='lastName' class='last-name' label='Last name'>
+                <Input type='text' v-model='formData.lastName' placeholder='Last name'>
+                <Icon type='person' slot='append'></Icon>
+                </Input>
+              </Form-item>
+            </Col>
+            <Col :xs='24'>
+              <Form-item prop='email' class='email' label='Email'>
+                <Input type='text' v-model='formData.email' placeholder='Email'>
+                <Icon type='email' slot='append'></Icon>
+                </Input>
+              </Form-item>
+            </Col>
+            <Col xs='24'>
+              <Form-item>
+                <Button 
+                  type='primary' 
+                  @click='submitForm()' 
+                  class='sign-up-submit-btn' 
+                  :disabled='isSubmitDisabled' 
+                  html-type='submit'
+                >
+                  Register
+                </Button>
+              </Form-item>
+            </Col>
+          </Row>
+        </Form>
       </Col>
     </Row>
   </div>
