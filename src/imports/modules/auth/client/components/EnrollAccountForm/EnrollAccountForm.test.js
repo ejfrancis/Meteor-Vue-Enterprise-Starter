@@ -4,6 +4,10 @@ import { setupVue } from '/src/imports/startup/client/client-index';
 import { getActions } from '/tests/unit-test-setup/vuex-alt-test-util';
 import nextTick from 'timeout-as-promise';
 
+const getPassword1 = (wrapper) => wrapper.find('.password-1 input')[0];
+const getPassword2 = (wrapper) => wrapper.find('.password-2 input')[0];
+const getSubmitBtn = (wrapper) => wrapper.find('button.enroll-account-submit-btn')[0];
+
 describe('EnrollAccountForm', () => {
   let store;
 
@@ -17,51 +21,42 @@ describe('EnrollAccountForm', () => {
   });
 
   describe('enrolling', () => {
-    it('doesn\'t display success message', () => {
+    it('disables submit button if both passwords not filled', async () => {
       const routeState = {
         query: { success: false }
       };
       store.state.route = routeState;
       const wrapper = mount(EnrollAccountForm, { store });
-      expect(wrapper.find('.enrolled').length).toEqual(0);
-      expect(wrapper.find('.enroll').length).toEqual(1);
-    });
-    it('disables submit button if both passwords not filled', () => {
-      const routeState = {
-        query: { success: false }
-      };
-      store.state.route = routeState;
-      const wrapper = mount(EnrollAccountForm, { store });
-      const passwordInput1 = wrapper.find('.password-1 input')[0];
-      const passwordInput2 = wrapper.find('.password-2 input')[0];
-      const enrollSubmitBtn = wrapper.find('.enroll-password-form button')[0];
-
+      const passwordInput1 = getPassword1(wrapper);
+      const passwordInput2 = getPassword2(wrapper);
+      const enrollSubmitBtn = getSubmitBtn(wrapper);
       passwordInput1.element.value = '';
       passwordInput1.trigger('input');
       passwordInput2.element.value = '';
       passwordInput2.trigger('input');
+      await nextTick();
       expect(enrollSubmitBtn.hasAttribute('disabled', 'disabled')).toEqual(true);
-
       passwordInput1.element.value = 'password';
       passwordInput1.trigger('input');
       passwordInput2.element.value = '';
       passwordInput2.trigger('input');
+      await nextTick();
       expect(enrollSubmitBtn.hasAttribute('disabled', 'disabled')).toEqual(true);
     });
-    it('enables submit button if both passwords filled and match', () => {
+    it('enables submit button if both passwords filled and match', async () => {
       const routeState = {
         query: { success: false }
       };
       store.state.route = routeState;
       const wrapper = mount(EnrollAccountForm, { store });
-      const passwordInput1 = wrapper.find('.password-1 input')[0];
-      const passwordInput2 = wrapper.find('.password-2 input')[0];
-      const enrollSubmitBtn = wrapper.find('.enroll-password-form button')[0];
-
+      const passwordInput1 = getPassword1(wrapper);
+      const passwordInput2 = getPassword2(wrapper);
+      const enrollSubmitBtn = getSubmitBtn(wrapper);
       passwordInput1.element.value = 'password';
       passwordInput1.trigger('input');
       passwordInput2.element.value = 'password';
       passwordInput2.trigger('input');
+      await nextTick();
       expect(enrollSubmitBtn.hasAttribute('disabled', 'disabled')).toEqual(false);
     });
     it('calls actions.auth.enrollVerifyAccount on submit', async () => {
@@ -72,17 +67,14 @@ describe('EnrollAccountForm', () => {
       const wrapper = mount(EnrollAccountForm, { store });
       const actions = getActions(wrapper);
       actions.auth.enrollVerifyAccount = jest.fn();
-
-      const passwordInput1 = wrapper.find('.password-1 input')[0];
-      const passwordInput2 = wrapper.find('.password-2 input')[0];
-      const enrollSubmitBtn = wrapper.find('.enroll-password-form button')[0];
-
+      const passwordInput1 = getPassword1(wrapper);
+      const passwordInput2 = getPassword2(wrapper);
+      const enrollSubmitBtn = getSubmitBtn(wrapper);
       passwordInput1.element.value = 'SomePassword2-';
       passwordInput1.trigger('input');
       passwordInput2.element.value = 'SomePassword2-';
       passwordInput2.trigger('input');
       enrollSubmitBtn.trigger('click');
-
       await nextTick();
       expect(actions.auth.enrollVerifyAccount).toHaveBeenCalledTimes(1);
       expect(actions.auth.enrollVerifyAccount).toHaveBeenCalledWith({ token: 'fakeauthtoken', newPassword: 'SomePassword2-' });
@@ -98,13 +90,18 @@ describe('EnrollAccountForm', () => {
       wrapper.destroy();
       expect(actions.auth.clearEnrollAccountFailure).toHaveBeenCalledTimes(1);
     });
+    it('starts with password hidden', async () => {
+      const wrapper = mount(EnrollAccountForm, { store });
+      const password1 = getPassword1(wrapper);
+      const password2 = getPassword2(wrapper);
+      expect(password1.hasAttribute('type', 'password')).toEqual(true);
+      expect(password2.hasAttribute('type', 'password')).toEqual(true);
+    });
   });
   describe('enrolled success', () => {
-    it('displays success message if url param present', () => {
-      const routeState = {
-        query: { success: true }
-      };
-      store.state.route = routeState;
+    it('displays success message if url param present', async () => {
+      store.state.route.query.success = true;
+      store.state.auth.user = { _id: 'abc' };
       const wrapper = mount(EnrollAccountForm, { store });
       expect(wrapper.find('.enrolled').length).toEqual(1);
       expect(wrapper.find('.enroll').length).toEqual(0);

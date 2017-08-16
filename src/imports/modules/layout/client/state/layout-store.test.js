@@ -17,6 +17,7 @@ describe('layout-store', () => {
   describe('initial state', () => {
     it('mobile nav is visisble expanded', () => {
       const expectedState = {
+        layoutTheme: 'light',
         isMobileNavVisible: true,
         isMobileNavExpanded: true,
         navRoutes: expectedNavRoutes

@@ -42,7 +42,7 @@
     </media>
     <Row>
       <Col :xs='24' :sm='{ span: 14, push: 5}' class='form-col'>
-        <div v-if='!changedSuccessfully && !user'>
+        <div v-if='!changedSuccessfully && !user' class='enroll'>
           <h1 class='form-title'>Account Set Up Completion</h1>
           <Form :model='formData' :rules='formRules'>
             <Row>
@@ -54,7 +54,7 @@
                 </Form-item>
               </Col>
               <Col span='24'>
-                <Form-item prop='newPassword2' class='password-1' label='Please re-enter your new password'>
+                <Form-item prop='newPassword2' class='password-2' label='Please re-enter your new password'>
                   <Input :type='passwordInputType' v-model='formData.newPassword2' placeholder='*****'>
                   <Icon type='locked' slot='append'></Icon>
                   </Input>
@@ -62,7 +62,12 @@
               </Col>
               <Col span='24'>
                 <Form-item>
-                  <Checkbox v-model='showPassword' label='Show password' class='show-password-checkbox'>
+                  <Checkbox 
+                    @click.prevent.native='toggleShowPassword()' 
+                    :value='showPassword'
+                    label='Show password' 
+                    class='show-password-checkbox'
+                  >
                     <Icon type='locked'></Icon>  
                     <span>Show password</span>
                   </Checkbox> 
@@ -83,7 +88,7 @@
         </div>
         <div v-if='changedSuccessfully || user'>
           <h1 class='form-title'>Account Set Up Complete!</h1>
-          <p>
+          <p class='enrolled'>
             Welcome to {{ siteName}}! To continue to the home page please click below:
           </p>
           <Button 
@@ -100,6 +105,7 @@
 </template>
 
 <script>
+import { Meteor } from 'meteor/meteor';
 import { mapState, mapActions } from 'vuex-alt';
 import Media from 'vue-media'
 import AuthError from './../AuthError/AuthError.vue';
@@ -189,6 +195,10 @@ export default {
       enrollVerifyAccount: (actions) => actions.auth.enrollVerifyAccount,
       clearEnrollAccountFailure: (actions) => actions.auth.clearEnrollAccountFailure
     }),
+    toggleShowPassword() {
+      this.showPassword = !this.showPassword;
+      console.log('-toggled, showPass=', this.showPassword);
+    },
     async submitEnrollAccountForm() {
       try {
         const enrollSuccess = await this.enrollVerifyAccount({ token: this.token, newPassword: this.formData.newPassword1 });

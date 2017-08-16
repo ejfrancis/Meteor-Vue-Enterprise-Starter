@@ -54,7 +54,7 @@
                 </Input>
               </Form-item>
             </Col>
-            <Col xs='24'>
+            <Col :xs='24'>
               <Form-item>
                 <Button 
                   type='primary' 

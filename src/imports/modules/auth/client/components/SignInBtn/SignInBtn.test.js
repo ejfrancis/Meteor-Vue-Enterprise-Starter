@@ -16,7 +16,7 @@ describe('SignInBtn', () => {
   it('pushes router to sign-up route when clicked', () => {
     const wrapper = mount(SignInBtn, { store, router });
     wrapper.instance().$router.push = jest.fn();
-    wrapper.find('.SignInBtn')[0].trigger('click');
+    wrapper.find('.SignInBtn button')[0].trigger('click');
     expect(wrapper.instance().$router.push).toHaveBeenCalledWith({ path: 'sign-in' });
   });
 });
