@@ -67,13 +67,9 @@ a {
             </div>
           </Col>
         </Row>
-  
-        <!-- <div class='navbar-auth-container'>
-         
-        </div> -->
         <div class='layout-children'>
-          <slot></slot>
           <!--child components rendered in slot -->
+          <slot></slot>
         </div>
       </Col>
     </Row>

@@ -10,9 +10,12 @@ const getSubmitBtn = (wrapper) => wrapper.find('button.enroll-account-submit-btn
 
 describe('EnrollAccountForm', () => {
   let store;
+  let router;
 
   beforeEach(() => {
-    store = setupVue().store;
+    const setup = setupVue();
+    store = setup.store;
+    router = setup.router;
   });
 
   it('renders without crashing', () => {
@@ -99,12 +102,27 @@ describe('EnrollAccountForm', () => {
     });
   });
   describe('enrolled success', () => {
-    it('displays success message if url param present', async () => {
+    it('displays success message if url param present', () => {
       store.state.route.query.success = true;
-      store.state.auth.user = { _id: 'abc' };
       const wrapper = mount(EnrollAccountForm, { store });
       expect(wrapper.find('.enrolled').length).toEqual(1);
       expect(wrapper.find('.enroll').length).toEqual(0);
+    });
+    it('redirects to home when "Go to Home" button is clicked', () => {
+      store.state.route.query.success = true;
+      const wrapper = mount(EnrollAccountForm, { store, router });
+      wrapper.instance().$router.push = jest.fn();
+      wrapper.find('button.enroll-account-complete-btn')[0].trigger('click');
+      expect(wrapper.instance().$router.push).toHaveBeenCalledWith('/');
+    });
+  });
+  describe('destroyed', () => {
+    it('redirects to home when "Go to Home" button is clicked', () => {
+      const wrapper = mount(EnrollAccountForm, { store, router });
+      const actions = getActions(wrapper);
+      actions.auth.clearEnrollAccountFailure = jest.fn();
+      wrapper.destroy();
+      expect(actions.auth.clearEnrollAccountFailure).toHaveBeenCalledTimes(1);
     });
   });
 });
