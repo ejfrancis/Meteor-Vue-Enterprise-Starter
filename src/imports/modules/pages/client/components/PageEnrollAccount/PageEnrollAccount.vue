@@ -16,15 +16,15 @@ export default {
   components: {
     EnrollAccountForm
   },
-  created() {
+  beforeMount() {
     this.setLayoutThemeDark();
     if (!this.token && !this.changedSuccessfully) {
       this.$router.push('/');
       return;
     }
   },
-  destroyed() {
-    this.setLayoutThemeDark();
+  beforeDestroyed() {
+    this.setLayoutThemeLight();
   },
   methods: {
     ...mapActions({

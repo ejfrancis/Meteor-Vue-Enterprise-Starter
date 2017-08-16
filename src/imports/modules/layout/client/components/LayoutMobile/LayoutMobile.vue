@@ -22,7 +22,6 @@
 
 
 /* vue-router active class */
-
 .router-link-exact-active {
   color: white;
   font-weight: bold;

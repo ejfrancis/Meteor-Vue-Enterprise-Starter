@@ -6,7 +6,7 @@
   background: #ffffff;
 }
 .dark {
-  background: #d7d7d7;
+  background: #f4f3f3;
 }
 .layout-large-container {
   height: 100%;
@@ -24,14 +24,14 @@
 
 <template>
   <div class='Layout' v-bind:class='{ "light": isLightTheme, "dark": isDarkTheme }'>
-    <media :query='{ maxWidth: 768 }' @media-enter='handleEnterMobile' @media-leave='handleEnterLarge' class='hi'>
+    <media :query='{ maxWidth: 768 }' @media-enter='handleEnterMobile'>
       <div v-if='isMobileNavVisible' class='layout-mobile-container'>
-        <layout-mobile v-if='isMobileNavVisible'>
+        <layout-mobile>
           <slot></slot>
         </layout-mobile>
       </div>
     </media>
-    <media :query='{ minWidth: 768 }' @media-enter='handleEnterLarge' @media-leave='handleEnterMobile'>
+    <media :query='{ minWidth: 768 }' @media-enter='handleEnterLarge'>
       <div v-if='!isMobileNavVisible' class='layout-large-container'>
         <layout-large>
           <slot></slot>

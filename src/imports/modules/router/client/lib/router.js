@@ -38,13 +38,44 @@ const PagePrivateAsync = (resolve) => {
 
 const createRouter = () => {
   const routes = [
-    { path: '/sign-up', name: 'sign-up', component: PageSignUpAsync, beforeEnter: requireNoAuth },
-    { path: '/enroll-account', name: 'enroll-account', component: PageEnrollAccountAsync },
-    { path: '/sign-in', name: 'sign-in', component: PageSignInAsync, beforeEnter: requireNoAuth },
-    { path: '/reset-password', name: 'reset-password', component: PagePasswordResetAsync, beforeEnter: requireNoAuth },
-    { path: '/home', name: 'home', component: PageHomeAsync },
-    { path: '/private', name: 'private', component: PagePrivateAsync, beforeEnter: requireAuth },
-    { path: '/', component: PageHomeAsync }
+    {
+      path: '/sign-up',
+      name: 'sign-up',
+      component: PageSignUpAsync,
+      beforeEnter: requireNoAuth
+    },
+    {
+      path: '/enroll-account',
+      name: 'enroll-account',
+      component: PageEnrollAccountAsync
+    },
+    {
+      path: '/sign-in',
+      name: 'sign-in',
+      component: PageSignInAsync,
+      beforeEnter: requireNoAuth
+    },
+    {
+      path: '/reset-password',
+      name: 'reset-password',
+      component: PagePasswordResetAsync,
+      beforeEnter: requireNoAuth
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: PageHomeAsync
+    },
+    {
+      path: '/private',
+      name: 'private',
+      component: PagePrivateAsync,
+      beforeEnter: requireAuth
+    },
+    {
+      path: '/',
+      component: PageHomeAsync
+    }
   ];
 
   const router = new VueRouter({

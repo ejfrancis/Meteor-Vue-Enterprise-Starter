@@ -13,7 +13,7 @@ if (['production', 'test'].indexOf(process.env.NODE_ENV) === -1) {
 }
 
 const createStore = () => {
-  const store = new Store({
+  const newStore = new Store({
     plugins,
     modules: {
       counter: counterStoreModule,
@@ -21,7 +21,7 @@ const createStore = () => {
       layout: layoutStoreModule
     }
   });
-  return store;
+  return newStore;
 };
 
 export {

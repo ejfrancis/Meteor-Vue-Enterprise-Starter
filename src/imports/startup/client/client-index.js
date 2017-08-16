@@ -11,6 +11,7 @@ import { createRouter as createRouterOriginal } from './../../modules/router/cli
 import { createStore as createStoreOriginal } from './../../modules/store/client/lib/store';
 import App from './App.vue';
 
+// iView responsive show/hide directives. keeping these here for now.
 Vue.directive('hidden-xs', {
   inserted: (el) => {
     el.className += ' hidden-xs';
