@@ -34,7 +34,7 @@
             <Form-item>
               <Button 
                 type='primary' 
-                @click='submitSendEmailForm()' 
+                @click='submitResetPasswordForm()' 
                 class='password-reset-submit-btn' 
                 :disabled='isNewPasswordSubmitDisabled' 
                 html-type='submit'
@@ -110,11 +110,11 @@ export default {
       },
       formRules: {
         newPassword1: [
-          { required: true, message: 'Password is required', trigger: 'blur' },
+          { required: true, message: 'Password is required', trigger: 'change' },
           { validator: validatePasswordInputs }
         ],
         newPassword2: [
-          { required: true, message: 'Password is required', trigger: 'blur' },
+          { required: true, message: 'Password is required', trigger: 'change' },
           { validator: validatePasswordInputs }
         ]
       }
@@ -162,10 +162,19 @@ export default {
           newPassword: this.formData.newPassword1
         });
         if (resetSuccess) {
+          this.$Message.success({
+            content: 'Password reset complete!',
+            duration: 10,
+            closable: true
+          });
           this.$router.push({ path: 'reset-password', query: { success: true } });
         }
       } catch (e) {
-        // handled in vuex
+        this.$Message.error({
+          content: e.message,
+          duration: 10,
+          closable: true
+        });
       }
     }
   }

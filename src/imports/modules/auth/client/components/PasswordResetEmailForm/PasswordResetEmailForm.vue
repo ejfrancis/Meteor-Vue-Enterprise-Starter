@@ -65,7 +65,7 @@ export default {
       formRules: {
         email: [
           { required: true, message: 'Email required', trigger: 'blur' },
-          { type: 'email', message: 'Email must be a valid emai address ', trigger: 'blur' }
+          { type: 'email', message: 'Email must be a valid emai address ', trigger: 'change' }
         ]
       }
     }
