@@ -32,83 +32,75 @@
 
 <template>
   <div class='EnrollAccountForm'>
-    <media :query='{ minWidth: 768 }'>
-      <div class='top-pad-large'>
-      </div>
-    </media>
-    <media :query='{ maxWidth: 768 }'>
-      <div class='top-pad-mobile'>
-      </div>
-    </media>
-    <Row>
-      <Col :xs='24' :sm='{ span: 14, push: 5}' class='form-col'>
-        <div v-if='!changedSuccessfully && !user' class='enroll'>
-          <h1 class='form-title'>Account Set Up Completion</h1>
-          <Form :model='formData' :rules='formRules'>
-            <Row>
-              <Col span='24'>
-                <Form-item prop='newPassword1' class='password-1' label='Enter your new password'>
-                  <Input :type='passwordInputType' v-model='formData.newPassword1' placeholder='*****'>
-                  <Icon type='locked' slot='append'></Icon>
-                  </Input>
-                </Form-item>
-              </Col>
-              <Col span='24'>
-                <Form-item prop='newPassword2' class='password-2' label='Please re-enter your new password'>
-                  <Input :type='passwordInputType' v-model='formData.newPassword2' placeholder='*****'>
-                  <Icon type='locked' slot='append'></Icon>
-                  </Input>
-                </Form-item>
-              </Col>
-              <Col span='24'>
-                <Form-item>
-                  <Checkbox 
-                    @click.prevent.native='toggleShowPassword()' 
-                    :value='showPassword'
-                    label='Show password' 
-                    class='show-password-checkbox'
-                  >
-                    <Icon type='locked'></Icon>  
-                    <span>Show password</span>
-                  </Checkbox> 
-                </Form-item>
-                <Form-item>
-                  <Button type='primary' 
-                    @click='submitEnrollAccountForm()' 
-                    class='enroll-account-submit-btn' 
-                    :disabled='isNewPasswordSubmitDisabled' 
-                    html-type='submit'
-                  >
-                    Submit
-                  </Button>
-                </Form-item>
-              </Col>
-            </Row>
-          </Form>
-        </div>
-        <div v-if='changedSuccessfully || user'>
-          <h1 class='form-title'>Account Set Up Complete!</h1>
-          <p class='enrolled'>
-            Welcome to {{ siteName}}! To continue to the home page please click below:
-          </p>
-          <Button 
-            type='primary' 
-            class='enroll-account-complete-btn'
-            @click='goToHome()'
-          >
-            Go to Home
-          </Button>  
-        </div>
-      </Col>
-    </Row>
+    <!-- enrolling -->
+    <div v-if='!changedSuccessfully && !user' class='enroll'>
+      <accounts-form-container title='Account Set Up Completion'>
+        <Form :model='formData' :rules='formRules'>
+          <Row>
+            <Col span='24'>
+              <Form-item prop='newPassword1' class='password-1' label='Enter your new password'>
+                <Input :type='passwordInputType' v-model='formData.newPassword1' placeholder='*****'>
+                <Icon type='locked' slot='append'></Icon>
+                </Input>
+              </Form-item>
+            </Col>
+            <Col span='24'>
+              <Form-item prop='newPassword2' class='password-2' label='Please re-enter your new password'>
+                <Input :type='passwordInputType' v-model='formData.newPassword2' placeholder='*****'>
+                <Icon type='locked' slot='append'></Icon>
+                </Input>
+              </Form-item>
+            </Col>
+            <Col span='24'>
+              <Form-item>
+                <Checkbox 
+                  @click.prevent.native='toggleShowPassword()' 
+                  :value='showPassword'
+                  label='Show password' 
+                  class='show-password-checkbox'
+                >
+                  <Icon type='locked'></Icon>  
+                  <span>Show password</span>
+                </Checkbox> 
+              </Form-item>
+              <Form-item>
+                <Button type='primary' 
+                  @click='submitEnrollAccountForm()' 
+                  class='enroll-account-submit-btn' 
+                  :disabled='isNewPasswordSubmitDisabled' 
+                  html-type='submit'
+                >
+                  Submit
+                </Button>
+              </Form-item>
+            </Col>
+          </Row>
+        </Form>
+      </accounts-form-container>
+    </div> 
+    <!-- success -->
+    <div v-if='changedSuccessfully || user'>
+      <accounts-form-container title='Account Set Up Complete!'>
+        <p class='enrolled'>
+          Welcome to {{ siteName}}! To continue to the home page please click below:
+        </p>
+        <Button 
+          type='primary' 
+          class='enroll-account-complete-btn'
+          @click='goToHome()'
+        >
+          Go to Home
+        </Button>  
+      </accounts-form-container>      
+    </div>
   </div>
 </template>
 
 <script>
 import { Meteor } from 'meteor/meteor';
 import { mapState, mapActions } from 'vuex-alt';
-import Media from 'vue-media'
 import { passwordSchema } from './../../../shared/schemas/password-schema';
+import AccountsFormContainer from './../AccountsFormContainer/AccountsFormContainer.vue';
 
 function validatePasswordInputs (rule, value, callback) {
   if (value.toLowerCase().indexOf('password') !== -1) {
@@ -140,7 +132,7 @@ function validatePasswordInputs (rule, value, callback) {
 export default {
   name: 'EnrollAccountForm',
   components: {
-    Media
+    AccountsFormContainer
   },
   data() {
     // bind to get access to vm formData
