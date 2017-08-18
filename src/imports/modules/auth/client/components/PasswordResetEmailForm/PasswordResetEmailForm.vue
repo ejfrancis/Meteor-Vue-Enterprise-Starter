@@ -18,18 +18,15 @@
         Email sent!
       </div>
     </form>
-    <auth-error/>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex-alt';
-import AuthError from './../AuthError/AuthError.vue';
 
 export default {
   name: 'PasswordResetEmailForm',
   components: {
-    AuthError
   },
   data() {
     return {

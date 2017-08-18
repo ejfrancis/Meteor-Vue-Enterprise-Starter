@@ -19,19 +19,16 @@
     <div class='password-reset'>
         <router-link to='reset-password'>Forgot your password?</router-link>  
     </div>
-    <auth-error />
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex-alt';
-import AuthError from './../AuthError/AuthError.vue';
 import { Meteor } from 'meteor/meteor';
 
 export default {
   name: 'SignInForm',
   components: {
-    AuthError
   },
   data() {
     return {

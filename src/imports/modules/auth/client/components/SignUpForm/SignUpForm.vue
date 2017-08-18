@@ -76,14 +76,12 @@
 
 <script>
 import { mapActions, mapState } from 'vuex-alt';
-import AuthError from './../AuthError/AuthError.vue';
 import SimpleSchema from 'simpl-schema';
 import Media from 'vue-media';
 
 export default {
   name: 'SignUpForm',
   components: {
-    AuthError,
     Media
   },
   data() {

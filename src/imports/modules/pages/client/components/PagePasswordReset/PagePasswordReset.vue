@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex-alt';
+import { mapState, mapActions } from 'vuex-alt';
 import PasswordResetForm from '/src/imports/modules/auth/client/components/PasswordResetForm/PasswordResetForm.vue';
 import PasswordResetEmailForm from '/src/imports/modules/auth/client/components/PasswordResetEmailForm/PasswordResetEmailForm.vue';
 
@@ -30,6 +30,20 @@ export default {
   components: {
     PasswordResetEmailForm,
     PasswordResetForm
+  },
+   beforeMount() {
+    console.log('-mount, setting dark');
+    this.setLayoutThemeDark();
+  },
+  beforeDestroy() {
+    console.log('-destroy, setting light');
+    this.setLayoutThemeLight();
+  },
+  methods: {
+    ...mapActions({
+      setLayoutThemeLight: (actions) => actions.layout.setLayoutThemeLight,
+      setLayoutThemeDark: (actions) => actions.layout.setLayoutThemeDark
+    })
   },
   computed: {
     ...mapState({

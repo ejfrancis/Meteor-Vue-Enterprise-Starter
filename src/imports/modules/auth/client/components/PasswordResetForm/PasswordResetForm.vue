@@ -19,19 +19,16 @@
         Submit
       </button>
     </form>
-    <auth-error/>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex-alt';
-import AuthError from './../AuthError/AuthError.vue';
 import { passwordSchema } from './../../../shared/schemas/password-schema';
 
 export default {
   name: 'PasswordResetForm',
   components: {
-    AuthError
   },
   data() {
     return {

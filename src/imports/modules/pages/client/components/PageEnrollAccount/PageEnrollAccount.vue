@@ -23,7 +23,7 @@ export default {
       return;
     }
   },
-  beforeDestroyed() {
+  beforeDestroy() {
     this.setLayoutThemeLight();
   },
   methods: {

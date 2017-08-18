@@ -108,7 +108,6 @@
 import { Meteor } from 'meteor/meteor';
 import { mapState, mapActions } from 'vuex-alt';
 import Media from 'vue-media'
-import AuthError from './../AuthError/AuthError.vue';
 import { passwordSchema } from './../../../shared/schemas/password-schema';
 
 function validatePasswordInputs (rule, value, callback) {
@@ -141,7 +140,6 @@ function validatePasswordInputs (rule, value, callback) {
 export default {
   name: 'EnrollAccountForm',
   components: {
-    AuthError,
     Media
   },
   data() {
