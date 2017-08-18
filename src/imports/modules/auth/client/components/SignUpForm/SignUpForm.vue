@@ -111,7 +111,6 @@ export default {
           });
         }
       } catch (e) {
-        // don't need to handle it, stored in vuex
         this.$Message.error({
           content: e.message,
           duration: 10,

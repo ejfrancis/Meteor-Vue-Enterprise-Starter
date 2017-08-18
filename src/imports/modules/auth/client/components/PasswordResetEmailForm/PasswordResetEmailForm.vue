@@ -6,7 +6,33 @@
 
 <template>
   <div class='PasswordResetEmailForm'>
-    <h3>Reset Password</h3>
+    <accounts-form-container title='Reset Password'>
+      <Form :model='formData' :rules='formRules'>
+        <Row>
+          <Col :xs='24'>
+            <Form-item prop='email' class='email' label='Enter your email'>
+              <Input type='text' v-model='formData.email' placeholder='Email'>
+              <Icon type='email' slot='append'></Icon>
+              </Input>
+            </Form-item>
+          </Col>
+          <Col :xs='24'>
+            <Form-item>
+              <Button 
+                type='primary' 
+                @click='submitSendEmailForm()' 
+                class='password-reset-email-submit-btn' 
+                :disabled='isSubmitDisabled' 
+                html-type='submit'
+              >
+                Reset Password
+              </Button>
+            </Form-item>
+          </Col>
+        </Row>
+      </Form>
+    </accounts-form-container>
+    <!-- <h3>Reset Password</h3>
   
     <form @submit.prevent="submitSendEmailForm">
       <div class='email'>
@@ -17,21 +43,30 @@
       <div class='sent-success' v-if='passwordResetEmailSent'>
         Email sent!
       </div>
-    </form>
+    </form> -->
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex-alt';
+import SimpleSchema from 'simpl-schema';
+import AccountsFormContainer from './../AccountsFormContainer/AccountsFormContainer.vue';
 
 export default {
   name: 'PasswordResetEmailForm',
   components: {
+    AccountsFormContainer
   },
   data() {
     return {
       formData: {
         email: ''
+      },
+      formRules: {
+        email: [
+          { required: true, message: 'Email required', trigger: 'blur' },
+          { type: 'email', message: 'Email must be a valid emai address ', trigger: 'blur' }
+        ]
       }
     }
   },
@@ -41,7 +76,11 @@ export default {
   computed: {
     ...mapState({
       passwordResetEmailSent: (state) => state.auth.passwordResetEmailSent
-    })
+    }),
+     isSubmitDisabled() {
+      return !this.formData.email ||
+        !SimpleSchema.RegEx.EmailWithTLD.test(this.formData.email);
+    }
   },
   methods: {
     ...mapActions({
@@ -53,9 +92,20 @@ export default {
         if (!this.formData.email) {
           return;
         }
-        await this.sendPasswordResetEmail({ email: this.formData.email });
+        const success = await this.sendPasswordResetEmail({ email: this.formData.email });
+        if (success) {
+          this.$Message.success({
+            content: 'Email sent',
+            duration: 10,
+            closable: true
+          });
+        }
       } catch (e) {
-        // error handled by keeping it in vuex
+        this.$Message.error({
+          content: e.message,
+          duration: 10,
+          closable: true
+        });
       }
     }
   }

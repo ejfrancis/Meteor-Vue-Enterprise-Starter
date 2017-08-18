@@ -187,7 +187,6 @@ export default {
     }),
     toggleShowPassword() {
       this.showPassword = !this.showPassword;
-      console.log('-toggled, showPass=', this.showPassword);
     },
     async submitEnrollAccountForm() {
       try {

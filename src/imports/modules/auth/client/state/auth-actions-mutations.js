@@ -105,7 +105,7 @@ const actions = {
       Accounts.forgotPassword({ email }, (err) => {
         if (err) {
           commit(MUTATION_TYPES.PASSWORD_RESET_FAILED, { error: err });
-          return resolve(false);
+          return reject(err);
         }
         commit(MUTATION_TYPES.CLEAR_PASSWORD_RESET_FAILURE);
         commit(MUTATION_TYPES.PASSWORD_RESET_EMAIL_SENT);
