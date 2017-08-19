@@ -14,12 +14,10 @@
 .nav-mobile-container-hidden {
   width: 0;
 }
-.navbar-auth-container {
-  float: right;
+.auth-buttons-container {
   margin-top: 7px;
+  margin-right: 20px;
 }
-
-
 
 /* vue-router active class */
 .router-link-exact-active {
@@ -62,7 +60,7 @@ a {
             </div>
           </Col>
           <Col span='16'>
-            <div class='navbar-auth-container'>
+            <div class='auth-buttons-container'>
               <nav-bar-auth theme='dark'/>
             </div>
           </Col>

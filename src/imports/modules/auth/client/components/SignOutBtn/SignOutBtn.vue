@@ -51,10 +51,19 @@ export default {
       try {
         const worked = await this.logoutUser();
         if (worked) {
+          this.$Message.success({
+            content: 'Signed out. See you later!',
+            duration: 10,
+            closable: true
+          });
           this.$router.push('/');
         }
       } catch (e) {
-        console.warn('Logout error: ' + e);
+        this.$Message.error({
+          content: e.message,
+          duration: 10,
+          closable: true
+        });
       }
     }
   }

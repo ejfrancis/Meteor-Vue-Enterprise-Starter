@@ -192,11 +192,19 @@ export default {
       try {
         const enrollSuccess = await this.enrollVerifyAccount({ token: this.token, newPassword: this.formData.newPassword1 });
         if (enrollSuccess) {
-          this.$Message.success('Your account has been enrolled!');
+          this.$Message.success({
+            content: 'Your account has been enrolled!',
+            duration: 10,
+            closable: true
+          });
           this.$router.push({ path: 'enroll-account', query: { success: true } });
         }
       } catch (e) {
-        // handled in vuex
+        this.$Message.error({
+          content: e.message,
+          duration: 10,
+          closable: true
+        });
       }
     },
     goToHome() {

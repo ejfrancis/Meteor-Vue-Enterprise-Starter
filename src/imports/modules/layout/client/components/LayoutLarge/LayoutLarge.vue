@@ -13,6 +13,10 @@
   height: 40px;
 }
 
+.auth-buttons-container {
+  margin-right: 20px;
+}
+
 
 
 /* vue-router active class */
@@ -45,7 +49,9 @@ a {
           </Col>
           <!-- auth buttons -->
           <Col span='8' theme='dark'>
-          <nav-bar-auth theme='light' />
+            <div class='auth-buttons-container'>
+              <nav-bar-auth theme='light' />
+            </div>
           </Col>
         </Row>
       </Menu>

@@ -54,12 +54,12 @@ const actions = {
         passwordSchema.validate({ password: newPassword });
       } catch (e) {
         commit(MUTATION_TYPES.ENROLL_ACCOUNT_FAILED, { error: e });
-        return resolve(false);
+        return reject(new Error(passwordSchema.summary));
       }
       Accounts.resetPassword(token, newPassword, (err) => {
         if (err) {
           commit(MUTATION_TYPES.ENROLL_ACCOUNT_FAILED, { error: err });
-          return resolve(false);
+          return reject(err);
         }
         commit(MUTATION_TYPES.CLEAR_ENROLL_ACCOUNT_FAILURE);
         return resolve(true);
@@ -75,7 +75,7 @@ const actions = {
       Meteor.loginWithPassword(username, password, (err) => {
         if (err) {
           commit(MUTATION_TYPES.LOGIN_FAILED, { error: err });
-          return resolve(false);
+          return reject(err);
         }
         commit(MUTATION_TYPES.CLEAR_LOGIN_FAILURE);
         return resolve(true);
@@ -93,7 +93,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       Meteor.logout((err) => {
         if (err) {
-          return resolve(false);
+          return reject(err);
         }
         return resolve(true);
       });

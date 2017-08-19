@@ -1,20 +1,31 @@
 <style scoped>
 .NavBarAuth {
-  position: relative;
-  max-width: 300px;
-  display: block;
+  /* position: relative; */
+  /* max-width: 300px; */
+  /* display: block; */
 }
 
 .signed-in {
-  position: relative;
-  display: block;
+  /* position: relative; */
+  float: right;
 }
 .signed-out {
   float: right;
-  margin-right: 20px;
+  /* margin-right: 20px; */
 }
 
-.signed-out-button {
+.user-name {
+  color: white;
+  padding-right: 10px;
+}
+
+@media(max-width: 768px) {
+  .user-name {
+    color: black;
+  }
+}
+
+.signed-out-buttons {
   display: inline-block;
 }
 </style>
@@ -27,8 +38,8 @@
         <sign-out-btn :theme='theme'/>
       </span>
     </div>
-     <div v-if='!user' class='signed-out'>
-       <span class='signed-out-button'>
+    <div v-if='!user' class='signed-out'>
+      <span class='signed-out-buttons'>
         <sign-in-btn :theme='theme'/>
         <sign-up-btn :theme='theme'/>
       </span> 
@@ -67,10 +78,7 @@ export default {
     // load the user object
     setUserInStore() {
       this.setUser({ user: Meteor.user() });
-    },
-    // user() {
-    //   return Meteor.user()
-    // }
+    }
   },
   computed: {
     ...mapState({

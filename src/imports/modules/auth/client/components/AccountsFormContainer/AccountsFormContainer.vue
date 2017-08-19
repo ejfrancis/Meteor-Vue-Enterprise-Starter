@@ -8,6 +8,7 @@
 }
 
 .form-title {
+  text-align: center;
   margin-bottom: 20px;
 }
 
@@ -20,6 +21,12 @@
 
 <template>
   <div class='AccountsFormContainer'>
+    <!-- mobile <-> large theme transition trigger -->
+    <media :query='{ maxWidth: 768 }' @media-enter='handleEnterMobile'>
+    </media>
+    <media :query='{ minWidth: 768 }' @media-enter='handleEnterLarge'>
+    </media>
+
     <media :query='{ minWidth: 768 }'>
       <div class='top-pad-large'>
       </div>
@@ -29,7 +36,12 @@
       </div>
     </media>
     <Row>
-      <Col :xs='24' :sm='{ span: 14, push: 5}' class='form-col'>
+      <Col 
+        :xs='24' 
+        :sm='{ span: 14, push: 5 }' 
+        :lg='{ span: 10, push: 7 }'
+        class='form-col'
+      >
         <h1 class='form-title'>{{ title }}</h1>
         <slot></slot>
       </Col>
@@ -38,17 +50,36 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex-alt';
 import Media from 'vue-media';
 
 export default {
   components: {
     Media
   },
+  created() {
+    this.setLayoutThemeDark();
+  },
+  destroyed() {
+    this.setLayoutThemeLight()
+  },
   props: {
     title: {
       type: String,
       required: false,
       default: ''
+    }
+  },
+  methods: {
+    ...mapActions({
+      setLayoutThemeLight: (actions) => actions.layout.setLayoutThemeLight,
+      setLayoutThemeDark: (actions) => actions.layout.setLayoutThemeDark
+    }),
+    handleEnterMobile() {
+      this.setLayoutThemeLight()
+    },
+    handleEnterLarge() {
+      this.setLayoutThemeDark()
     }
   }
 }

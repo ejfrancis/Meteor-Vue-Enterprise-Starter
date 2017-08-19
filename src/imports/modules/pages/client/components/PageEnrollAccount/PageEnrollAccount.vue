@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex-alt';
+import { mapState } from 'vuex-alt';
 import EnrollAccountForm from '/src/imports/modules/auth/client/components/EnrollAccountForm/EnrollAccountForm.vue';
 
 export default {
@@ -17,20 +17,10 @@ export default {
     EnrollAccountForm
   },
   beforeMount() {
-    this.setLayoutThemeDark();
     if (!this.token && !this.changedSuccessfully) {
       this.$router.push('/');
       return;
     }
-  },
-  beforeDestroy() {
-    this.setLayoutThemeLight();
-  },
-  methods: {
-    ...mapActions({
-      setLayoutThemeLight: (actions) => actions.layout.setLayoutThemeLight,
-      setLayoutThemeDark: (actions) => actions.layout.setLayoutThemeDark
-    })
   },
   computed: {
     ...mapState({
