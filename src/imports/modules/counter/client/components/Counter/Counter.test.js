@@ -38,7 +38,6 @@ describe('Counter', () => {
       expect(parseInt(countValue.text())).toEqual(startValue);
       const increaseInput = getIncreaseInput(wrapper);
       const increaseBtn = getIncreaseBtn(wrapper);
-      debugger;
       increaseInput.element.value = changeValue;
       increaseInput.trigger('change');
       await nextTick();
