@@ -2,6 +2,7 @@ import { mount } from 'avoriaz';
 import SignInForm from './SignInForm.vue';
 import { setupVue } from '/src/imports/startup/client/client-index';
 import { getActions } from '/tests/unit-test-setup/vuex-alt-test-util';
+import nextTick from 'timeout-as-promise';
 
 const getUsernameInput = (wrapper) => wrapper.find('.email input')[0];
 const getPasswordInput = (wrapper) => wrapper.find('.password input')[0];
@@ -20,7 +21,7 @@ describe('SignInForm', () => {
     mount(SignInForm, { store, router });
   });
   describe('submit btn', () => {
-    it('disables submit if username empty and password empty', () => {
+    it('disables submit if username empty and password empty', async () => {
       const routeState = {
         query: { redirect: 'redirect-path' }
       };
@@ -33,9 +34,10 @@ describe('SignInForm', () => {
       usernameInput.trigger('input');
       passwordInput.element.value = '';
       passwordInput.trigger('input');
+      await nextTick();
       expect(isDisabled(submitBn)).toEqual(true);
     });
-    it('disables submit if username empty and password filled', () => {
+    it('disables submit if username empty and password filled', async () => {
       const wrapper = mount(SignInForm, { store, router });
       const usernameInput = getUsernameInput(wrapper);
       const passwordInput = getPasswordInput(wrapper);
@@ -44,28 +46,31 @@ describe('SignInForm', () => {
       usernameInput.trigger('input');
       passwordInput.element.value = 'password';
       passwordInput.trigger('input');
+      await nextTick();
       expect(isDisabled(submitBn)).toEqual(true);
     });
-    it('disables submit if username filled and password empty', () => {
+    it('disables submit if username filled and password empty', async () => {
       const wrapper = mount(SignInForm, { store, router });
       const usernameInput = getUsernameInput(wrapper);
       const passwordInput = getPasswordInput(wrapper);
       const submitBn = getSubmitBtn(wrapper);
-      usernameInput.element.value = 'username';
+      usernameInput.element.value = 'chewbacca@kashyyyk.com';
       usernameInput.trigger('input');
       passwordInput.element.value = '';
       passwordInput.trigger('input');
+      await nextTick();
       expect(isDisabled(submitBn)).toEqual(true);
     });
-    it('enables submit if username filled and password filled', () => {
+    it('enables submit if username filled and password filled', async () => {
       const wrapper = mount(SignInForm, { store, router });
       const usernameInput = getUsernameInput(wrapper);
       const passwordInput = getPasswordInput(wrapper);
       const submitBn = getSubmitBtn(wrapper);
-      usernameInput.element.value = 'username';
+      usernameInput.element.value = 'chewbacca@kashyyyk.com';
       usernameInput.trigger('input');
       passwordInput.element.value = 'password';
       passwordInput.trigger('input');
+      await nextTick();
       expect(isDisabled(submitBn)).toEqual(false);
     });
   });

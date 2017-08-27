@@ -46,21 +46,6 @@
         </Row>
       </Form>
     </accounts-form-container>
-    <!-- <h3>Reset Password</h3>
-  
-    <form @submit.prevent="submitResetPasswordForm">
-      <div class='password-1'>
-        <label>Enter your new password</label>
-        <input type='password' v-model='formData.newPassword1'>
-      </div>
-      <div class='password-2'>
-        <label>Please re-enter your new password</label>
-        <input type='password' v-model='formData.newPassword2'>
-      </div>
-      <button type='submit' class='submit-form-btn' :disabled='isNewPasswordSubmitDisabled '>
-        Submit
-      </button>
-    </form> -->
   </div>
 </template>
 

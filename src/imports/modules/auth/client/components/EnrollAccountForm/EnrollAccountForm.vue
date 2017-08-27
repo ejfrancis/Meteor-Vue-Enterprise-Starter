@@ -40,14 +40,14 @@
             <Col span='24'>
               <Form-item prop='newPassword1' class='password-1' label='Enter your new password'>
                 <Input :type='passwordInputType' v-model='formData.newPassword1' placeholder='*****'>
-                <Icon type='locked' slot='append'></Icon>
+                  <Icon type='locked' slot='append'></Icon>
                 </Input>
               </Form-item>
             </Col>
             <Col span='24'>
               <Form-item prop='newPassword2' class='password-2' label='Please re-enter your new password'>
                 <Input :type='passwordInputType' v-model='formData.newPassword2' placeholder='*****'>
-                <Icon type='locked' slot='append'></Icon>
+                  <Icon type='locked' slot='append'></Icon>
                 </Input>
               </Form-item>
             </Col>
@@ -113,9 +113,9 @@ function validatePasswordInputs (rule, value, callback) {
     ||  this.formData.newPassword1.length === 0 && this.formData.newPassword2.length > 0;
   if (isOneFilled) {
     try {
-        passwordSchema.validate({ password: value });
-        return callback();
-      } catch (e) {
+      passwordSchema.validate({ password: value });
+      return callback();
+    } catch (e) {
       return callback(passwordSchema.summary);
     }
   }
@@ -171,7 +171,12 @@ export default {
         (this.formData.newPassword1 !== this.formData.newPassword2)) {
         return true;
       }
-      return false;
+      try {
+        passwordSchema.validate({ password: this.formData.newPassword1 });
+        return false;
+      } catch (e) {
+        return true;
+      }
     },
     passwordInputType() {
       return this.showPassword === true ? 'text' : 'password';

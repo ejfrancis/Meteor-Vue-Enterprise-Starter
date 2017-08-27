@@ -37,7 +37,7 @@
               <Button 
                 type='primary' 
                 @click='submitForm()' 
-                class='sign-up-submit-btn' 
+                class='sign-in-submit-btn' 
                 :disabled='isSubmitDisabled' 
                 html-type='submit'
               >
@@ -62,15 +62,6 @@ import { Meteor } from 'meteor/meteor';
 import { passwordSchema } from './../../../shared/schemas/password-schema';
 import AccountsFormContainer from './../AccountsFormContainer/AccountsFormContainer.vue';
 
-function validatePasswordInput (rule, value, callback) {
-  try {
-    passwordSchema.validate({ password: value });
-    return callback();
-  } catch (e) {
-    return callback(passwordSchema.summary);
-  } 
-}
-
 export default {
   name: 'SignInForm',
   components: {
@@ -89,8 +80,6 @@ export default {
     }
   },
   data() {
-    // bind to get access to vm formData
-    validatePasswordInput = validatePasswordInput.bind(this);
     return {
       showPassword: false,
       formData: {
@@ -103,8 +92,7 @@ export default {
           { type: 'email', message: 'Email must be a valid emai address ', trigger: 'change' }
         ],
         password: [
-          { required: true, message: 'Password is required', trigger: 'blur' },
-          { validator: validatePasswordInput }
+          { required: true, message: 'Password is required', trigger: 'blur' }
         ]
       }
     }
@@ -117,17 +105,9 @@ export default {
       return this.showPassword === true ? 'text' : 'password';
     },
     isSubmitDisabled() {
-      let validated;
-      try {
-         passwordSchema.validate({ password: this.formData.password });
-         validated = true;
-      } catch (e) {
-        validated = false;
-      }
       return this.loggingIn 
         || !this.formData.password 
-        || !this.formData.username
-        || !validated;
+        || !this.formData.username;
     }
   },
   methods: {

@@ -1,7 +1,15 @@
 import { mount } from 'avoriaz';
 import Counter from './Counter.vue';
 import { setupVue } from '/src/imports/startup/client/client-index';
-import timeout from 'timeout-as-promise';
+import nextTick from 'timeout-as-promise';
+
+const getIncreaseInput = (el) => el.find('.increase input')[0];
+const getIncreaseBtn = (el) => el.find('.increase button')[0];
+const getDecreaseInput = (el) => el.find('.increase input')[0];
+const getDecreaseBtn = (el) => el.find('.decrease button')[0];
+const getResetBtn = (el) => el.find('.reset-delayed button')[0];
+const getCount = (el) => el.find('.count .value')[0];
+const getCountPlusTen = (el) => el.find('.count .value-plus-ten')[0];
 
 describe('Counter', () => {
   let store;
@@ -19,62 +27,75 @@ describe('Counter', () => {
     const wrapper = mount(Counter, { store });
     expect(parseInt(wrapper.find('.count .value')[0].text())).toEqual(startValue);
   });
-  describe('increment', () => {
-    it('adds to count when Increment is clicked', () => {
+  describe('increase', () => {
+    it('adds to count when Increment is clicked', async () => {
       const startValue = 0;
       const changeValue = 2;
       const endValue = startValue + changeValue;
       store.state.counter.count = startValue;
       const wrapper = mount(Counter, { store });
-      expect(parseInt(wrapper.find('.count .value')[0].text())).toEqual(startValue);
-      const incrementInput = wrapper.find('.increment input')[0];
-      incrementInput.element.value = changeValue;
-      incrementInput.trigger('input');
-      wrapper.find('.increment button')[0].trigger('click');
-      expect(parseInt(wrapper.find('.count .value')[0].text())).toEqual(endValue);
+      const countValue = getCount(wrapper);
+      expect(parseInt(countValue.text())).toEqual(startValue);
+      const increaseInput = getIncreaseInput(wrapper);
+      const increaseBtn = getIncreaseBtn(wrapper);
+      increaseInput.element.value = changeValue;
+      increaseInput.trigger('input');
+      increaseInput.trigger('change');
+      increaseBtn.trigger('click');
+      await nextTick();
+      expect(parseInt(countValue.text())).toEqual(endValue);
     });
   });
-  describe('decrement', () => {
-    it('subtracts from count when Decrement is clicked', () => {
+  describe('decrease', () => {
+    it('subtracts from count when Decrease is clicked', async () => {
       const startValue = 0;
       const changeValue = 5;
       const endValue = startValue - changeValue;
       store.state.counter.count = startValue;
       const wrapper = mount(Counter, { store });
-      expect(parseInt(wrapper.find('.count .value')[0].text())).toEqual(startValue);
-      const decrementInput = wrapper.find('.decrement input')[0];
-      decrementInput.element.value = changeValue;
-      decrementInput.trigger('input');
-      wrapper.find('.decrement button')[0].trigger('click');
+      const countValue = getCount(wrapper);
+      expect(parseInt(countValue.text())).toEqual(startValue);
+      const decreaseInput = getDecreaseInput(wrapper);
+      const decreaseBtn = getDecreaseBtn(wrapper);
+      decreaseInput.element.value = changeValue;
+      decreaseInput.trigger('input');
+      decreaseBtn.trigger('click');
+      await nextTick();
       expect(parseInt(wrapper.find('.count .value')[0].text())).toEqual(endValue);
     });
   });
   describe('count plus ten', () => {
-    it('displays count + 10 when incremented', () => {
+    it('displays count + 10 when increaseed', async () => {
       const startValue = 0;
       const changeValue = 5;
       const endValuePlusTen = startValue + changeValue + 10;
       store.state.counter.count = startValue;
       const wrapper = mount(Counter, { store });
-      expect(parseInt(wrapper.find('.count .value')[0].text())).toEqual(startValue);
-      const incrementInput = wrapper.find('.increment input')[0];
-      incrementInput.element.value = changeValue;
-      incrementInput.trigger('input');
-      wrapper.find('.increment button')[0].trigger('click');
-      expect(parseInt(wrapper.find('.count .value-plus-ten')[0].text())).toEqual(endValuePlusTen);
+      const countPlusTenValue = getCountPlusTen(wrapper);
+      expect(parseInt(countPlusTenValue.text())).toEqual(startValue);
+      const increaseInput = getIncreaseInput(wrapper);
+      const increaseBtn = getIncreaseBtn(wrapper);
+      increaseInput.element.value = changeValue;
+      increaseInput.trigger('input');
+      increaseBtn.trigger('click');
+      await nextTick();
+      expect(parseInt(countPlusTenValue.text())).toEqual(endValuePlusTen);
     });
-    it('displays count + 10 when decremented', () => {
+    it('displays count + 10 when decreaseed', async () => {
       const startValue = 0;
       const changeValue = 5;
       const endValuePlusTen = startValue - changeValue + 10;
       store.state.counter.count = startValue;
       const wrapper = mount(Counter, { store });
-      expect(parseInt(wrapper.find('.count .value')[0].text())).toEqual(startValue);
-      const decrementInput = wrapper.find('.decrement input')[0];
-      decrementInput.element.value = changeValue;
-      decrementInput.trigger('input');
-      wrapper.find('.decrement button')[0].trigger('click');
-      expect(parseInt(wrapper.find('.count .value-plus-ten')[0].text())).toEqual(endValuePlusTen);
+      const countPlusTenValue = getCountPlusTen(wrapper);
+      expect(parseInt(countPlusTenValue.text())).toEqual(startValue);
+      const decreaseInput = getDecreaseInput(wrapper);
+      const decreaseBtn = getDecreaseBtn(wrapper);
+      decreaseInput.element.value = changeValue;
+      decreaseInput.trigger('input');
+      decreaseBtn.trigger('click');
+      await nextTick();
+      expect(parseInt(countPlusTenValue.text())).toEqual(endValuePlusTen);
     });
   });
   describe('reset delayed', () => {
@@ -84,15 +105,18 @@ describe('Counter', () => {
       const endValue = startValue + changeValue;
       store.state.counter.count = startValue;
       const wrapper = mount(Counter, { store });
-      expect(parseInt(wrapper.find('.count .value')[0].text())).toEqual(startValue);
-      const incrementInput = wrapper.find('.increment input')[0];
-      incrementInput.element.value = changeValue;
-      incrementInput.trigger('input');
-      wrapper.find('.increment button')[0].trigger('click');
-      expect(parseInt(wrapper.find('.count .value')[0].text())).toEqual(endValue);
-      wrapper.find('.reset-delayed button')[0].trigger('click');
-      await timeout(1500);
-      expect(parseInt(wrapper.find('.count .value')[0].text())).toEqual(startValue);
+      const countValue = getCount(wrapper);
+      expect(parseInt(countValue.text())).toEqual(startValue);
+      const increaseInput = getIncreaseInput(wrapper);
+      const increaseBtn = getIncreaseBtn(wrapper);
+      const resetBtn = getResetBtn(wrapper);
+      increaseInput.element.value = changeValue;
+      increaseInput.trigger('input');
+      increaseBtn.trigger('click');
+      expect(parseInt(countValue.text())).toEqual(endValue);
+      resetBtn.trigger('click');
+      await nextTick(1500);
+      expect(parseInt(countValue.text())).toEqual(startValue);
     });
   });
 });

@@ -1,6 +1,7 @@
 <style scoped>
 .LayoutLarge {
   height: 100%;
+  background: #f4f3f3;
 }
 
 .layout-children {
@@ -16,8 +17,6 @@
 .auth-buttons-container {
   margin-right: 20px;
 }
-
-
 
 /* vue-router active class */
 
@@ -57,7 +56,7 @@ a {
       </Menu>
     </nav>
     <Row>
-      <Col span='24'>
+      <Col span='22' offset='1'>
         <div class='layout-children'>
           <!--child components rendered in slot -->
           <slot></slot>

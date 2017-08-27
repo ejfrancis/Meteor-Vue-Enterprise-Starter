@@ -14,9 +14,11 @@
 .layout-mobile-container {
   height: 100%;
 }
+/* 
 .Layout-children {
   padding: 20px 30px;
 }
+*/
 .nav-mobile-container {
   background: #464c5b;
 }

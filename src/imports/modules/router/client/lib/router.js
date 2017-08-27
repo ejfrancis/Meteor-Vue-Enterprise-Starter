@@ -29,7 +29,7 @@ const PageEnrollAccountAsync = (resolve) => {
 };
 const PageHomeAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageHome/PageHome.vue')
-    .then((PageHome) => resolve(getModule(PageHome)));
+  .then((PageHome) => resolve(getModule(PageHome)));
 };
 const PagePrivateAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PagePrivate/PagePrivate.vue')
