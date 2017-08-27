@@ -5,7 +5,7 @@ import nextTick from 'timeout-as-promise';
 
 const getIncreaseInput = (el) => el.find('.increase input')[0];
 const getIncreaseBtn = (el) => el.find('.increase button')[0];
-const getDecreaseInput = (el) => el.find('.increase input')[0];
+const getDecreaseInput = (el) => el.find('.decrease input')[0];
 const getDecreaseBtn = (el) => el.find('.decrease button')[0];
 const getResetBtn = (el) => el.find('.reset-delayed button')[0];
 const getCount = (el) => el.find('.count .value')[0];
@@ -38,9 +38,10 @@ describe('Counter', () => {
       expect(parseInt(countValue.text())).toEqual(startValue);
       const increaseInput = getIncreaseInput(wrapper);
       const increaseBtn = getIncreaseBtn(wrapper);
+      debugger;
       increaseInput.element.value = changeValue;
-      increaseInput.trigger('input');
       increaseInput.trigger('change');
+      await nextTick();
       increaseBtn.trigger('click');
       await nextTick();
       expect(parseInt(countValue.text())).toEqual(endValue);
@@ -58,10 +59,11 @@ describe('Counter', () => {
       const decreaseInput = getDecreaseInput(wrapper);
       const decreaseBtn = getDecreaseBtn(wrapper);
       decreaseInput.element.value = changeValue;
-      decreaseInput.trigger('input');
+      decreaseInput.trigger('change');
+      await nextTick();
       decreaseBtn.trigger('click');
       await nextTick();
-      expect(parseInt(wrapper.find('.count .value')[0].text())).toEqual(endValue);
+      expect(parseInt(countValue.text())).toEqual(endValue);
     });
   });
   describe('count plus ten', () => {
@@ -72,11 +74,12 @@ describe('Counter', () => {
       store.state.counter.count = startValue;
       const wrapper = mount(Counter, { store });
       const countPlusTenValue = getCountPlusTen(wrapper);
-      expect(parseInt(countPlusTenValue.text())).toEqual(startValue);
+      expect(parseInt(countPlusTenValue.text())).toEqual(startValue + 10);
       const increaseInput = getIncreaseInput(wrapper);
       const increaseBtn = getIncreaseBtn(wrapper);
       increaseInput.element.value = changeValue;
-      increaseInput.trigger('input');
+      increaseInput.trigger('change');
+      await nextTick();
       increaseBtn.trigger('click');
       await nextTick();
       expect(parseInt(countPlusTenValue.text())).toEqual(endValuePlusTen);
@@ -88,11 +91,12 @@ describe('Counter', () => {
       store.state.counter.count = startValue;
       const wrapper = mount(Counter, { store });
       const countPlusTenValue = getCountPlusTen(wrapper);
-      expect(parseInt(countPlusTenValue.text())).toEqual(startValue);
+      expect(parseInt(countPlusTenValue.text())).toEqual(startValue + 10);
       const decreaseInput = getDecreaseInput(wrapper);
       const decreaseBtn = getDecreaseBtn(wrapper);
       decreaseInput.element.value = changeValue;
-      decreaseInput.trigger('input');
+      decreaseInput.trigger('change');
+      await nextTick();
       decreaseBtn.trigger('click');
       await nextTick();
       expect(parseInt(countPlusTenValue.text())).toEqual(endValuePlusTen);
@@ -111,8 +115,10 @@ describe('Counter', () => {
       const increaseBtn = getIncreaseBtn(wrapper);
       const resetBtn = getResetBtn(wrapper);
       increaseInput.element.value = changeValue;
-      increaseInput.trigger('input');
+      increaseInput.trigger('change');
+      await nextTick();
       increaseBtn.trigger('click');
+      await nextTick();
       expect(parseInt(countValue.text())).toEqual(endValue);
       resetBtn.trigger('click');
       await nextTick(1500);

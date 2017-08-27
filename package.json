@@ -31,7 +31,7 @@
     "vuex-router-sync": "^4.1.2"
   },
   "devDependencies": {
-    "avoriaz": "^1.16.0",
+    "avoriaz": "^3.5.0",
     "babel-eslint": "^7.2.3",
     "babel-plugin-dynamic-import-node": "^1.0.2",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
