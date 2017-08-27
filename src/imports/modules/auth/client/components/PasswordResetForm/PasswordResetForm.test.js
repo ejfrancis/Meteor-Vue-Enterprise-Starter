@@ -2,10 +2,11 @@ import { mount } from 'avoriaz';
 import PasswordResetForm from './PasswordResetForm.vue';
 import { setupVue } from '/src/imports/startup/client/client-index';
 import { getActions } from '/tests/unit-test-setup/vuex-alt-test-util';
+import nextTick from 'timeout-as-promise';
 
 const getPasswordInput1 = (wrapper) => wrapper.find('.password-1 input')[0];
 const getPasswordInput2 = (wrapper) => wrapper.find('.password-2 input')[0];
-const getSubmitBtn = (wrapper) => wrapper.find('.submit-form-btn')[0];
+const getSubmitBtn = (wrapper) => wrapper.find('.password-reset-submit-btn')[0];
 const isDisabled = (el) => el.hasAttribute('disabled', 'disabled');
 
 describe('PasswordResetEmailForm', () => {
@@ -19,7 +20,7 @@ describe('PasswordResetEmailForm', () => {
     expect(wrapper.find('.PasswordResetForm').length).toEqual(1);
   });
   describe('submit button', () => {
-    it('disables submit if one password empty', () => {
+    it('disables submit if one password empty', async () => {
       const wrapper = mount(PasswordResetForm, { store });
       const passwordInput1 = getPasswordInput1(wrapper);
       const passwordInput2 = getPasswordInput2(wrapper);
@@ -28,9 +29,10 @@ describe('PasswordResetEmailForm', () => {
       passwordInput1.trigger('input');
       passwordInput2.element.value = '';
       passwordInput2.trigger('input');
+      await nextTick();
       expect(isDisabled(submitBtn)).toEqual(true);
     });
-    it('disables submit if both passwords filled but don\'t match', () => {
+    it('disables submit if both passwords filled but don\'t match', async () => {
       const wrapper = mount(PasswordResetForm, { store });
       const passwordInput1 = getPasswordInput1(wrapper);
       const passwordInput2 = getPasswordInput2(wrapper);
@@ -39,9 +41,10 @@ describe('PasswordResetEmailForm', () => {
       passwordInput1.trigger('input');
       passwordInput2.element.value = 'anotherpass';
       passwordInput2.trigger('input');
+      await nextTick();
       expect(isDisabled(submitBtn)).toEqual(true);
     });
-    it('disables submit if both passwords filled and match but not strong enough', () => {
+    it('disables submit if both passwords filled and match but not strong enough', async () => {
       const wrapper = mount(PasswordResetForm, { store });
       const passwordInput1 = getPasswordInput1(wrapper);
       const passwordInput2 = getPasswordInput2(wrapper);
@@ -50,9 +53,10 @@ describe('PasswordResetEmailForm', () => {
       passwordInput1.trigger('input');
       passwordInput2.element.value = 'anotherpass';
       passwordInput2.trigger('input');
+      await nextTick();
       expect(isDisabled(submitBtn)).toEqual(true);
     });
-    it('enables submit if both passwords filled, match, and are strong enough', () => {
+    it('enables submit if both passwords filled, match, and are strong enough', async () => {
       const wrapper = mount(PasswordResetForm, { store });
       const passwordInput1 = getPasswordInput1(wrapper);
       const passwordInput2 = getPasswordInput2(wrapper);
@@ -61,6 +65,7 @@ describe('PasswordResetEmailForm', () => {
       passwordInput1.trigger('input');
       passwordInput2.element.value = '!SomePassword8';
       passwordInput2.trigger('input');
+      await nextTick();
       expect(isDisabled(submitBtn)).toEqual(false);
     });
   });

@@ -2,20 +2,20 @@ import { actions, mutations, MUTATION_TYPES } from './counter-actions-mutations'
 
 describe('counter-actions-mutations', () => {
   describe('actions', () => {
-    describe('increment', () => {
+    describe('increase', () => {
       it('commits INCREMENT with amount payload', () => {
         const commit = jest.fn();
         const amount = 5;
-        actions.increment({ commit }, { amount });
+        actions.increase({ commit }, { amount });
         expect(commit).toHaveBeenCalledTimes(1);
         expect(commit).toHaveBeenCalledWith(MUTATION_TYPES.INCREMENT, { amount });
       });
     });
-    describe('decrement', () => {
+    describe('decrease', () => {
       it('commits DECREMENT with amount payload', () => {
         const commit = jest.fn();
         const amount = 5;
-        actions.decrement({ commit }, { amount });
+        actions.decrease({ commit }, { amount });
         expect(commit).toHaveBeenCalledTimes(1);
         expect(commit).toHaveBeenCalledWith(MUTATION_TYPES.DECREMENT, { amount });
       });

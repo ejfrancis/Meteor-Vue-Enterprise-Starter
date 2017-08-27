@@ -5,10 +5,33 @@ import Vuex from 'vuex';
 import { sync } from 'vuex-router-sync';
 import { VuexAltPlugin } from 'vuex-alt';
 import VueMeteorTracker from 'vue-meteor-tracker';
+import iView from 'meteor/efrancis:iview';
 
 import { createRouter as createRouterOriginal } from './../../modules/router/client/lib/router';
 import { createStore as createStoreOriginal } from './../../modules/store/client/lib/store';
 import App from './App.vue';
+
+// iView responsive show/hide directives. keeping these here for now.
+Vue.directive('hidden-xs', {
+  inserted: (el) => {
+    el.className += ' hidden-xs';
+  }
+});
+Vue.directive('hidden-sm', {
+  inserted: (el) => {
+    el.className += ' hidden-sm';
+  }
+});
+Vue.directive('hidden-md', {
+  inserted: (el) => {
+    el.className += ' hidden-md';
+  }
+});
+Vue.directive('hidden-lg', {
+  inserted: (el) => {
+    el.className += ' hidden-lg';
+  }
+});
 
 /**
  * Export the setup of Vue, and allow overriding of the store and
@@ -21,17 +44,17 @@ export const setupVue = ({
   createStore = createStoreOriginal,
   createRouter = createRouterOriginal
  } = {}) => {
-  Vue.use(VueRouter);
-  Vue.use(Vuex);
-  Vue.use(VueMeteorTracker);
+  Vue.use(VueRouter);                 // router
+  Vue.use(Vuex);                      // global state management (similar to Redux)
+  Vue.use(VueMeteorTracker);          // Meteor Tracker integration
+  Vue.use(iView);
 
-  const store = createStore();
-  const router = createRouter();
+  const store = createStore();        // vuex store
+  const router = createRouter();      // vue-router instance
 
-  Vue.use(VuexAltPlugin, { store });
+  Vue.use(VuexAltPlugin, { store });  // alternative mapActions() and mapGetters() for vuex
 
   sync(store, router);
-
   return { store, router };
 };
 

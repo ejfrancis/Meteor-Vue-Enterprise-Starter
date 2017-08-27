@@ -38,7 +38,8 @@ const passwordSchema = new SimpleSchema({
     }
   }
 });
-passwordSchema.summary = 'Passwords must be between 8 and 16 characters long, and should include at least one lowercase letter, one uppercase letter, and one special character.';
+// passwordSchema.summary = 'Passwords must be between 8 and 16 characters long, and should include at least one lowercase letter, one uppercase letter, and one special character.';
+passwordSchema.summary = 'Must be 8-16 characters, include at least one lowercase letter, one uppercase letter, one special character';
 
 export {
   passwordSchema

@@ -1,4 +1,5 @@
 import VueRouter from 'vue-router';
+import iView from 'iview';
 import { requireAuth, requireNoAuth } from '/src/imports/modules/auth/client/lib/router-auth-hooks';
 
 // unfortunate hack for now. jest is using babel-plugin-dynamic-import-node
@@ -28,7 +29,7 @@ const PageEnrollAccountAsync = (resolve) => {
 };
 const PageHomeAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageHome/PageHome.vue')
-    .then((PageHome) => resolve(getModule(PageHome)));
+  .then((PageHome) => resolve(getModule(PageHome)));
 };
 const PagePrivateAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PagePrivate/PagePrivate.vue')
@@ -37,18 +38,58 @@ const PagePrivateAsync = (resolve) => {
 
 const createRouter = () => {
   const routes = [
-    { path: '/sign-up', name: 'sign-up', component: PageSignUpAsync, beforeEnter: requireNoAuth },
-    { path: '/enroll-account', name: 'enroll-account', component: PageEnrollAccountAsync, beforeEnter: requireNoAuth },
-    { path: '/sign-in', name: 'sign-in', component: PageSignInAsync, beforeEnter: requireNoAuth },
-    { path: '/reset-password', name: 'reset-password', component: PagePasswordResetAsync, beforeEnter: requireNoAuth },
-    { path: '/home', name: 'home', component: PageHomeAsync },
-    { path: '/private', name: 'private', component: PagePrivateAsync, beforeEnter: requireAuth },
-    { path: '/', component: PageHomeAsync }
+    {
+      path: '/sign-up',
+      name: 'sign-up',
+      component: PageSignUpAsync,
+      beforeEnter: requireNoAuth
+    },
+    {
+      path: '/enroll-account',
+      name: 'enroll-account',
+      component: PageEnrollAccountAsync
+    },
+    {
+      path: '/sign-in',
+      name: 'sign-in',
+      component: PageSignInAsync,
+      beforeEnter: requireNoAuth
+    },
+    {
+      path: '/reset-password',
+      name: 'reset-password',
+      component: PagePasswordResetAsync,
+      beforeEnter: requireNoAuth
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: PageHomeAsync
+    },
+    {
+      path: '/private',
+      name: 'private',
+      component: PagePrivateAsync,
+      beforeEnter: requireAuth
+    },
+    {
+      path: '/',
+      component: PageHomeAsync
+    }
   ];
 
   const router = new VueRouter({
     routes,
     mode: 'history'
+  });
+
+  // set up iView router loading bar
+  router.beforeEach((to, from, next) => {
+    iView.LoadingBar.start();
+    next();
+  });
+  router.afterEach((to, from, next) => {
+    iView.LoadingBar.finish();
   });
 
   return router;

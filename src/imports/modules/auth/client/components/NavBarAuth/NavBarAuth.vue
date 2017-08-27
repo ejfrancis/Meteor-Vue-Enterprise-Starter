@@ -1,16 +1,31 @@
 <style scoped>
 .NavBarAuth {
-  position: relative;
-  max-width: 300px;
-  display: block;
+  /* position: relative; */
+  /* max-width: 300px; */
+  /* display: block; */
 }
 
 .signed-in {
-  position: relative;
-  display: block;
+  /* position: relative; */
+  float: right;
+}
+.signed-out {
+  float: right;
+  /* margin-right: 20px; */
 }
 
-.signed-out-button {
+.user-name {
+  color: white;
+  padding-right: 10px;
+}
+
+@media(max-width: 768px) {
+  .user-name {
+    color: black;
+  }
+}
+
+.signed-out-buttons {
   display: inline-block;
 }
 </style>
@@ -20,13 +35,13 @@
      <div v-if='user' class='signed-in'>
       <span class='user-name'>{{user.profile.firstName}} {{user.profile.lastName}}</span>
       <span>
-        <sign-out-btn />
+        <sign-out-btn :theme='theme'/>
       </span>
     </div>
-     <div v-if='!user' class='signed-out'>
-       <span class='signed-out-button'>
-        <sign-in-btn />
-        <sign-up-btn />
+    <div v-if='!user' class='signed-out'>
+      <span class='signed-out-buttons'>
+        <sign-in-btn :theme='theme'/>
+        <sign-up-btn :theme='theme'/>
       </span> 
       <!-- <span class='signed-out-button'>
         <sign-up-btn />
@@ -42,20 +57,18 @@ import SignUpBtn from './../SignUpBtn/SignUpBtn.vue';
 import SignInBtn from './../SignInBtn/SignInBtn.vue';
 import SignOutBtn from './../SignOutBtn/SignOutBtn.vue';
 
-
-// // only import the icons you use to reduce bundle size
-// import 'vue-awesome/icons/flag';
-
-// // or import all icons if you don't care about bundle size
-// import 'vue-awesome/icons';
-
-// /* Register component with one of 2 methods */
-
-// import Icon from 'vue-awesome/components/Icon'
-
-
 export default {
   name: 'NavBarAuth',
+  props: {
+    theme: {
+      type: String,
+      required: false,
+      default: 'dark',
+      validator: (val) => {
+        return ['dark', 'light'].indexOf(val) !== -1;
+      }
+    }
+  },
   components: {
     SignUpBtn,
     SignInBtn,
@@ -65,10 +78,7 @@ export default {
     // load the user object
     setUserInStore() {
       this.setUser({ user: Meteor.user() });
-    },
-    // user() {
-    //   return Meteor.user()
-    // }
+    }
   },
   computed: {
     ...mapState({

@@ -61,22 +61,36 @@ describe('auth-actions-mutations', () => {
       });
     });
     describe('enrollVerifyAccount', () => {
-      it('resolves false and commits ENROLL_ACCOUNT_FAILED if password isn\'t strong enough', async () => {
+      it('rejects password validation error and commits ENROLL_ACCOUNT_FAILED if password isn\'t strong enough', async () => {
         const commit = jest.fn();
         const token = 'token';
         const newPassword = 'weakPassword';
-        const result = await actions.enrollVerifyAccount({ commit }, { token, newPassword });
-        expect(result).toEqual(false);
+        let err;
+        let result;
+        try {
+          result = await actions.enrollVerifyAccount({ commit }, { token, newPassword });
+        } catch (e) {
+          err = e;
+        }
+        expect(result).toBeUndefined();
         expect(commit).toHaveBeenCalledTimes(1);
         expect(commit).toHaveBeenCalledWith(MUTATION_TYPES.ENROLL_ACCOUNT_FAILED, { error: expect.any(Error) });
+        expect(err.message).toContain('Must be 8-16 characters, include at least one lowercase letter');
       });
-      it('with strong password, calls Accounts.resetPassword, when that fails resolves false when resetPassword fails and commits ENROLL_ACCOUNT_FAILED', async () => {
+      it('with strong password, calls Accounts.resetPassword, when that fails rejects error when resetPassword fails and commits ENROLL_ACCOUNT_FAILED', async () => {
         const commit = jest.fn();
         const token = 'token';
         const newPassword = '1StrongPassword-';
         AccountsModule.Accounts.resetPassword = jest.fn((t, np, cb) => cb(mockError));
-        const result = await actions.enrollVerifyAccount({ commit }, { token, newPassword });
-        expect(result).toEqual(false);
+        let err;
+        let result;
+        try {
+          result = await actions.enrollVerifyAccount({ commit }, { token, newPassword });
+        } catch (e) {
+          err = e;
+        }
+        expect(err).toBeDefined();
+        expect(result).toBeUndefined();
         expect(commit).toHaveBeenCalledTimes(1);
         expect(commit).toHaveBeenCalledWith(MUTATION_TYPES.ENROLL_ACCOUNT_FAILED, { error: expect.any(Error) });
         expect(AccountsModule.Accounts.resetPassword).toHaveBeenCalledWith(token, newPassword, expect.any(Function));
@@ -86,7 +100,14 @@ describe('auth-actions-mutations', () => {
         const token = 'token';
         const newPassword = '1StrongPassword-';
         AccountsModule.Accounts.resetPassword = jest.fn((t, np, cb) => cb(null));
-        const result = await actions.enrollVerifyAccount({ commit }, { token, newPassword });
+        let err;
+        let result;
+        try {
+          result = await actions.enrollVerifyAccount({ commit }, { token, newPassword });
+        } catch (e) {
+          err = e;
+        }
+        expect(err).toBeUndefined();
         expect(result).toEqual(true);
         expect(commit).toHaveBeenCalledTimes(1);
         expect(commit).toHaveBeenCalledWith(MUTATION_TYPES.CLEAR_ENROLL_ACCOUNT_FAILURE);
@@ -102,13 +123,20 @@ describe('auth-actions-mutations', () => {
       });
     });
     describe('loginUser', () => {
-      it('calls Meteor.loginWithPassword with credentials, when login fails, resolves false and commits failure', async () => {
+      it('calls Meteor.loginWithPassword with credentials, when login fails, rejects error and commits failure', async () => {
         const commit = jest.fn();
         MeteorModule.Meteor.loginWithPassword = jest.fn((u, p, cb) => cb(mockError));
         const username = 'chewbacca';
         const password = 'BowCaster83%';
-        const result = await actions.loginUser({ commit }, { username, password });
-        expect(result).toEqual(false);
+        let err;
+        let result;
+        try {
+          result = await actions.loginUser({ commit }, { username, password });
+        } catch (e) {
+          err = e;
+        }
+        expect(err).toBeDefined();
+        expect(result).toBeUndefined();
         expect(MeteorModule.Meteor.loginWithPassword).toHaveBeenCalledWith(username, password, expect.any(Function));
         expect(commit).toHaveBeenCalledTimes(1);
         expect(commit).toHaveBeenCalledWith(MUTATION_TYPES.LOGIN_FAILED, { error: mockError });
@@ -143,10 +171,17 @@ describe('auth-actions-mutations', () => {
       });
     });
     describe('logoutUser', () => {
-      it('calls Meteor.logout, when that fails, resolves false', async () => {
+      it('calls Meteor.logout, when that fails, resolves error', async () => {
+        let err;
+        let result;
         MeteorModule.Meteor.logout = jest.fn((cb) => cb(mockError));
-        const result = await actions.logoutUser();
-        expect(result).toEqual(false);
+        try {
+          result = await actions.logoutUser();
+        } catch (e) {
+          err = e;
+        }
+        expect(err).toBeDefined();
+        expect(result).toBeUndefined();
       });
       it('calls Meteor.logout, when that succeeds, resolves true', async () => {
         MeteorModule.Meteor.logout = jest.fn((cb) => cb(null));
@@ -155,12 +190,19 @@ describe('auth-actions-mutations', () => {
       });
     });
     describe('sendPasswordResetEmail', () => {
-      it('calls Accoutns.forgotPassword, when that fails, commits failure and resolves false', async () => {
+      it('calls Accoutns.forgotPassword, when that fails, commits failure and rejects error', async () => {
         const commit = jest.fn();
         const email = 'someEmail@mail.com';
+        let err;
+        let result;
         AccountsModule.Accounts.forgotPassword = jest.fn(({ email }, cb) => cb(mockError));
-        const result = await actions.sendPasswordResetEmail({ commit }, { email });
-        expect(result).toEqual(false);
+        try {
+          result = await actions.sendPasswordResetEmail({ commit }, { email });
+        } catch (e) {
+          err = e;
+        }
+        expect(err).toBeDefined();
+        expect(result).toBeUndefined();
         expect(commit).toHaveBeenCalledTimes(1);
         expect(commit).toHaveBeenCalledWith(MUTATION_TYPES.PASSWORD_RESET_FAILED, { error: mockError });
       });
@@ -176,13 +218,20 @@ describe('auth-actions-mutations', () => {
       });
     });
     describe('passwordReset', () => {
-      it('calls Accounts.resetPassword, when that failures, commits failure with error and resolves false', async () => {
+      it('calls Accounts.resetPassword, when that failures, commits failure with error and rejects error', async () => {
         const commit = jest.fn();
         const token = 'someToken';
         const newPassword = '?ImAStrongPassword923!';
+        let err;
+        let result;
         AccountsModule.Accounts.resetPassword = jest.fn((t, np, cb) => cb(mockError));
-        const result = await actions.passwordReset({ commit }, { token, newPassword });
-        expect(result).toEqual(false);
+        try {
+          result = await actions.passwordReset({ commit }, { token, newPassword });
+        } catch (e) {
+          err = e;
+        }
+        expect(err).toBeDefined();
+        expect(result).toBeUndefined();
         expect(commit).toHaveBeenCalledTimes(1);
         expect(commit).toHaveBeenCalledWith(MUTATION_TYPES.PASSWORD_RESET_FAILED, { error: mockError });
       });

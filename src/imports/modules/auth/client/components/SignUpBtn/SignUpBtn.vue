@@ -1,30 +1,51 @@
 <style scoped>
-.SignUpBtn {
-  display: inline-block;
-  border: 1px solid black;
-  line-height: 30px;
-  height: 30px;
-  padding: 0px 10px;
+.light > .ivu-btn {
+  color: white;
+  border-color: white;
 }
-.SignUpBtn:hover {
-  border: 1px solid white;
+.dark > .ivu-btn {
+  color: black;
+  border-color: black;
 }
 a {
   text-decoration: none;
-  color: black;
-}
-a:hover {
-  color: white;
 }
 </style>
 
 <template>
-  <router-link class='SignUpBtn' to='sign-up'>Sign Up</router-link> 
+  <span class='SignUpBtn' v-bind:class='{ "light": isLightTheme, "dark": isDarkTheme }'>
+    <Button type='ghost' @click='handleClick'>
+      Sign Up
+    </Button>
+  </span>
 </template>
 
 <script>
 
 export default {
   name: 'SignUpBtn',
+  props: {
+    theme: {
+      type: String,
+      required: false,
+      default: 'dark',
+      validator: (val) => {
+        return ['dark', 'light'].indexOf(val) !== -1;
+      }
+    }
+  },
+  computed: {
+    isLightTheme() {
+      return this.theme == 'light'
+    },
+    isDarkTheme() {
+      return this.theme == 'dark'
+    }
+  },
+  methods: {
+    handleClick() {
+      this.$router.push({ path: 'sign-up' });
+    }
+  }
 }
 </script>

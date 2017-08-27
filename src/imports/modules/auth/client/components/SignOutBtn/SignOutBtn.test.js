@@ -19,24 +19,7 @@ describe('SignOutBtn', () => {
     const wrapper = mount(SignOutBtn, { store, router });
     const actions = getActions(wrapper);
     actions.auth.logoutUser = jest.fn();
-    wrapper.find('.SignOutBtn')[0].trigger('click');
+    wrapper.find('.SignOutBtn button')[0].trigger('click');
     expect(actions.auth.logoutUser).toHaveBeenCalledTimes(1);
   });
-  // it('redirects to home when signed out', () => {
-  //   const instance = Vue.extend()
-  //   const $router = {
-  //     push: jest.fn()
-  //   };
-  //   const wrapper = mount(SignOutBtn, {
-  //     globals: { $router },
-  //     instance
-  //   });
-  //   const actions = getActions(wrapper);
-  //   actions.auth.logoutUser = jest.fn(() => {
-  //     return new Promise((resolve, reject) => resolve(true));
-  //   });
-  //   wrapper.find('.SignOutBtn')[0].trigger('click');
-  //   expect(actions.auth.logoutUser).toHaveBeenCalledTimes(1);
-  //   expect($router.push).toHaveBeenCalledWith('/');
-  // });
 });

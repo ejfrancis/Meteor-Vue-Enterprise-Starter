@@ -4,17 +4,7 @@
 
 <template>
   <div class='PageEnrollAccount'>
-     <!-- token in url, reset pass form -->
-    <div v-if='token'>
-      <enroll-account-form />
-      <!-- <password-reset-form /> -->
-    </div>
-    <!-- changed successfully -->
-    <div v-if='changedSuccessfully'>
-      <h3>Account Set Up Complete!</h3>
-
-      <p><router-link to='home'>Click here</router-link> to go to the home page.</p>
-    </div>
+    <enroll-account-form />
   </div>
 </template>
 
@@ -26,8 +16,8 @@ export default {
   components: {
     EnrollAccountForm
   },
-  created() {
-    if (!this.token) {
+  beforeMount() {
+    if (!this.token && !this.changedSuccessfully) {
       this.$router.push('/');
       return;
     }

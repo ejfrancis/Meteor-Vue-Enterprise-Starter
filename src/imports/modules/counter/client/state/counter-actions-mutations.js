@@ -5,10 +5,10 @@ const MUTATION_TYPES = {
 };
 
 const actions = {
-  increment: ({ commit }, { amount }) => {
+  increase: ({ commit }, { amount }) => {
     commit(MUTATION_TYPES.INCREMENT, { amount });
   },
-  decrement: ({ commit }, { amount }) => {
+  decrease: ({ commit }, { amount }) => {
     commit(MUTATION_TYPES.DECREMENT, { amount });
   },
   resetDelayed: ({ commit }) => {
