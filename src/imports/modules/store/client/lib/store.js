@@ -7,6 +7,8 @@ import { accountsStoreModule } from '/src/imports/modules/accounts/client/state/
 import { layoutStoreModule } from '/src/imports/modules/layout/client/state/layout-store';
 
 const plugins = [];
+// make store available to be imorted (shouldn't be necessary in most places, it's available in components via this)
+let store;
 
 if (['production', 'test'].indexOf(process.env.NODE_ENV) === -1) {
   plugins.push(createLogger());
@@ -21,9 +23,11 @@ const createStore = () => {
       layout: layoutStoreModule
     }
   });
+  store = newStore;
   return newStore;
 };
 
 export {
-  createStore
+  createStore,
+  store
 };

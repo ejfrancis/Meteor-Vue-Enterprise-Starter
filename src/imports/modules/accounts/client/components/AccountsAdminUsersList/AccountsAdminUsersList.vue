@@ -1,6 +1,9 @@
 <style>
 /* can't do scoped styles here because iView table doesn't prepend the unique class scope to classnames */
 
+.AccountsAdminUsersList th {
+  text-align: center;
+}
 .AccountsAdminUsersList .ivu-btn {
   width: 12em;
 }

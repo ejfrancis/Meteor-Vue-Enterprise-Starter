@@ -26,7 +26,7 @@
     "vue-awesome": "^2.3.1",
     "vue-media": "^1.1.1",
     "vue-meteor-tracker": "ejfrancis/vue-meteor-tracker#import-tracker-checkin-build",
-    "vue-router": "^2.5.3",
+    "vue-router": "^2.7.0",
     "vuex": "^2.3.1",
     "vuex-alt": "^0.0.7",
     "vuex-router-sync": "^4.1.2"

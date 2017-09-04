@@ -1,11 +1,11 @@
 import { Meteor } from 'meteor/meteor';
-import { Roles } from 'meteor/alanning:roles';
 import { globalUserRoles } from './../../shared/constants/global-user-roles';
+import { checkUserGlobalRole } from './../../shared/methods/check-user-global-role';
 
 const requireAuth = (to, from, next) => {
   if (!Meteor.userId()) {
     next({
-      path: 'sign-in',
+      name: 'sign-in',
       query: { redirect: to.fullPath }
     });
   } else {
@@ -15,17 +15,27 @@ const requireAuth = (to, from, next) => {
 
 const requireAdmin = (to, from, next) => {
   if (!Meteor.userId()) {
-    next({
-      path: 'sign-in',
+    return next({
+      name: 'sign-in',
       query: { redirect: to.fullPath }
     });
-  } else if (!Roles.userIsInRole(Meteor.userId(), [globalUserRoles.ADMIN, globalUserRoles.SUPER_ADMIN], Roles.GLOBAL_Group)) {
-    next({
-      path: 'home'
-    });
-  } else {
-    next();
   }
+  checkUserGlobalRole.call({ roles: [ globalUserRoles.ADMIN, globalUserRoles.SUPER_ADMIN ] }, (err, isUserAdmin) => {
+    if (err) {
+      // if error checking permissinos, but user is logged in, send them to home
+      return next({
+        name: 'home'
+      });
+    }
+    // if user is admin, they're good to go through
+    if (isUserAdmin) {
+      return next();
+    }
+    // user is logged in but not admin, send them to home
+    return next({
+      name: 'home'
+    });
+  });
 };
 
 const requireNoAuth = (to, from, next) => {
