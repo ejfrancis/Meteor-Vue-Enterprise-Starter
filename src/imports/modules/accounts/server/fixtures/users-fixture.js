@@ -8,7 +8,7 @@ const fakeUsers = [
     email: 'test1@mail.com',
     password: 'TESTtest1?',
     profile: {
-      firstName: 'Test',
+      firstName: 'Test 1',
       lastName: 'User'
     }
   },
@@ -16,7 +16,7 @@ const fakeUsers = [
     email: 'test2@mail.com',
     password: 'TESTtest2?',
     profile: {
-      firstName: 'Test',
+      firstName: 'Test 2',
       lastName: 'User'
     }
   },
@@ -24,7 +24,7 @@ const fakeUsers = [
     email: 'test3@mail.com',
     password: 'TESTtest3?',
     profile: {
-      firstName: 'Test',
+      firstName: 'Test 3',
       lastName: 'User'
     }
   },
@@ -32,7 +32,7 @@ const fakeUsers = [
     email: 'test4@mail.com',
     password: 'TESTtest4?',
     profile: {
-      firstName: 'Test',
+      firstName: 'Test 4',
       lastName: 'User'
     }
   }

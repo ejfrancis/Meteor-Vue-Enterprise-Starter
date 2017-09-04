@@ -1,6 +1,10 @@
 import VueRouter from 'vue-router';
 import iView from 'iview';
-import { requireAuth, requireNoAuth } from '/src/imports/modules/accounts/client/lib/router-accounts-hooks';
+import {
+  requireAuth,
+  requireNoAuth,
+  requireAdmin
+} from '/src/imports/modules/accounts/client/lib/router-accounts-hooks';
 
 // unfortunate hack for now. jest is using babel-plugin-dynamic-import-node
 // which resolves as "module" not "module.default"
@@ -69,7 +73,7 @@ const createRouter = () => {
       path: '/accounts-admin',
       name: 'accounts-admin',
       component: PageAccountsAdminAsync,
-      beforeEnter: requireAuth
+      beforeEnter: requireAdmin
     },
     {
       path: '/home',

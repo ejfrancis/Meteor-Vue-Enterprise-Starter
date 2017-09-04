@@ -72,7 +72,7 @@ export default {
                 on: {
                   'on-click': (name) => {
                     // this.changeStatus(name)
-                    console.log(name)
+                    console.log('clicked ' + name)
                   }
                 }
               }, [
@@ -100,7 +100,7 @@ export default {
                       (
                         // if current user isn't Super Admin, don't allow them to set others as Super Admin
                         !isUserSuperAdmin(Meteor.userId()) &&
-                        item === globalUserRoles.SUPER_ADMIN || console.log('item=' + item + ', superadmin=' + globalUserRoles.SUPER_ADMIN)
+                        item === globalUserRoles.SUPER_ADMIN
                       )
                     }
                   }, item)
@@ -109,7 +109,7 @@ export default {
             }
           }
         ],
-        rows: this.users.length ? this.users.map((thisUser) => {
+        rows: this.users.length ? this.users.sort((a,b) => a.emails[0].address > b.emails[0].address).map((thisUser) => {
           const thisCell = {
             _id: thisUser._id,
             email: thisUser.emails[0].address,
