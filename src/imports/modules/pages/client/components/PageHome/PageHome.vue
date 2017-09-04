@@ -28,6 +28,7 @@ import { Meteor } from 'meteor/meteor';
 import PageBase from './../PageBase/PageBase';
 
 export default {
+  name: 'PageHome',
   components: {
     Counter,
     PageBase

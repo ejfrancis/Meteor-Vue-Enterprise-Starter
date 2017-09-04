@@ -13,6 +13,7 @@ import { mapState } from 'vuex-alt';
 import EnrollAccountForm from '/src/imports/modules/accounts/client/components/EnrollAccountForm/EnrollAccountForm.vue';
 
 export default {
+  name: 'PageEnrollAccount',
   components: {
     EnrollAccountForm
   },

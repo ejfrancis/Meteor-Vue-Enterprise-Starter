@@ -13,6 +13,7 @@
 </template>
 
 <script>
-export default {  
+export default {
+  name: 'PageBase'
 }
 </script>

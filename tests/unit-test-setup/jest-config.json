@@ -10,7 +10,7 @@
   "setupFiles": ["<rootDir>/tests/unit-test-setup/setup-tests.js"],
   "verbose": true,
   "collectCoverage": true,
-  "collectCoverageFrom": ["src/**/*"],
+  "collectCoverageFrom": ["src/**/*", "!src/**/*-fixture.js"],
   "coverageDirectory": "<rootDir>/tests/coverage/unit-tests/",
   "moduleFileExtensions": [
     "js",

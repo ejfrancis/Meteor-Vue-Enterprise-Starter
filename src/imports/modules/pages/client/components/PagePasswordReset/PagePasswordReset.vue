@@ -27,6 +27,7 @@ import PasswordResetForm from '/src/imports/modules/accounts/client/components/P
 import PasswordResetEmailForm from '/src/imports/modules/accounts/client/components/PasswordResetEmailForm/PasswordResetEmailForm.vue';
 
 export default {
+  name: 'PagePasswordReset',
   components: {
     PasswordResetEmailForm,
     PasswordResetForm

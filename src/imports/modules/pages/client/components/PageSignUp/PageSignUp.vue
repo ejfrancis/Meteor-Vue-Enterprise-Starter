@@ -12,6 +12,7 @@
 import SignUpForm from '/src/imports/modules/accounts/client/components/SignUpForm/SignUpForm.vue';
 
 export default {
+  name: 'PageSignUp',
   components: {
     SignUpForm
   }

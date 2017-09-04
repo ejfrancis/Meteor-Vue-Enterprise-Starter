@@ -15,6 +15,7 @@
 import PageBase from './../PageBase/PageBase';
 
 export default {
+  name: 'PagePrivate',
   components: {
     PageBase
   }

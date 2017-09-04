@@ -1,8 +1,15 @@
 import { Meteor } from 'meteor/meteor';
+import SimpleSchema from 'simpl-schema';
+
 import { setupPasswordResetEmail } from '/src/imports/modules/accounts/server/email/password-reset-email';
 import { setupEnrollAccountEmail } from '/src/imports/modules/accounts/server/email/enroll-account-email';
 import { setupAccountsValidation } from '/src/imports/modules/accounts/server/lib/accounts-validation';
-import SimpleSchema from 'simpl-schema';
+
+// fixture data for development
+import '/src/imports/modules/accounts/server/fixtures/users-fixture';
+
+// server-side of Meteor Publications must be imported
+import { setupUsersAdminPublication } from '/src/imports/modules/accounts/server/publications/users-admin-publication';
 
 // server-side of Meteor Methods must be imported
 import '/src/imports/modules/accounts/shared/methods/create-unverified-user';
@@ -15,6 +22,9 @@ Meteor.startup(() => {
 
   // configure accounts validation via the accounts-password package
   setupAccountsValidation();
+
+  // publications
+  setupUsersAdminPublication();
 
   // enable Meteor.Error to be thrown for validation errors in from Meteor Methods
   SimpleSchema.defineValidationErrorTransform(error => {

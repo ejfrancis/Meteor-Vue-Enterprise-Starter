@@ -1,4 +1,7 @@
 <style scoped>
+.accounts-admin-users-list-wrapper {
+  margin-top: 20px;
+}
 </style>
 
 <template>
@@ -6,7 +9,8 @@
     <div class='PageAccountsAdmin'>
       <h2>Accounts Admin</h2>
       
-      <div class='accounts-admin-user'>
+      <div class='accounts-admin-users-list-wrapper'>
+        <accounts-admin-users-list />
       </div>
     </div>
   </page-base>
@@ -15,10 +19,13 @@
 <script>
 import { Meteor } from 'meteor/meteor';
 import PageBase from './../PageBase/PageBase';
+import AccountsAdminUsersList from '/src/imports/modules/accounts/client/components/AccountsAdminUsersList/AccountsAdminUsersList.vue';
 
 export default {
+  name: 'PageAccountsAdmin',
   components: {
-    PageBase
+    PageBase,
+    AccountsAdminUsersList
   }
 }
 </script>
