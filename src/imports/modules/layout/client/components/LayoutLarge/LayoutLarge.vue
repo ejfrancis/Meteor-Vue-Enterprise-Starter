@@ -43,7 +43,7 @@ a {
           <Col span='16'>
           <Menu-item v-for='route in navRoutes' :key='route.name' :name='route.name'>
             <Icon :type='route.icon'></Icon>
-            <router-link :to='route.path'>{{ route.name }}</router-link>
+            <router-link :to='{ name: route.name }'>{{ route.displayName }}</router-link>
           </Menu-item>
           </Col>
           <!-- accounts buttons -->

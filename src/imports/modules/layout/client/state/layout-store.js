@@ -6,14 +6,19 @@ const initialState = {
   isMobileNavExpanded: true,
   navRoutes: [
     {
-      name: 'Home',
-      path: '/home',
+      name: 'home',
+      displayName: 'Home',
       icon: 'home'
     },
     {
-      name: 'Private',
-      path: '/private',
+      name: 'private',
+      displayName: 'Private',
       icon: 'locked'
+    },
+    {
+      name: 'accounts-admin',
+      displayName: 'Accounts',
+      icon: 'android-people'
     }
   ]
 };

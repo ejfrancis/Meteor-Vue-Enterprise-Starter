@@ -31,7 +31,7 @@ const PageHomeAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageHome/PageHome.vue')
   .then((PageHome) => resolve(getModule(PageHome)));
 };
-const PageAccountsAdmin = (resolve) => {
+const PageAccountsAdminAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageAccountsAdmin/PageAccountsAdmin.vue')
   .then((PageAccountsAdmin) => resolve(getModule(PageAccountsAdmin)));
 }
@@ -64,6 +64,12 @@ const createRouter = () => {
       name: 'reset-password',
       component: PagePasswordResetAsync,
       beforeEnter: requireNoAuth
+    },
+    {
+      path: '/accounts-admin',
+      name: 'accounts-admin',
+      component: PageAccountsAdminAsync,
+      beforeEnter: requireAuth
     },
     {
       path: '/home',
