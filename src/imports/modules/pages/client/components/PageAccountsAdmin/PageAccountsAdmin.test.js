@@ -3,7 +3,7 @@ import PageAccountsAdmin from './PageAccountsAdmin.vue';
 
 describe('PageAccountsAdmin', () => {
   it('renders without crashing', () => {
-    const wrapper = mount(PageBase);
+    const wrapper = mount(PageAccountsAdmin);
     expect(wrapper.find('.PageAccountsAdmin')).toBeDefined();
   });
 });

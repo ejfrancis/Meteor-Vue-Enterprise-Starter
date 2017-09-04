@@ -34,7 +34,7 @@ const PageHomeAsync = (resolve) => {
 const PageAccountsAdminAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageAccountsAdmin/PageAccountsAdmin.vue')
   .then((PageAccountsAdmin) => resolve(getModule(PageAccountsAdmin)));
-}
+};
 const PagePrivateAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PagePrivate/PagePrivate.vue')
     .then(PagePrivate => resolve(getModule(PagePrivate)));
