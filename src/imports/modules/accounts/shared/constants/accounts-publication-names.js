@@ -1,5 +1,5 @@
 const accountsPublicationNames = {
-  USERS_ADMIN: 'USERS_ADMIN'
+  USERS_ADMIN: 'users'
 };
 
 export {

@@ -2,6 +2,9 @@
 .accounts-admin-users-list-wrapper {
   margin-top: 20px;
 }
+h2 {
+  text-align: center;
+}
 </style>
 
 <template>

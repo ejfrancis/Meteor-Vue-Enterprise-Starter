@@ -1,8 +1,8 @@
 const globalUserRoles = {
-  SUPER_ADMIN: 'SUPER_ADMIN',
-  ADMIN: 'ADMIN',
-  EMPLOYEE: 'EMPLOYEE',
-  USER: 'USER'
+  SUPER_ADMIN: 'Super Admin',
+  ADMIN: 'Admin',
+  EMPLOYEE: 'Employee',
+  USER: 'User'
 };
 
 export {

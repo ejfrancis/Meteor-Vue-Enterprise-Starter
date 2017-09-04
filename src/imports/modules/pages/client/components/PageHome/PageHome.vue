@@ -2,7 +2,9 @@
 .config-example {
   color: blue;
 }
-
+h2 {
+  text-align: center;
+}
 .counter-wrapper {
   margin-top: 20px;
 }
