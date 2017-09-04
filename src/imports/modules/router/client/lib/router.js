@@ -102,7 +102,7 @@ const createRouter = () => {
     iView.LoadingBar.start();
     next();
   });
-  router.afterEach((to, from, next) => {
+  router.afterEach((to, from) => {
     iView.LoadingBar.finish();
   });
 

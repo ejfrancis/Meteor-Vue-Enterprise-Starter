@@ -7,6 +7,10 @@
 .AccountsAdminUsersList .ivu-btn {
   width: 12em;
 }
+.AccountsAdminUsersList .role-column {
+  text-align: center;
+}
+
 
 .AccountsAdminUsersList .ivu-icon-arrow-down-b {
   position: absolute;
@@ -22,7 +26,7 @@
 
 <template>
   <div class='AccountsAdminUsersList'>
-    <Table :columns="tableData.columns" :data="tableData.rows" no-data-text='No Data'></Table>
+    <Table :columns='tableData.columns' :data='tableData.rows' no-data-text='No Data'></Table>
   </div>
 </template>
 
@@ -66,6 +70,7 @@ export default {
           }, {
             title: 'Role',
             key: 'role',
+            className: 'role-column',
             render: (h, params) => {
               // user Vue render function (vdom) to build custom dropdown for this cell
               return h('Dropdown', {
