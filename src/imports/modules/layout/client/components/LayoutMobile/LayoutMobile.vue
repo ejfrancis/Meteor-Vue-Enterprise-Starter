@@ -14,7 +14,7 @@
 .nav-mobile-container-hidden {
   width: 0;
 }
-.auth-buttons-container {
+.accounts-buttons-container {
   margin-top: 7px;
   margin-right: 20px;
 }
@@ -60,8 +60,8 @@ a {
             </div>
           </Col>
           <Col span='16'>
-            <div class='auth-buttons-container'>
-              <nav-bar-auth theme='dark'/>
+            <div class='accounts-buttons-container'>
+              <nav-bar-accounts theme='dark'/>
             </div>
           </Col>
         </Row>
@@ -76,12 +76,12 @@ a {
 
 <script>
 import { mapState, mapActions } from 'vuex-alt';
-import NavBarAuth from '/src/imports/modules/auth/client/components/NavBarAuth/NavBarAuth.vue';
+import NavBarAccounts from '/src/imports/modules/accounts/client/components/NavBarAccounts/NavBarAccounts.vue';
 
 export default {
   name: 'LayoutMobile',
   components: {
-    NavBarAuth
+    NavBarAccounts
   },
   data() {
     return {

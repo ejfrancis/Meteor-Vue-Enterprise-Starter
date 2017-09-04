@@ -1,6 +1,6 @@
 import VueRouter from 'vue-router';
 import iView from 'iview';
-import { requireAuth, requireNoAuth } from '/src/imports/modules/auth/client/lib/router-auth-hooks';
+import { requireAuth, requireNoAuth } from '/src/imports/modules/accounts/client/lib/router-accounts-hooks';
 
 // unfortunate hack for now. jest is using babel-plugin-dynamic-import-node
 // which resolves as "module" not "module.default"
@@ -31,6 +31,10 @@ const PageHomeAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageHome/PageHome.vue')
   .then((PageHome) => resolve(getModule(PageHome)));
 };
+const PageAccountsAdmin = (resolve) => {
+  import('/src/imports/modules/pages/client/components/PageAccountsAdmin/PageAccountsAdmin.vue')
+  .then((PageAccountsAdmin) => resolve(getModule(PageAccountsAdmin)));
+}
 const PagePrivateAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PagePrivate/PagePrivate.vue')
     .then(PagePrivate => resolve(getModule(PagePrivate)));

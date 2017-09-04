@@ -14,15 +14,9 @@
 .counter-form {
   margin-top: 20px;
 }
-/* input {
-  width: 3em;
-} */
-/* .count {
-  padding-left: 5px;
-  margin-left: 15px;
-  margin-bottom: 10px;
-  border-left: 1px solid orange;
-} */
+.vuex-note {
+  font-size: 11px;
+}
 </style>
 
 <template>
@@ -30,7 +24,7 @@
     <Card class='count'>
       <Row>
         <Col :xs='14' :md='6'>
-          <p>Count:</p>
+          <p>Count: <em class='vuex-note'>(vuex state)</em></p>
         </Col>
         <Col :xs='10' :md='6'>
           <span class='value'>{{ count }}</span>
@@ -38,7 +32,7 @@
       </Row>
       <Row>
         <Col :xs='14' :md='6'>
-          <p>Count+10 <em>(getter)</em>:</p>
+          <p>Count+10 <em class='vuex-note'>(vuex getter)</em>:</p>
         </Col>
         <Col :xs='10' :md='6'>
           <span class='value-plus-ten'>{{ countPlusTen }}</span>
@@ -47,14 +41,14 @@
       <Form :model='formData':rules='formRules' class='counter-form'>
         <Form-item prop='inputIncAmount' class='increase'>
           <Button v-on:click="handleClickIncrement()">Increase by</Button>
-          <Input-number :min='0' v-model="formData.inputIncAmount"/>
+          <Input-number :min='0' v-model="formData.inputIncAmount"/> <em class='vuex-note'>(vuex action)</em>
         </Form-item>
         <Form-item prop='inputDecAmount' class='decrease'>
           <Button v-on:click="handleClickDecrease()">Decrease by</button>
-          <Input-number :min='0' v-model="formData.inputDecAmount" />
+          <Input-number :min='0' v-model="formData.inputDecAmount" /> <em class='vuex-note'>(vuex action)</em>
         </Form-item> 
         <Form-item class='reset-delayed'>
-          <Button type='primary' v-on:click="handleClickResetDelayed()">Reset After Delay</button> <em>(async action)</em>
+          <Button type='primary' v-on:click="handleClickResetDelayed()">Reset After Delay</button> <em class='vuex-note'>(vuex async action)</em>
         </Form-item> 
       </Form>
     </Card>

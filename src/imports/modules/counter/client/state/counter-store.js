@@ -1,7 +1,7 @@
 import { actions, mutations } from './counter-actions-mutations';
 
 const initialState = {
-  count: 0
+  count: 1
 };
 
 const getters = {

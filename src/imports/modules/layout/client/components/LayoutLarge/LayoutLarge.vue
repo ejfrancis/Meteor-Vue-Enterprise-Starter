@@ -14,7 +14,7 @@
   height: 40px;
 }
 
-.auth-buttons-container {
+.accounts-buttons-container {
   margin-right: 20px;
 }
 
@@ -46,10 +46,10 @@ a {
             <router-link :to='route.path'>{{ route.name }}</router-link>
           </Menu-item>
           </Col>
-          <!-- auth buttons -->
+          <!-- accounts buttons -->
           <Col span='8' theme='dark'>
-            <div class='auth-buttons-container'>
-              <nav-bar-auth theme='light' />
+            <div class='accounts-buttons-container'>
+              <nav-bar-accounts theme='light' />
             </div>
           </Col>
         </Row>
@@ -68,12 +68,12 @@ a {
 
 <script>
 import { mapState } from 'vuex-alt';
-import NavBarAuth from '/src/imports/modules/auth/client/components/NavBarAuth/NavBarAuth.vue';
+import NavBarAccounts from '/src/imports/modules/accounts/client/components/NavBarAccounts/NavBarAccounts.vue';
 
 export default {
   name: 'LayoutLarge',
   components: {
-    NavBarAuth
+    NavBarAccounts
   },
   computed: {
     ...mapState({
