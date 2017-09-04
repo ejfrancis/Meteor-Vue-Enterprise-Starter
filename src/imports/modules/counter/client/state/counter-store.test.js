@@ -2,8 +2,8 @@ import { counterStoreModule } from './counter-store';
 
 describe('counter-store', () => {
   describe('initial state', () => {
-    it('contains a count of 0', () => {
-      const expectedState = { count: 0 };
+    it('contains a count of 1', () => {
+      const expectedState = { count: 1 };
       expect(counterStoreModule.state).toEqual(expectedState);
     });
   });
