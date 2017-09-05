@@ -14,6 +14,7 @@ import { setupUsersAdminPublication } from '/src/imports/modules/accounts/server
 // server-side of Meteor Methods must be imported
 import '/src/imports/modules/accounts/shared/methods/create-unverified-user';
 import '/src/imports/modules/accounts/shared/methods/check-user-global-role';
+import '/src/imports/modules/accounts/shared/methods/get-users-with-roles';
 
 Meteor.startup(() => {
   // configure the password reset email via the accounts-password package

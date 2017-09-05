@@ -5,7 +5,7 @@ import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import SimpleSchema from 'simpl-schema';
 
 const checkUserGlobalRole = new ValidatedMethod({
-  name: 'checkUserGlobalRole',
+  name: 'Accounts.checkUserGlobalRole',
   mixins: [CallPromiseMixin],
   validate: new SimpleSchema({
     roles: { type: Array },
