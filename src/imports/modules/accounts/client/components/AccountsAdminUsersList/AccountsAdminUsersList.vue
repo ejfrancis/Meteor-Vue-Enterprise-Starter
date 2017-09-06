@@ -20,6 +20,9 @@
 .AccountsAdminUsersList .number-cell {
   width: 6em;
 }
+.AccountsAdminUsersList .name-column {
+  max-width: 20%;
+}
 .AccountsAdminUsersList .role-column {
   text-align: center;
 }
@@ -49,7 +52,7 @@
     <div v-if='!getUsersWithRolesLoading'>
       <Table v-if='!getUsersWithRolesLoading' :columns='tableData.columns' :data='tableData.rows' no-data-text='No Data'></Table>
       <div class='page-links-container'>
-        <Page :total="100" show-elevator></Page>
+        <Page :total="100" show-elevator @on-change="handlePageChange"></Page>
       </div>
     </div>
   </div>
@@ -93,6 +96,9 @@ export default {
     },
     isUserSuperAdmin(userId) {
       return Roles.userIsInRole(userId, [globalUserRoles.SUPER_ADMIN], Roles.GLOBAL_GROUP);
+    },
+    handlePageChange(val) {
+      console.log(val);
     }
   },
   computed: {
@@ -112,8 +118,15 @@ export default {
           },
           {
             title: 'Email',
-            key: 'email'
-          }, {
+            key: 'email',
+            className: 'email-column'
+          },
+          {
+            title: 'Name',
+            key: 'name',
+            className: 'name-column'
+          },
+          {
             title: 'Role',
             key: 'role',
             className: 'role-column',
@@ -163,13 +176,14 @@ export default {
             }
           }
         ],
-        rows: this.usersData.usersWithRoles.length ? this.usersData.usersWithRoles.sort((a,b) => a.emails[0].address > b.emails[0].address).map((thisUser, i) => {
+        rows: this.usersData.usersWithRoles.length ? this.usersData.usersWithRoles.map((thisUser, i) => {
           console.log(thisUser);
           const thisCell = {
             _id: thisUser._id,
             number: i + 1,
             email: thisUser.emails[0].address,
             role: thisUser.roles[Roles.GLOBAL_GROUP][0],
+            name: thisUser.profile.lastName + ', ' + thisUser.profile.firstName,
             cellClassName: {
               number: 'number-cell'
             }

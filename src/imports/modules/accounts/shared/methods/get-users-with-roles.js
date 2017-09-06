@@ -20,7 +20,9 @@ const getUsersWithRoles = new ValidatedMethod({
       const pageSize = limit > maxPageSizeLimit ? maxPageSizeLimit : limit;
       // start from page one
       return Meteor.users.find({}, {
-        sort: { 'emails.0.address': 1 },
+        sort: {
+          'profile.lastName': 1
+        },
         limit: pageSize,
         skip: startIndex
       }).fetch();

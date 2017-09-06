@@ -3,6 +3,15 @@ import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import { globalUserRoles } from './../../shared/constants/global-user-roles';
 
+const getRandomFirstName = () => {
+  const firstNames = ['Alex', 'Amanda', 'Austin', 'Brad', 'Chad', 'Chloe', 'Chris', 'Doug', 'Daniel', 'Danielle', 'Diego', 'Evan', 'Eric', 'Elizabeth', 'Frank', 'Gavin', 'Harry', 'Joe', 'Jesse', 'Jessica', 'Karen', 'Lizzy', 'Manuel', 'Monica', 'Nancy', 'Peter', 'Richard', 'Samantha', 'Sam', 'Walter'];
+  return firstNames[Math.floor(Math.random() * firstNames.length)];
+};
+const getRandomLastName = () => {
+  const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'White', 'Jones', 'Miller', 'Davis', 'Garcia', 'Lopez', 'Wilson', 'Anderson', 'Taylor', 'Thomas', 'Moore', 'Martin', 'Jackson', 'Thompson', 'Lee', 'Clarks'];
+  return lastNames[Math.floor(Math.random() * lastNames.length)];
+};
+
 const fakeUsers = [
   {
     email: 'test1@mail.com',
@@ -40,21 +49,18 @@ const fakeUsers = [
 for (let i = 0; i < 20; i++) {
   fakeUsers.push({
     email: 'test' + (i + 5) + '@mail.com',
-    password: 'TESTtest' + (i + 5) + '?',
+    password: 'TESTtest1?',
     profile: {
-      firstName: 'Test ' + (i + 5),
-      lastName: 'User'
+      firstName: getRandomFirstName(),
+      lastName: getRandomLastName()
     }
   });
 }
 
 if (Meteor.isDevelopment) {
   if (Meteor.users.find().count() === 0) {
-    console.log('adding fake user');
-    console.log(fakeUsers);
     fakeUsers.forEach((fakeUser, i) => {
       const newUserId = Accounts.createUser(fakeUser);
-      console.log('new user id:  ' + newUserId);
       Meteor.users.update(newUserId,
         {
           $set: {

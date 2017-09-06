@@ -32,7 +32,9 @@
 .nav-mobile-container-hidden {
   width: 0;
 }
-
+.accounts-buttons-container {
+  padding-right: 20px;
+}
 a {
   color: #a6a4a4;
 }
