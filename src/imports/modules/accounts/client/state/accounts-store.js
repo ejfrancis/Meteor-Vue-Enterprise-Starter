@@ -11,7 +11,10 @@ const initialState = {
   // enroll account via email
   enrollAccountEmailSent: false,
   enrollAccountSubmitAttempted: false,
-  enrollAccountError: undefined
+  enrollAccountError: undefined,
+  // get user with roles
+  getUsersWithRolesLoading: false,
+  getUsersWithRolesError: undefined
 };
 
 const getters = {

@@ -1,6 +1,16 @@
 <style>
 /* can't do scoped styles here because iView table doesn't prepend the unique class scope to classnames */
-
+.AccountsAdminUsersList .table-loading {
+  margin: 0 auto;
+  width: 50px;
+  height: 300px;
+  vertical-align: center;
+  padding-top: 125px;
+}
+.AccountsAdminUsersList .table-loading .ivu-spin-dot{
+  height: 100px;
+  width: 100px;
+}
 .AccountsAdminUsersList th {
   text-align: center;
 }
@@ -10,7 +20,6 @@
 .AccountsAdminUsersList .role-column {
   text-align: center;
 }
-
 
 .AccountsAdminUsersList .ivu-icon-arrow-down-b {
   position: absolute;
@@ -26,38 +35,55 @@
 
 <template>
   <div class='AccountsAdminUsersList'>
-    <Table :columns='tableData.columns' :data='tableData.rows' no-data-text='No Data'></Table>
+    <Spin v-if='getUsersWithRolesLoading' size='large' class='table-loading'></Spin>
+    <Table v-if='!getUsersWithRolesLoading' :columns='tableData.columns' :data='tableData.rows' no-data-text='No Data'></Table>
   </div>
 </template>
 
 <script>
 import { Roles } from 'meteor/alanning:roles';
 import { globalUserRoles } from './../../../shared/constants/global-user-roles';
-import { accountsPublicationNames } from './../../../shared/constants/accounts-publication-names';
+import { mapActions, mapState } from 'vuex-alt';
+import Vue from 'vue';
 
 export default {
   name: 'AccountsAdminUsersList',
-  meteor: {
-    users() {
-      const users = Meteor.users.find();
-      return users;
+  async created() {
+    try {
+      const usersWithRoles = await this.getUsersWithRoles({ startIndex: 0 });
+      Vue.set(this.usersData, 'usersWithRoles', usersWithRoles);
+    } catch (e) {
+      // handled in vuex
     }
   },
-  created() {
-    this.$subscribe(accountsPublicationNames.USERS_ADMIN);
+  destroyed() {
+    this.clearGetUsersWithRolesFailure();
+  },
+  data() {
+    return {
+      usersData: {
+        usersWithRoles: []
+      }
+    }
   },
   methods: {
+    ...mapActions({
+      getUsersWithRoles: (actions) => actions.accounts.getUsersWithRoles,
+      clearGetUsersWithRolesFailure: (actions) => actions.accounts.clearGetUsersWithRolesFailure,
+    }),
     isCurrentUserAndAdmin(userId) {
       if (Meteor.userId() === userId) {
-        return Roles.userIsInRole(userId, [globalUserRoles.ADMIN, globalUserRoles.SUPER_ADMIN], Roles.GLOBAL_Group);
+        return Roles.userIsInRole(userId, [globalUserRoles.ADMIN, globalUserRoles.SUPER_ADMIN], Roles.GLOBAL_GROUP);
       }
-      return false;
     },
     isUserSuperAdmin(userId) {
-      return Roles.userIsInRole(userId, [globalUserRoles.SUPER_ADMIN], Roles.GLOBAL_Group);
+      return Roles.userIsInRole(userId, [globalUserRoles.SUPER_ADMIN], Roles.GLOBAL_GROUP);
     }
   },
   computed: {
+    ...mapState({
+      getUsersWithRolesLoading: (state) => state.accounts.getUsersWithRolesLoading
+    }),
     tableData() {
       // store for access in render() function
       const isCurrentUserAndAdmin = this.isCurrentUserAndAdmin;
@@ -117,12 +143,14 @@ export default {
             }
           }
         ],
-        rows: this.users.length ? this.users.sort((a,b) => a.emails[0].address > b.emails[0].address).map((thisUser) => {
+        rows: this.usersData.usersWithRoles.length ? this.usersData.usersWithRoles.sort((a,b) => a.emails[0].address > b.emails[0].address).map((thisUser) => {
+          console.log(thisUser);
           const thisCell = {
             _id: thisUser._id,
             email: thisUser.emails[0].address,
             role: thisUser.roles[Roles.GLOBAL_GROUP][0]
           };
+
           // add 'current-user' class to yourself
           if (thisUser._id === Meteor.userId()) {
             thisCell.cellClassName = thisCell.cellClassName || {

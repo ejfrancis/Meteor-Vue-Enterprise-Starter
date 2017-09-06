@@ -9,7 +9,7 @@ import { setupAccountsValidation } from '/src/imports/modules/accounts/server/li
 import '/src/imports/modules/accounts/server/fixtures/users-fixture';
 
 // server-side of Meteor Publications must be imported
-import { setupUsersAdminPublication } from '/src/imports/modules/accounts/server/publications/users-admin-publication';
+// import { setupUsersAdminPublication } from '/src/imports/modules/accounts/server/publications/users-admin-publication';
 
 // server-side of Meteor Methods must be imported
 import '/src/imports/modules/accounts/shared/methods/create-unverified-user';
@@ -26,7 +26,7 @@ Meteor.startup(() => {
   setupAccountsValidation();
 
   // publications
-  setupUsersAdminPublication();
+  // setupUsersAdminPublication();
 
   // enable Meteor.Error to be thrown for validation errors in from Meteor Methods
   SimpleSchema.defineValidationErrorTransform(error => {

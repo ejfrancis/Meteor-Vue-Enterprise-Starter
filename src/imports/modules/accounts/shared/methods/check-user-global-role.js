@@ -17,7 +17,7 @@ const checkUserGlobalRole = new ValidatedMethod({
       if (!Meteor.userId()) {
         return false;
       }
-      return Roles.userIsInRole(Meteor.userId(), roles, Roles.GLOBAL_Group);
+      return Roles.userIsInRole(Meteor.userId(), roles, Roles.GLOBAL_GROUP);
     }
   }
 });

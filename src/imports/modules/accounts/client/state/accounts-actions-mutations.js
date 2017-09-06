@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { createUnverifiedUser } from './../../shared/methods/create-unverified-user';
 import { passwordSchema } from './../../shared/schemas/password-schema';
+import { getUsersWithRoles } from './../../shared/methods/get-users-with-roles';
 
 const MUTATION_TYPES = {
   SET_USER: 'SET_USER',
@@ -18,7 +19,12 @@ const MUTATION_TYPES = {
   // enroll account via email
   ENROLL_ACCOUNT_EMAIL_SENT: 'ENROLL_ACCOUNT_EMAIL_SENT',
   ENROLL_ACCOUNT_FAILED: 'ENROLL_ACCOUNT_FAILED',
-  CLEAR_ENROLL_ACCOUNT_FAILURE: 'CLEAR_ENROLL_ACCOUNT_FAILURE'
+  CLEAR_ENROLL_ACCOUNT_FAILURE: 'CLEAR_ENROLL_ACCOUNT_FAILURE',
+  // get users with roles for admin
+  GET_USERS_WITH_ROLES_FAILURE: 'GET_USERS_WITH_ROLES_FAILURE',
+  CLEAR_GET_USERS_WITH_ROLES_FAILURE: 'CLEAR_GET_USERS_WITH_ROLES_FAILURE',
+  GET_USERS_WITH_ROLES_LOADING: 'GET_USERS_WITH_ROLES_LOADING',
+  GET_USERS_WITH_ROLES_LOADING_COMPLETE: 'GET_USERS_WITH_ROLES_LOADING_COMPLETE'
 };
 
 const actions = {
@@ -127,6 +133,22 @@ const actions = {
   },
   clearPasswordResetFailure: ({ commit }) => {
     commit(MUTATION_TYPES.CLEAR_PASSWORD_RESET_FAILURE);
+  },
+  // get list of users with roles
+  async getUsersWithRoles ({ commit, state }, { token, newPassword }) {
+    try {
+      commit(MUTATION_TYPES.GET_USERS_WITH_ROLES_LOADING);
+      const usersWithRoles = await getUsersWithRoles.callPromise({ startIndex: 0 });
+      commit(MUTATION_TYPES.GET_USERS_WITH_ROLES_LOADING_COMPLETE);
+      return usersWithRoles;
+    } catch (e) {
+      commit(MUTATION_TYPES.GET_USERS_WITH_ROLES_FAILURE, { error: e });
+      commit(MUTATION_TYPES.GET_USERS_WITH_ROLES_LOADING_COMPLETE);
+      throw new Error('Failed getUsersWithRoles ' + e);
+    }
+  },
+  clearGetUsersWithRolesFailure: ({ commit }) => {
+    commit(MUTATION_TYPES.CLEAR_GET_USERS_WITH_ROLES_FAILURE);
   }
 };
 
@@ -168,6 +190,19 @@ const mutations = {
   },
   [MUTATION_TYPES.CLEAR_ENROLL_ACCOUNT_FAILURE]: (state) => {
     state.enrollAccountError = undefined;
+  },
+  // get users with roles
+  [MUTATION_TYPES.GET_USERS_WITH_ROLES_FAILURE]: (state, { error }) => {
+    state.getUsersWithRolesError = error;
+  },
+  [MUTATION_TYPES.CLEAR_GET_USERS_WITH_ROLES_FAILURE]: (state) => {
+    state.getUsersWithRolesError = undefined;
+  },
+  [MUTATION_TYPES.GET_USERS_WITH_ROLES_LOADING]: (state) => {
+    state.getUsersWithRolesLoading = true;
+  },
+  [MUTATION_TYPES.GET_USERS_WITH_ROLES_LOADING_COMPLETE]: (state) => {
+    state.getUsersWithRolesLoading = false;
   }
 };
 

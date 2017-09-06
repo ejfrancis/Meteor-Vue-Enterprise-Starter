@@ -37,6 +37,16 @@ const fakeUsers = [
     }
   }
 ];
+new Array(20).forEach((el, i) => {
+  fakeUsers.push({
+    email: 'test' + i + '@mail.com',
+    password: 'TestUser' + i + 4 + '?',
+    profile: {
+      firstName: 'Test ' + i + 4,
+      lastName: 'User'
+    }
+  });
+});
 if (Meteor.isDevelopment) {
   if (Meteor.users.find().count() === 0) {
     fakeUsers.forEach((fakeUser, i) => {
@@ -66,7 +76,7 @@ if (Meteor.isDevelopment) {
         Roles.addUsersToRoles(newUserId, globalUserRoles.EMPLOYEE, Roles.GLOBAL_GROUP);
       }
       // make fourth test account user role
-      if (i === 3) {
+      if (i > 2) {
         Roles.addUsersToRoles(newUserId, globalUserRoles.USER, Roles.GLOBAL_GROUP);
       }
     });
