@@ -14,7 +14,10 @@ const initialState = {
   enrollAccountError: undefined,
   // get user with roles
   getUsersWithRolesLoading: false,
-  getUsersWithRolesError: undefined
+  getUsersWithRolesError: undefined,
+  usersWithRoles: [],
+  usersWithRolesPageSize: 14,
+  allUsersCount: undefined
 };
 
 const getters = {

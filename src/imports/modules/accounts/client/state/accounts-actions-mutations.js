@@ -23,8 +23,8 @@ const MUTATION_TYPES = {
   // get users with roles for admin
   GET_USERS_WITH_ROLES_FAILURE: 'GET_USERS_WITH_ROLES_FAILURE',
   CLEAR_GET_USERS_WITH_ROLES_FAILURE: 'CLEAR_GET_USERS_WITH_ROLES_FAILURE',
-  GET_USERS_WITH_ROLES_LOADING: 'GET_USERS_WITH_ROLES_LOADING',
-  GET_USERS_WITH_ROLES_LOADING_COMPLETE: 'GET_USERS_WITH_ROLES_LOADING_COMPLETE'
+  GET_USERS_WITH_ROLES_START: 'GET_USERS_WITH_ROLES_START',
+  GET_USERS_WITH_ROLES_COMPLETE: 'GET_USERS_WITH_ROLES_COMPLETE'
 };
 
 const actions = {
@@ -135,15 +135,14 @@ const actions = {
     commit(MUTATION_TYPES.CLEAR_PASSWORD_RESET_FAILURE);
   },
   // get list of users with roles
-  async getUsersWithRoles ({ commit, state }, { token, newPassword }) {
+  async getUsersWithRoles ({ commit, state }, { startIndex }) {
     try {
-      commit(MUTATION_TYPES.GET_USERS_WITH_ROLES_LOADING);
-      const usersWithRoles = await getUsersWithRoles.callPromise({ startIndex: 0 });
-      commit(MUTATION_TYPES.GET_USERS_WITH_ROLES_LOADING_COMPLETE);
-      return usersWithRoles;
+      commit(MUTATION_TYPES.GET_USERS_WITH_ROLES_START);
+      const { usersWithRoles, count, pageSize } = await getUsersWithRoles.callPromise({ startIndex });
+      commit(MUTATION_TYPES.GET_USERS_WITH_ROLES_COMPLETE, { usersWithRoles, count, pageSize });
     } catch (e) {
       commit(MUTATION_TYPES.GET_USERS_WITH_ROLES_FAILURE, { error: e });
-      commit(MUTATION_TYPES.GET_USERS_WITH_ROLES_LOADING_COMPLETE);
+      commit(MUTATION_TYPES.GET_USERS_WITH_ROLES_COMPLETE);
       throw new Error('Failed getUsersWithRoles ' + e);
     }
   },
@@ -198,11 +197,16 @@ const mutations = {
   [MUTATION_TYPES.CLEAR_GET_USERS_WITH_ROLES_FAILURE]: (state) => {
     state.getUsersWithRolesError = undefined;
   },
-  [MUTATION_TYPES.GET_USERS_WITH_ROLES_LOADING]: (state) => {
+  [MUTATION_TYPES.GET_USERS_WITH_ROLES_START]: (state) => {
     state.getUsersWithRolesLoading = true;
   },
-  [MUTATION_TYPES.GET_USERS_WITH_ROLES_LOADING_COMPLETE]: (state) => {
+  [MUTATION_TYPES.GET_USERS_WITH_ROLES_COMPLETE]: (state, { usersWithRoles, count, pageSize } = {}) => {
     state.getUsersWithRolesLoading = false;
+    if (usersWithRoles) {
+      state.usersWithRoles = usersWithRoles;
+      state.allUsersCount = count;
+      state.usersWithRolesPageSize = pageSize;
+    }
   }
 };
 

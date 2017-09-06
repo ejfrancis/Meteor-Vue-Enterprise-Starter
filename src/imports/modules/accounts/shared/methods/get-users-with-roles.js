@@ -19,13 +19,19 @@ const getUsersWithRoles = new ValidatedMethod({
       const maxPageSizeLimit = 14;
       const pageSize = limit > maxPageSizeLimit ? maxPageSizeLimit : limit;
       // start from page one
-      return Meteor.users.find({}, {
+      const usersWithRoles = Meteor.users.find({}, {
         sort: {
           'profile.lastName': 1
         },
         limit: pageSize,
         skip: startIndex
       }).fetch();
+      const count = Meteor.users.find().count();
+      return {
+        usersWithRoles,
+        count,
+        pageSize
+      };
     }
   }
 });

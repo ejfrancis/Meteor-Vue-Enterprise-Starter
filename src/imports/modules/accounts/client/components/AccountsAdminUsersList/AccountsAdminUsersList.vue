@@ -48,11 +48,11 @@
 
 <template>
   <div class='AccountsAdminUsersList'>
-    <Spin v-if='getUsersWithRolesLoading' size='large' class='table-loading'></Spin>
-    <div v-if='!getUsersWithRolesLoading'>
+    <Spin v-if='getUsersWithRolesLoading && !this.usersWithRoles' size='large' class='table-loading'></Spin>
+    <div v-if='!getUsersWithRolesLoading || this.usersWithRoles'>
       <Table v-if='!getUsersWithRolesLoading' :columns='tableData.columns' :data='tableData.rows' no-data-text='No Data'></Table>
       <div class='page-links-container'>
-        <Page :total="100" show-elevator @on-change="handlePageChange"></Page>
+        <Page :total='pagesTotalNumber' show-elevator :page-size='pageSizeInt' @on-change='handlePageChange' :current='pageNumberInt'></Page>
       </div>
     </div>
   </div>
@@ -68,21 +68,13 @@ export default {
   name: 'AccountsAdminUsersList',
   async created() {
     try {
-      const usersWithRoles = await this.getUsersWithRoles({ startIndex: 0 });
-      Vue.set(this.usersData, 'usersWithRoles', usersWithRoles);
+      await this.getUsersWithRoles({ startIndex: this.usersWithRolesStartIndex });
     } catch (e) {
       // handled in vuex
     }
   },
   destroyed() {
     this.clearGetUsersWithRolesFailure();
-  },
-  data() {
-    return {
-      usersData: {
-        usersWithRoles: []
-      }
-    }
   },
   methods: {
     ...mapActions({
@@ -98,13 +90,39 @@ export default {
       return Roles.userIsInRole(userId, [globalUserRoles.SUPER_ADMIN], Roles.GLOBAL_GROUP);
     },
     handlePageChange(val) {
-      console.log(val);
+      this.$router.push({ name: 'accounts-admin', query: { page: val }});
+      const startIndex = this.usersWithRolesStartIndex;
+      this.getUsersWithRoles({ startIndex });
     }
   },
   computed: {
     ...mapState({
-      getUsersWithRolesLoading: (state) => state.accounts.getUsersWithRolesLoading
+      getUsersWithRolesLoading: (state) => state.accounts.getUsersWithRolesLoading,
+      usersWithRoles: (state) => state.accounts.usersWithRoles,
+      allUsersCount: (state) => state.accounts.allUsersCount,
+      pageNumber: (state) => state.route.query.page || 0,
+      pageSize: (state) => state.accounts.usersWithRolesPageSize
     }),
+    usersWithRolesStartIndex() {
+      return (this.pageNumber - 1 ) * this.pageSize;
+    },
+    pagesTotalNumber() {
+      return this.allUsersCount;
+    },
+    pageNumberInt() {
+      try {
+        return parseInt(this.pageNumber, 10);
+      } catch (e) {
+        return 0;
+      }
+    },
+    pageSizeInt() {
+      try {
+        return parseInt(this.pageSize, 10);
+      } catch (e) {
+        return 14;
+      }
+    },
     tableData() {
       // store for access in render() function
       const isCurrentUserAndAdmin = this.isCurrentUserAndAdmin;
@@ -176,11 +194,10 @@ export default {
             }
           }
         ],
-        rows: this.usersData.usersWithRoles.length ? this.usersData.usersWithRoles.map((thisUser, i) => {
-          console.log(thisUser);
+        rows: this.usersWithRoles.length ? this.usersWithRoles.map((thisUser, i) => {
           const thisCell = {
             _id: thisUser._id,
-            number: i + 1,
+            number: (i + 1) + this.usersWithRolesStartIndex,
             email: thisUser.emails[0].address,
             role: thisUser.roles[Roles.GLOBAL_GROUP][0],
             name: thisUser.profile.lastName + ', ' + thisUser.profile.firstName,
