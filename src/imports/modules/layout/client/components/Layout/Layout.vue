@@ -59,7 +59,7 @@ a {
          <nav class='nav-large-container'>
           <!-- large horizontal nav menu -->
           <Menu mode='horizontal' theme='dark' active-name='1' @on-select='goToRoute'>
-            <Row type='flex'>
+            <Row type='flex' class='height100'>
               <Col span='16'>
               <Menu-item v-for='route in navRoutes' :key='route.name' :name='route.name'>
                 <Icon :type='route.icon'></Icon>
