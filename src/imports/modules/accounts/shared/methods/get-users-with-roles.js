@@ -16,11 +16,8 @@ const getUsersWithRoles = new ValidatedMethod({
     limit = 20
   } = {}) {
     if (Meteor.isServer) {
-      console.log('----getUsersWithRoles() called');
-      const maxPageSizeLimit = 2;
+      const maxPageSizeLimit = 14;
       const pageSize = limit > maxPageSizeLimit ? maxPageSizeLimit : limit;
-      // if (!startingUserId) {
-      console.log('---finding meteor.users.find()');
       // start from page one
       return Meteor.users.find({}, {
         sort: { 'emails.0.address': 1 },

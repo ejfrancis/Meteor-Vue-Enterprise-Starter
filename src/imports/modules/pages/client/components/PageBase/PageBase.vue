@@ -1,5 +1,5 @@
 <style scoped>
-.Page {
+.PageBase {
   background: #ffffff;
   margin-top: 20px;
   padding: 15px;
@@ -7,7 +7,7 @@
 </style>
 
 <template>
-  <div class='Page'>
+  <div class='PageBase'>
     <slot></slot>
   </div>
 </template>

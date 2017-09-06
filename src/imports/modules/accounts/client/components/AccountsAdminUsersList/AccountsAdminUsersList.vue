@@ -11,16 +11,18 @@
   height: 100px;
   width: 100px;
 }
-.AccountsAdminUsersList th {
-  text-align: center;
-}
 .AccountsAdminUsersList .ivu-btn {
   width: 12em;
+}
+.AccountsAdminUsersList .number-column {
+  text-align: left;
+}
+.AccountsAdminUsersList .number-cell {
+  width: 6em;
 }
 .AccountsAdminUsersList .role-column {
   text-align: center;
 }
-
 .AccountsAdminUsersList .ivu-icon-arrow-down-b {
   position: absolute;
   right: 1em;
@@ -31,12 +33,25 @@
   border-left: 10px solid #a5f6f3;
   box-sizing: border-box;
 }
+
+.AccountsAdminUsersList .page-links-container {
+  margin-top: 10px;
+  height: 4em;
+}
+.AccountsAdminUsersList .ivu-page {
+  float: right;
+}
 </style>
 
 <template>
   <div class='AccountsAdminUsersList'>
     <Spin v-if='getUsersWithRolesLoading' size='large' class='table-loading'></Spin>
-    <Table v-if='!getUsersWithRolesLoading' :columns='tableData.columns' :data='tableData.rows' no-data-text='No Data'></Table>
+    <div v-if='!getUsersWithRolesLoading'>
+      <Table v-if='!getUsersWithRolesLoading' :columns='tableData.columns' :data='tableData.rows' no-data-text='No Data'></Table>
+      <div class='page-links-container'>
+        <Page :total="100" show-elevator></Page>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -91,6 +106,11 @@ export default {
       return {
         columns: [
           {
+            title: '#',
+            key: 'number',
+            className: 'number-column'
+          },
+          {
             title: 'Email',
             key: 'email'
           }, {
@@ -143,12 +163,16 @@ export default {
             }
           }
         ],
-        rows: this.usersData.usersWithRoles.length ? this.usersData.usersWithRoles.sort((a,b) => a.emails[0].address > b.emails[0].address).map((thisUser) => {
+        rows: this.usersData.usersWithRoles.length ? this.usersData.usersWithRoles.sort((a,b) => a.emails[0].address > b.emails[0].address).map((thisUser, i) => {
           console.log(thisUser);
           const thisCell = {
             _id: thisUser._id,
+            number: i + 1,
             email: thisUser.emails[0].address,
-            role: thisUser.roles[Roles.GLOBAL_GROUP][0]
+            role: thisUser.roles[Roles.GLOBAL_GROUP][0],
+            cellClassName: {
+              number: 'number-cell'
+            }
           };
 
           // add 'current-user' class to yourself
