@@ -46,7 +46,7 @@ const fakeUsers = [
     }
   }
 ];
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 60; i++) {
   fakeUsers.push({
     email: 'test' + (i + 5) + '@mail.com',
     password: 'TESTtest1?',
