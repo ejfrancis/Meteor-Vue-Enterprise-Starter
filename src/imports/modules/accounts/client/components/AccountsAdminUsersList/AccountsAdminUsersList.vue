@@ -100,7 +100,7 @@ export default {
       getUsersWithRolesLoading: (state) => state.accounts.getUsersWithRolesLoading,
       usersWithRoles: (state) => state.accounts.usersWithRoles,
       allUsersCount: (state) => state.accounts.allUsersCount,
-      pageNumber: (state) => state.route.query.page || 0,
+      pageNumber: (state) => state.route.query.page || 1,
       pageSize: (state) => state.accounts.usersWithRolesPageSize
     }),
     usersWithRolesStartIndex() {
@@ -113,7 +113,7 @@ export default {
       try {
         return parseInt(this.pageNumber, 10);
       } catch (e) {
-        return 0;
+        return 1;
       }
     },
     pageSizeInt() {
