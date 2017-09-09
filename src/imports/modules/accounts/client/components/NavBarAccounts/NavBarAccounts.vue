@@ -78,6 +78,7 @@ export default {
     // load the user object
     setUserInStore() {
       this.setUser({ user: Meteor.user() });
+      this.updateNavRoutes();
     }
   },
   computed: {
@@ -88,7 +89,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      setUser: (actions) => actions.accounts.setUser
+      setUser: (actions) => actions.accounts.setUser,
+      updateNavRoutes: (actions) => actions.layout.updateNavRoutes
     })
   }
 }
