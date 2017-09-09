@@ -39,6 +39,10 @@ const PageAccountsAdminAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageAccountsAdmin/PageAccountsAdmin.vue')
   .then((PageAccountsAdmin) => resolve(getModule(PageAccountsAdmin)));
 };
+const PageAccountsAdminInviteAsync = (resolve) => {
+  import('/src/imports/modules/pages/client/components/PageAccountsAdminInvite/PageAccountsAdminInvite.vue')
+  .then((PageAccountsAdminInvite) => resolve(getModule(PageAccountsAdminInvite)));
+};
 const PagePrivateAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PagePrivate/PagePrivate.vue')
     .then(PagePrivate => resolve(getModule(PagePrivate)));
@@ -73,6 +77,12 @@ const createRouter = () => {
       path: '/accounts-admin',
       name: 'accounts-admin',
       component: PageAccountsAdminAsync,
+      beforeEnter: requireAdmin
+    },
+    {
+      path: '/accounts-admin/invite',
+      name: 'accounts-admin-invite',
+      component: PageAccountsAdminInviteAsync,
       beforeEnter: requireAdmin
     },
     {

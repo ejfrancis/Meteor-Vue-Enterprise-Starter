@@ -198,7 +198,7 @@ export default {
       toggleMobileNavExpanded: (state) => state.layout.toggleMobileNavExpanded
     }),
     goToRoute(name) {
-      this.$router.push({ path: name });
+      this.$router.push({ name });
     },
     handleEnterMobile() {
       // when transitioning to mobile nav, set mobile nav back to expanded
