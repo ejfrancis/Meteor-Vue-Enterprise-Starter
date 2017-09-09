@@ -6,7 +6,7 @@ h2 {
 
 <template>
   <page-base>
-    <div class='PageAccountsAdminInvite'>
+    <div class='PageAccountsAdminInvites'>
       <h2>Invites</h2>
     </div>
   </page-base>
@@ -18,10 +18,9 @@ import PageBase from './../PageBase/PageBase';
 // import AccountsAdminUsersList from '/src/imports/modules/accounts/client/components/AccountsAdminUsersList/AccountsAdminUsersList.vue';
 
 export default {
-  name: 'PageAccountsAdmin',
+  name: 'PageAccountsAdminInvites',
   components: {
     PageBase
-    // AccountsAdminUsersList
   }
 }
 </script>

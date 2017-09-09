@@ -63,7 +63,6 @@
 import { Roles } from 'meteor/alanning:roles';
 import { globalUserRoles } from './../../../shared/constants/global-user-roles';
 import { mapActions, mapState } from 'vuex-alt';
-import Vue from 'vue';
 import iView from 'iview';
 
 export default {
