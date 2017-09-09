@@ -1,43 +1,50 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 
-const adminInvitesCollectionName = 'admin-invites';
-const adminInvitesCollection = new Meteor.Collection(adminInvitesCollectionName);
+const invitesCollectionName = 'user-invites';
+const invitesCollection = new Meteor.Collection(invitesCollectionName);
 
-adminInvitesCollection.allow({
+invitesCollection.allow({
   insert: () => false,
   update: () => false,
   remove: () => false
 });
 
-adminInvitesCollection.deny({
+invitesCollection.deny({
   insert: () => true,
   update: () => true,
   remove: () => true
 });
 
-const adminInvitesCollectionSchema = new SimpleSchema({
+const invitesCollectionSchema = new SimpleSchema({
+  userId: {
+    type: String,
+    required: true
+  },
   email: {
     type: String,
-    label: 'Email to send invitation to.'
+    label: 'Email to send invitation to.',
+    required: true
   },
-  token: {
-    type: String,
-    label: 'Invitation token.'
+  accepted: {
+    type: Boolean,
+    label: 'If user accepted the invitation.',
+    required: true
   },
-  role: {
-    type: String,
-    label: 'Role to apply to the user.'
+  requestedAt: {
+    type: Date,
+    required: true
   },
-  date: {
-    type: String,
-    label: 'Invitation Date'
+  inviteNumber: {
+    type: Number,
+    label: 'Invitation Date',
+    required: true
   }
 });
 
-adminInvitesCollection.attachSchema(adminInvitesCollectionSchema);
+invitesCollection.attachSchema(invitesCollectionSchema);
 
 export {
-  adminInvitesCollection,
-  adminInvitesCollectionName
+  invitesCollection,
+  invitesCollectionName
 };
