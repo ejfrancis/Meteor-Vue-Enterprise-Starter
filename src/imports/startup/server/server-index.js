@@ -15,6 +15,7 @@ import '/src/imports/modules/accounts/server/fixtures/users-fixture';
 import '/src/imports/modules/accounts/shared/methods/create-unverified-user';
 import '/src/imports/modules/accounts/shared/methods/check-user-global-role';
 import '/src/imports/modules/accounts/shared/methods/get-users-with-roles';
+import '/src/imports/modules/accounts/shared/methods/set-user-global-role';
 
 Meteor.startup(() => {
   // configure the password reset email via the accounts-password package

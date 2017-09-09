@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-// import { Roles } from 'meteor/alanning:roles';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
+import { Roles } from 'meteor/alanning:roles';
+import { globalUserRoles } from './../constants/global-user-roles';
 import SimpleSchema from 'simpl-schema';
 
 const getUsersWithRoles = new ValidatedMethod({
@@ -15,6 +16,10 @@ const getUsersWithRoles = new ValidatedMethod({
     startIndex = 0,
     limit = 20
   } = {}) {
+    console.log('---getting roles');
+    if (!Roles.userIsInRole(Meteor.userId(), [globalUserRoles.SUPER_ADMIN, globalUserRoles.ADMIN], Roles.GLOBAL_GROUP)) {
+      throw new Meteor.Error(403, 'Only admins can view users with roles.');
+    }
     if (Meteor.isServer) {
       const maxPageSizeLimit = 14;
       const pageSize = limit > maxPageSizeLimit ? maxPageSizeLimit : limit;

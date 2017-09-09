@@ -30,11 +30,12 @@
   position: absolute;
   right: 1em;
 }
+.AccountsAdminUsersList tr:hover {
+  /* border: 1px solid red; */
+}
 
-.AccountsAdminUsersList td.current-user {
-  /* background-color: #dffffe; */
-  border-left: 10px solid #a5f6f3;
-  box-sizing: border-box;
+.AccountsAdminUsersList .current-user {
+  color: #009dff
 }
 
 .AccountsAdminUsersList .page-links-container {
@@ -50,7 +51,7 @@
   <div class='AccountsAdminUsersList'>
     <Spin v-if='getUsersWithRolesLoading && !this.usersWithRoles' size='large' class='table-loading'></Spin>
     <div v-if='!getUsersWithRolesLoading || this.usersWithRoles'>
-      <Table v-if='!getUsersWithRolesLoading' :columns='tableData.columns' :data='tableData.rows' no-data-text='No Data'></Table>
+      <Table v-if='!getUsersWithRolesLoading' :columns='tableData.columns' :data='tableData.rows' no-data-text='No Data' :row-class-name='rowClassName'></Table>
       <div class='page-links-container'>
         <Page :total='pagesTotalNumber' show-elevator :page-size='pageSizeInt' @on-change='handlePageChange' :current='pageNumberInt'></Page>
       </div>
@@ -63,6 +64,7 @@ import { Roles } from 'meteor/alanning:roles';
 import { globalUserRoles } from './../../../shared/constants/global-user-roles';
 import { mapActions, mapState } from 'vuex-alt';
 import Vue from 'vue';
+import iView from 'iview';
 
 export default {
   name: 'AccountsAdminUsersList',
@@ -80,7 +82,14 @@ export default {
     ...mapActions({
       getUsersWithRoles: (actions) => actions.accounts.getUsersWithRoles,
       clearGetUsersWithRolesFailure: (actions) => actions.accounts.clearGetUsersWithRolesFailure,
+      setUserGlobalRole: (actions) => actions.accounts.setUserGlobalRole
     }),
+    rowClassName (row, index) {
+      if (row._id === Meteor.userId()) {
+        return 'current-user';
+      }
+      return '';
+    },
     isCurrentUserAndAdmin(userId) {
       if (Meteor.userId() === userId) {
         return Roles.userIsInRole(userId, [globalUserRoles.ADMIN, globalUserRoles.SUPER_ADMIN], Roles.GLOBAL_GROUP);
@@ -89,10 +98,37 @@ export default {
     isUserSuperAdmin(userId) {
       return Roles.userIsInRole(userId, [globalUserRoles.SUPER_ADMIN], Roles.GLOBAL_GROUP);
     },
+    isUserAdmin(userId) {
+      return Roles.userIsInRole(userId, [globalUserRoles.ADMIN], Roles.GLOBAL_GROUP);
+    },
     handlePageChange(val) {
       this.$router.push({ name: 'accounts-admin', query: { page: val }});
       const startIndex = this.usersWithRolesStartIndex;
       this.getUsersWithRoles({ startIndex });
+    },
+    async changeUserRole({ userId, role }) {
+      try {
+        console.log('--start set');
+        this.$Loading.start();
+        const success = await this.setUserGlobalRole({ userId, role });
+        if (success) {
+          try {
+            console.log('--start get users');
+            await this.getUsersWithRoles({ startIndex: this.usersWithRolesStartIndex });
+            console.log('--finish get users');
+            this.$Loading.finish();
+          } catch (e) {
+            console.log('--get users threw error', e);
+            this.$Loading.error();
+          }
+        } else {
+          console.log('--set no success');
+          this.$Loading.finis();
+        }
+      } catch (e) {
+        console.log('--set threw error', e);
+        this.$Loading.error();
+      }
     }
   },
   computed: {
@@ -127,6 +163,8 @@ export default {
       // store for access in render() function
       const isCurrentUserAndAdmin = this.isCurrentUserAndAdmin;
       const isUserSuperAdmin = this.isUserSuperAdmin;
+      const isUserAdmin = this.isUserAdmin;
+      const changeUserRole = this.changeUserRole;
       return {
         columns: [
           {
@@ -155,9 +193,8 @@ export default {
                   trigger: 'click'
                 },
                 on: {
-                  'on-click': (name) => {
-                    // this.changeStatus(name)
-                    console.log('clicked ' + name)
+                  'on-click': (roleName) => {
+                    changeUserRole({ userId: params.row._id, role: roleName });
                   }
                 }
               }, [
@@ -186,6 +223,18 @@ export default {
                         // if current user isn't Super Admin, don't allow them to set others as Super Admin
                         !isUserSuperAdmin(Meteor.userId()) &&
                         item === globalUserRoles.SUPER_ADMIN
+                      ) ||
+                      (
+                        // if user being modified is admin, is being downgraded to less than admin, and 
+                        // current user isn't super admin, don't allow it. (only super admins can downgrade an admin)
+                        isUserAdmin(params.row._id) &&
+                        [globalUserRoles.SUPER_ADMIN, globalUserRoles.ADMIN].indexOf(item) === -1 &&
+                        !isUserSuperAdmin(Meteor.userId())
+                      ) ||
+                      (
+                        // if current user is admin, dont let them set others to super admin
+                        isUserAdmin(Meteor.userId()) &&
+                        item === globalUserRoles.SUPER_ADMIN
                       )
                     }
                   }, item)
@@ -207,11 +256,12 @@ export default {
           };
 
           // add 'current-user' class to yourself
-          if (thisUser._id === Meteor.userId()) {
-            thisCell.cellClassName = thisCell.cellClassName || {
-              email: 'current-user'
-            };
-          }
+          // if (thisUser._id === Meteor.userId()) {
+          //   debugger;
+          //   thisCell.cellClassName = thisCell.cellClassName || {
+          //     email: 'current-user'
+          //   };
+          // }
           return thisCell;
         }) : []
       };

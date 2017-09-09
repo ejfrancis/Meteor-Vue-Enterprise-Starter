@@ -3,6 +3,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { createUnverifiedUser } from './../../shared/methods/create-unverified-user';
 import { passwordSchema } from './../../shared/schemas/password-schema';
 import { getUsersWithRoles } from './../../shared/methods/get-users-with-roles';
+import { setUserGlobalRole } from './../../shared/methods/set-user-global-role';
 
 const MUTATION_TYPES = {
   SET_USER: 'SET_USER',
@@ -24,7 +25,11 @@ const MUTATION_TYPES = {
   GET_USERS_WITH_ROLES_FAILURE: 'GET_USERS_WITH_ROLES_FAILURE',
   CLEAR_GET_USERS_WITH_ROLES_FAILURE: 'CLEAR_GET_USERS_WITH_ROLES_FAILURE',
   GET_USERS_WITH_ROLES_START: 'GET_USERS_WITH_ROLES_START',
-  GET_USERS_WITH_ROLES_COMPLETE: 'GET_USERS_WITH_ROLES_COMPLETE'
+  GET_USERS_WITH_ROLES_COMPLETE: 'GET_USERS_WITH_ROLES_COMPLETE',
+  // set a users global role
+  SET_USER_GLOBAL_ROLE_START: 'SET_USER_GLOBAL_ROLE_START',
+  SET_USER_GLOBAL_ROLE_COMPLETE: 'SET_USER_GLOBAL_ROLE_COMPLETE',
+  SET_USER_GLOBAL_ROLE_FAILURE: 'SET_USER_GLOBAL_ROLE_FAILURE'
 };
 
 const actions = {
@@ -148,6 +153,19 @@ const actions = {
   },
   clearGetUsersWithRolesFailure: ({ commit }) => {
     commit(MUTATION_TYPES.CLEAR_GET_USERS_WITH_ROLES_FAILURE);
+  },
+  // set a user's global role
+  async setUserGlobalRole ({ commit, state }, { userId, role }) {
+    try {
+      const success = await setUserGlobalRole.callPromise({ userId, role });
+      if (success) {
+        return true;
+      } else {
+        throw new Error('Failed to set users global role');
+      }
+    } catch (e) {
+      throw e;
+    }
   }
 };
 

@@ -3,6 +3,11 @@ import { Accounts } from 'meteor/accounts-base';
 import { userSchema } from './../../shared/schemas/user-schema';
 import { ERROR_TYPES, ERROR_MESSAGES } from './../../shared/errors/accounts-errors';
 
+// Deny all client-side updates to user documents
+Meteor.users.deny({
+  update () { return true; }
+});
+
 const setupAccountsValidation = () => {
   Accounts.validateNewUser((user) => {
     try {
