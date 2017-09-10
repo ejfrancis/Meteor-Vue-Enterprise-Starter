@@ -6,7 +6,7 @@
     "start:mimic-prod": "meteor run --settings config/config.production.json --production",
     "start:bundle-visualizer": "meteor npm run start:mimic-prod -- --extra-packages bundle-visualizer",
     "debug": "meteor debug --settings config/config.development.json",
-    "test:unit": "JEST_JUNIT_OUTPUT=tests/coverage/unit-tests/junit.xml jest --config tests/unit-test-setup/jest-config.json",
+    "test:unit": "JEST_JUNIT_OUTPUT=tests/coverage/unit-tests/junit.xml jest --config tests/unit-test-setup/jest-config.js",
     "test:unit-debug": "meteor node --inspect-brk ./node_modules/.bin/jest --runInBand -i --config tests/unit-test-setup/jest-config.json",
     "test:e2e": "chimp --ddp=http://localhost:3000 --mocha  --path=./tests/e2e/tests --browser=chrome",
     "test:e2e-standalone": "meteor node ./tests/e2e-test-setup/run-e2e-tests.js 'meteor npm run start:mimic-prod' 'meteor npm run test:e2e'",
