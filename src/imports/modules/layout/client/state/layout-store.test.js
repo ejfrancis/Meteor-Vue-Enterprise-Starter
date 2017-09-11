@@ -10,11 +10,6 @@ const expectedNavRoutes = [
     name: 'private',
     displayName: 'Private',
     icon: 'locked'
-  },
-  {
-    name: 'accounts-admin',
-    displayName: 'Accounts',
-    icon: 'android-people'
   }
 ];
 

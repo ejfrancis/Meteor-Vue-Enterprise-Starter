@@ -14,5 +14,8 @@ export const Meteor = {
       profile: {}
     };
   },
+  users: {
+    deny: () => {}
+  },
   loggingIn: () => false
 };

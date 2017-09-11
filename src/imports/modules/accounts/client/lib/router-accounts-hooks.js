@@ -45,7 +45,7 @@ const requireAdmin = async (to, from, next) => {
 const requireNoAuth = (to, from, next) => {
   if (Meteor.userId()) {
     next({
-      path: '/home'
+      name: 'home'
     });
   } else {
     next();
