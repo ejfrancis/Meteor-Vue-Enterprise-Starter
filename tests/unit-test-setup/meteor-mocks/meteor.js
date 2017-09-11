@@ -17,5 +17,6 @@ export const Meteor = {
   users: {
     deny: () => {}
   },
-  loggingIn: () => false
+  loggingIn: () => false,
+  Error: Error  // set as generic error class
 };

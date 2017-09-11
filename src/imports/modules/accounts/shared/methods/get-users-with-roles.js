@@ -14,9 +14,8 @@ const getUsersWithRoles = new ValidatedMethod({
   }).validator(),
   run ({
     startIndex = 0,
-    limit = 20
+    limit = 14
   } = {}) {
-    console.log('---getting roles');
     if (!Roles.userIsInRole(Meteor.userId(), [globalUserRoles.SUPER_ADMIN, globalUserRoles.ADMIN], Roles.GLOBAL_GROUP)) {
       throw new Meteor.Error(403, 'Only admins can view users with roles.');
     }

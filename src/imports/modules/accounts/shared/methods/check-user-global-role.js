@@ -13,7 +13,7 @@ const checkUserGlobalRole = new ValidatedMethod({
   }).validator(),
   run ({ roles }) {
     // only run on server
-    if (!this.isSimulation) {
+    if (Meteor.isServer) {
       if (!Meteor.userId()) {
         return false;
       }
