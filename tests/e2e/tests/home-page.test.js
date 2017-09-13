@@ -6,10 +6,10 @@ describe('home page', () => {
     expect(homePage.getPageTitle()).to.equal('Vue+Meteor Demo App');
   });
   describe('counter', () => {
-    it('starts with count 0', () => {
+    it('starts with count 1', () => {
       homePage.open();
       const count = homePage.getCounterValue();
-      expect(count).to.equal(0);
+      expect(count).to.equal(1);
     });
   });
 });

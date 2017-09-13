@@ -1,5 +1,7 @@
 <style scoped>
-
+h2 {
+  text-align: center;
+}
 </style>
 
 <template>
@@ -15,6 +17,7 @@
 import PageBase from './../PageBase/PageBase';
 
 export default {
+  name: 'PagePrivate',
   components: {
     PageBase
   }

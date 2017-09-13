@@ -22,8 +22,8 @@ describe('Counter', () => {
     const wrapper = mount(Counter, { store });
     expect(wrapper.find('.Counter').length).toEqual(1);
   });
-  it('renders with count 0 initially', () => {
-    const startValue = 0;
+  it('renders with count 1 initially', () => {
+    const startValue = 1;
     const wrapper = mount(Counter, { store });
     expect(parseInt(wrapper.find('.count .value')[0].text())).toEqual(startValue);
   });

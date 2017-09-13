@@ -9,9 +9,10 @@
 </template>
 
 <script>
-import SignUpForm from '/src/imports/modules/auth/client/components/SignUpForm/SignUpForm.vue';
+import SignUpForm from '/src/imports/modules/accounts/client/components/SignUpForm/SignUpForm.vue';
 
 export default {
+  name: 'PageSignUp',
   components: {
     SignUpForm
   }

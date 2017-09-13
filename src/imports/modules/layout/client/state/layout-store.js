@@ -1,21 +1,10 @@
-import { actions, mutations } from './layout-actions-mutations';
+import { actions, mutations, navRoutesUser } from './layout-actions-mutations';
 
 const initialState = {
   layoutTheme: 'light',
   isMobileNavVisible: true,
   isMobileNavExpanded: true,
-  navRoutes: [
-    {
-      name: 'Home',
-      path: '/home',
-      icon: 'home'
-    },
-    {
-      name: 'Private',
-      path: '/private',
-      icon: 'locked'
-    }
-  ]
+  navRoutes: navRoutesUser
 };
 
 const getters = {};

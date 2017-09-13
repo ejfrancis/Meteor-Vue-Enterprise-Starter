@@ -6,6 +6,7 @@ import { sync } from 'vuex-router-sync';
 import { VuexAltPlugin } from 'vuex-alt';
 import VueMeteorTracker from 'vue-meteor-tracker';
 import iView from 'meteor/efrancis:iview';
+// import locale from 'meteor/efrancis:iview/dist/locale/en-US';
 
 import { createRouter as createRouterOriginal } from './../../modules/router/client/lib/router';
 import { createStore as createStoreOriginal } from './../../modules/store/client/lib/store';

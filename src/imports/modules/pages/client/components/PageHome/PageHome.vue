@@ -2,7 +2,9 @@
 .config-example {
   color: blue;
 }
-
+h2 {
+  text-align: center;
+}
 .counter-wrapper {
   margin-top: 20px;
 }
@@ -28,6 +30,7 @@ import { Meteor } from 'meteor/meteor';
 import PageBase from './../PageBase/PageBase';
 
 export default {
+  name: 'PageHome',
   components: {
     Counter,
     PageBase

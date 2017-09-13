@@ -1,6 +1,10 @@
 import VueRouter from 'vue-router';
 import iView from 'iview';
-import { requireAuth, requireNoAuth } from '/src/imports/modules/auth/client/lib/router-auth-hooks';
+import {
+  requireAuth,
+  requireNoAuth,
+  requireAdmin
+} from '/src/imports/modules/accounts/client/lib/router-accounts-hooks';
 
 // unfortunate hack for now. jest is using babel-plugin-dynamic-import-node
 // which resolves as "module" not "module.default"
@@ -30,6 +34,14 @@ const PageEnrollAccountAsync = (resolve) => {
 const PageHomeAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PageHome/PageHome.vue')
   .then((PageHome) => resolve(getModule(PageHome)));
+};
+const PageAccountsAdminAsync = (resolve) => {
+  import('/src/imports/modules/pages/client/components/PageAccountsAdmin/PageAccountsAdmin.vue')
+  .then((PageAccountsAdmin) => resolve(getModule(PageAccountsAdmin)));
+};
+const PageAccountsAdminInvitesAsync = (resolve) => {
+  import('/src/imports/modules/pages/client/components/PageAccountsAdminInvites/PageAccountsAdminInvites.vue')
+  .then((PageAccountsAdminInvites) => resolve(getModule(PageAccountsAdminInvites)));
 };
 const PagePrivateAsync = (resolve) => {
   import('/src/imports/modules/pages/client/components/PagePrivate/PagePrivate.vue')
@@ -62,6 +74,18 @@ const createRouter = () => {
       beforeEnter: requireNoAuth
     },
     {
+      path: '/accounts-admin',
+      name: 'accounts-admin',
+      component: PageAccountsAdminAsync,
+      beforeEnter: requireAdmin
+    },
+    {
+      path: '/accounts-admin/invite',
+      name: 'accounts-admin-invite',
+      component: PageAccountsAdminInvitesAsync,
+      beforeEnter: requireAdmin
+    },
+    {
       path: '/home',
       name: 'home',
       component: PageHomeAsync
@@ -88,7 +112,7 @@ const createRouter = () => {
     iView.LoadingBar.start();
     next();
   });
-  router.afterEach((to, from, next) => {
+  router.afterEach((to, from) => {
     iView.LoadingBar.finish();
   });
 

@@ -1,10 +1,37 @@
+import { Meteor } from 'meteor/meteor';
+import { Roles } from 'meteor/alanning:roles';
+import { globalUserRoles } from '/src/imports/modules/accounts/shared/constants/global-user-roles';
+
 const MUTATION_TYPES = {
   SHOW_MOBILE_NAV: 'SHOW_MOBILE_NAV',
   SHOW_LARGE_NAV: 'SHOW_LARGE_NAV',
   TOGGLE_MOBILE_NAV_EXPANDED: 'TOGGLE_MOBILE_NAV_EXPANDED',
   SET_LAYOUT_THEME_LIGHT: 'SET_LAYOUT_THEME_LIGHT',
-  SET_LAYOUT_THEME_DARK: 'SET_LAYOUT_THEME_DARK'
+  SET_LAYOUT_THEME_DARK: 'SET_LAYOUT_THEME_DARK',
+  UPDATE_NAV_ROUTES: 'UPDATE_NAV_ROUTES'
 };
+
+// nav routes for "user" role
+const navRoutesUser = [
+  {
+    name: 'home',
+    displayName: 'Home',
+    icon: 'home'
+  },
+  {
+    name: 'private',
+    displayName: 'Private',
+    icon: 'locked'
+  }
+];
+// nav routes for "admin" role
+const navRoutesAdmin = navRoutesUser.concat([
+  {
+    name: 'accounts-admin',
+    displayName: 'Accounts',
+    icon: 'android-people'
+  }
+]);
 
 const actions = {
   showMobileNav: ({ commit, state }) => {
@@ -21,6 +48,9 @@ const actions = {
   },
   setLayoutThemeDark: ({ commit }) => {
     commit(MUTATION_TYPES.SET_LAYOUT_THEME_DARK);
+  },
+  updateNavRoutes: ({ commit }) => {
+    commit(MUTATION_TYPES.UPDATE_NAV_ROUTES);
   }
 };
 
@@ -39,11 +69,20 @@ const mutations = {
   },
   [MUTATION_TYPES.SET_LAYOUT_THEME_DARK]: (state) => {
     state.layoutTheme = 'dark';
+  },
+  [MUTATION_TYPES.UPDATE_NAV_ROUTES]: (state) => {
+    if (Roles.userIsInRole(Meteor.userId(), [globalUserRoles.SUPER_ADMIN, globalUserRoles.ADMIN], Roles.GLOBAL_GROUP)) {
+      state.navRoutes = navRoutesAdmin;
+    } else {
+      state.navRoutes = navRoutesUser;
+    }
   }
 };
 
 export {
   actions,
   mutations,
-  MUTATION_TYPES
+  MUTATION_TYPES,
+  navRoutesUser,
+  navRoutesAdmin
 };
