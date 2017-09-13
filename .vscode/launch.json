@@ -9,7 +9,7 @@
       "args": [
         "--runInBand",
         "--config",
-        "tests/unit-test-setup/jest-config.json"
+        "tests/unit-test-setup/jest-config.js"
       ],
       "runtimeArgs": [
         "--nolazy"

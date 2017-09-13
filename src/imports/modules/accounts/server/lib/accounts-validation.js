@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { userSchema } from './../../shared/schemas/user-schema';
-import { ERROR_TYPES, ERROR_MESSAGES } from './../../shared/errors/accounts-errors';
 
 // Deny all client-side updates to user documents
 Meteor.users.deny({
@@ -35,7 +34,7 @@ const setupAccountsValidation = () => {
     if (user.emails[0].verified === true) {
       return true;
     } else {
-      throw new Meteor.Error(ERROR_TYPES.EMAIL_NOT_VERIFIED, ERROR_MESSAGES[ERROR_TYPES.EMAIL_NOT_VERIFIED]);
+      throw new Meteor.Error(403, 'You must verify your email address before you can log in');
     }
   });
 

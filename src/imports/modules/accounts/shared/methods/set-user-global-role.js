@@ -37,10 +37,7 @@ const setUserGlobalRole = new ValidatedMethod({
         ) {
         throw new Meteor.Error(403, 'Only super admins can downgrade admins out of their admin status.');
       }
-      console.log('--starting user.roles:', Meteor.user().roles);
-      console.log('adding user ' + userId + ' to role ' + role + ' in group ' + Roles.GLOBAL_GROUP);
       Roles.setUserRoles(userId, [role], Roles.GLOBAL_GROUP);
-      console.log('--update user.roles:', Meteor.user().roles);
       return true;
     }
   }

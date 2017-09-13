@@ -49,8 +49,10 @@
 
 <template>
   <div class='AccountsAdminUsersList'>
-    <Spin v-if='getUsersWithRolesLoading && !this.usersWithRoles' size='large' class='table-loading'></Spin>
-    <div v-if='!getUsersWithRolesLoading || this.usersWithRoles'>
+    <div v-if='getUsersWithRolesLoading || !this.usersWithRoles' class='table-loading-container'>
+      <Spin size='large' class='table-loading'></Spin>
+    </div>
+    <div v-if='!getUsersWithRolesLoading || this.usersWithRoles.length' class='table-container'>
       <Table v-if='!getUsersWithRolesLoading' :columns='tableData.columns' :data='tableData.rows' no-data-text='No Data' :row-class-name='rowClassName'></Table>
       <div class='page-links-container'>
         <Page :total='pagesTotalNumber' show-elevator :page-size='pageSizeInt' @on-change='handlePageChange' :current='pageNumberInt'></Page>
@@ -60,6 +62,7 @@
 </template>
 
 <script>
+import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { globalUserRoles } from './../../../shared/constants/global-user-roles';
 import { mapActions, mapState } from 'vuex-alt';
@@ -107,25 +110,19 @@ export default {
     },
     async changeUserRole({ userId, role }) {
       try {
-        console.log('--start set');
         this.$Loading.start();
         const success = await this.setUserGlobalRole({ userId, role });
         if (success) {
           try {
-            console.log('--start get users');
             await this.getUsersWithRoles({ startIndex: this.usersWithRolesStartIndex });
-            console.log('--finish get users');
             this.$Loading.finish();
           } catch (e) {
-            console.log('--get users threw error', e);
             this.$Loading.error();
           }
         } else {
-          console.log('--set no success');
           this.$Loading.finis();
         }
       } catch (e) {
-        console.log('--set threw error', e);
         this.$Loading.error();
       }
     }
@@ -188,6 +185,9 @@ export default {
             render: (h, params) => {
               // user Vue render function (vdom) to build custom dropdown for this cell
               return h('Dropdown', {
+                class: {
+                  'role-dropdown': true
+                },
                 props: {
                   trigger: 'click'
                 },
@@ -242,7 +242,7 @@ export default {
             }
           }
         ],
-        rows: this.usersWithRoles.length ? this.usersWithRoles.map((thisUser, i) => {
+        rows: this.usersWithRoles && this.usersWithRoles.length ? this.usersWithRoles.map((thisUser, i) => {
           const thisCell = {
             _id: thisUser._id,
             number: (i + 1) + this.usersWithRolesStartIndex,
@@ -253,14 +253,6 @@ export default {
               number: 'number-cell'
             }
           };
-
-          // add 'current-user' class to yourself
-          // if (thisUser._id === Meteor.userId()) {
-          //   debugger;
-          //   thisCell.cellClassName = thisCell.cellClassName || {
-          //     email: 'current-user'
-          //   };
-          // }
           return thisCell;
         }) : []
       };

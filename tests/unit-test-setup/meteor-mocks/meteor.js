@@ -1,3 +1,14 @@
+class MeteorError {
+  constructor (arg1, arg2) {
+    if (typeof arg2 === 'undefined') {
+      this.message = arg1;
+    } else {
+      this.code = arg1;
+      this.message = arg2;
+    }
+  }
+}
+
 export const Meteor = {
   call: () => null,
   startup: (next) => next(),
@@ -18,5 +29,5 @@ export const Meteor = {
     deny: () => {}
   },
   loggingIn: () => false,
-  Error: Error  // set as generic error class
+  Error: MeteorError  // set as generic error class
 };

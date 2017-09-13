@@ -17,22 +17,6 @@ describe('NavBarAccounts', () => {
     const wrapper = mount(NavBarAccounts, { store, router });
     expect(wrapper.find('.NavBarAccounts').length).toEqual(1);
   });
-
-  // it('displays sign out button when signed in', () => {
-  //   const accountsState = {
-  //     user: {
-  //       profile: {
-  //         firstName: 'first',
-  //         lastName: 'last'
-  //       }
-  //     }
-  //   };
-  //   store.state.accounts = accountsState;
-  //   const wrapper = mount(NavBarAccounts, { store });
-  //   expect(wrapper.find('.signed-in').length).toEqual(1);
-  //   expect(wrapper.find(SignInBtn).length).toEqual(0);
-  //   expect(wrapper.find(SignOutBtn).length).toEqual(1);
-  // });
   it('displays sign in button when not signed in', () => {
     const accountsState = {
       user: false
