@@ -12,27 +12,6 @@ import { createRouter as createRouterOriginal } from './../../modules/router/cli
 import { createStore as createStoreOriginal } from './../../modules/store/client/lib/store';
 import App from './App.vue';
 
-// import { getUsersWithRoles } from '/src/imports/modules/accounts/shared/methods/get-users-with-roles';
-// console.log('---calling getUsersWithRoles');
-// getUsersWithRoles.callPromise({ startIndex: 0 })
-//   .then((res) => {
-//     console.log('---res=');
-//     res.map((user) => console.log(user._id, user.emails[0].address));
-//   })
-//   .catch((e) => {
-//     console.error('---e=', e);
-//   });
-// getUsersWithRoles.callPromise({
-//   startIndex: 2
-// })
-//   .then((res) => {
-//     console.log('---res2 =');
-//     res.map((user) => console.log(user._id, user.emails[0].address));
-//   })
-//   .catch((e) => {
-//     console.error('---e2 =', e);
-//   });
-
 // iView responsive show/hide directives. keeping these here for now.
 Vue.directive('hidden-xs', {
   inserted: (el) => {

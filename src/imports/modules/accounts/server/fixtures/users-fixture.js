@@ -94,6 +94,4 @@ if (Meteor.isDevelopment) {
   } else {
     console.log(Meteor.users.find().count() + ' users found in db.');
   }
-} else {
-  console.log('is not dev');
 }

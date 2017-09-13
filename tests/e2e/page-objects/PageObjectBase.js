@@ -12,7 +12,6 @@ class PageObjectBase {
   }
   open () {
     const openUrl = `${this.urlBase}:${this.port}${this.path}`;
-    console.log(`PageObject opening: ${openUrl}`);
     browser.url(openUrl);
     if (this.selector) {
       browser.waitForExist(this.selector);

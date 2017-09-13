@@ -23,7 +23,6 @@ const requireAdmin = async (to, from, next) => {
     });
   }
   try {
-    console.log('--calling meteor method');
     const isUserAdmin = await checkUserGlobalRole.callPromise({ roles: [ globalUserRoles.ADMIN, globalUserRoles.SUPER_ADMIN ] });
     // if user is admin, they're good to go through
     if (isUserAdmin) {

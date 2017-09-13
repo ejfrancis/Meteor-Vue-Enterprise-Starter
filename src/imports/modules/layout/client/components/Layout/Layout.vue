@@ -214,7 +214,6 @@ export default {
       if (this.isMobileNavExpanded) {
         this.toggleMobileNavExpanded();
       }
-      console.log('enter large');
       if (this.isMobileNavVisible) {
         this.showLargeNav();
       }
