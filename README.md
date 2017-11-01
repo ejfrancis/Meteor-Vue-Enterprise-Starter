@@ -24,6 +24,9 @@ The following development tools are used:
 
 *Note:* This starter kit is geared towards enterprise software. If you're looking to put together a quick prototype, this may be overkill.
 
+![sign in desktop](https://user-images.githubusercontent.com/3171352/29747188-784f80da-8aa5-11e7-876c-95ebf08e7278.png)
+![sign in mobile](https://user-images.githubusercontent.com/3171352/29747190-85748d6e-8aa5-11e7-85d7-8900bf85de1f.png)
+![home page](https://user-images.githubusercontent.com/3171352/29747193-8e6863aa-8aa5-11e7-980b-bd519062baae.png)
 # Usage
 
 First, clone this repo 
