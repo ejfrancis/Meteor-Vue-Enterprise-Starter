@@ -1,4 +1,4 @@
-# Meteor Vue Modular Application Starter
+# Meteor Vue Enterprise Starter
 
 [![CircleCI](https://circleci.com/gh/ejfrancis/Meteor-Vue-Modular-App-Starter/tree/master.svg?style=svg)](https://circleci.com/gh/ejfrancis/Meteor-Vue-Modular-App-Starter/tree/master)
 
@@ -29,13 +29,13 @@ The following development tools are used:
 First, clone this repo 
 
 ```
-git clone https://github.com/ejfrancis/Meteor-Vue-Modular-App-Starter
+git clone https://github.com/ejfrancis/Meteor-Vue-Enterprise-Starter
 ```
 
 Then enter the new directory where it was cloned into, and install dependencies:
 
 ```
-cd Meteor-Vue-Modular-App-Starter
+cd Meteor-Vue-Enterprise-Starter
 meteor npm install
 ```
 
