@@ -1,5 +1,5 @@
 {
-  "name": "meteor-vue-modular-app-starter",
+  "name": "meteor-vue-enterprise-starter",
   "version": "0.1.0",
   "scripts": {
     "start": "meteor run --settings config/config.development.json",
